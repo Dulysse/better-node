@@ -8,4 +8,4 @@ declare global {
     average(): 'error' extends OnlyNumber<T> ? null : number;
   }
 }
-export = {};
+export {};

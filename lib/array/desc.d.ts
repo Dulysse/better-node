@@ -9,4 +9,4 @@ declare global {
     desc(): 'error' extends OnlyNumber<T> ? null : number[];
   }
 }
-export = {};
+export {};

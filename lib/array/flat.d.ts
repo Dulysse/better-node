@@ -13,4 +13,4 @@ declare global {
     ): FlatArray<A, D>[]
   }
 }
-export = {};
+export {};

@@ -10,4 +10,4 @@ declare global {
     between(min: number, max: number): boolean;
   }
 }
-export = {};
+export {};

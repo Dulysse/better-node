@@ -12,4 +12,4 @@ declare global {
     randomize(min?: number, max?: number): number[];
   }
 }
-export = {};
+export {};

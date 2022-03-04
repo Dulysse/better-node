@@ -9,4 +9,4 @@ declare global {
     drop(...elem: T[]): T[];
   }
 }
-export = {};
+export {};

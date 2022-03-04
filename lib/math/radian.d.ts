@@ -9,4 +9,4 @@ declare global {
     radians(deg: number): number;
   }
 }
-export = {};
+export {};

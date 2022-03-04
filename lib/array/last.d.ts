@@ -8,4 +8,4 @@ declare global {
     last(): this extends { length : infer R } ? R extends 0 ? null : T : never;
   }
 }
-export = {};
+export {};

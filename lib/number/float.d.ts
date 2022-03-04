@@ -10,4 +10,4 @@ declare global {
     float(precision?: number): number;
   }
 }
-export = {};
+export {};

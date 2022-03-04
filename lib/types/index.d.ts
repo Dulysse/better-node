@@ -19,4 +19,4 @@ declare global {
   type UnpackGenerator<T> = T extends Generator<infer R, any, any> ? R : never;
   type UnpackPromise<T> = T extends Promise<infer R> ? R : never;
 }
-export = {};
+export {};

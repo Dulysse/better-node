@@ -9,4 +9,4 @@ declare global {
     degrees(rad: number): number;
   }
 }
-export = {};
+export {};

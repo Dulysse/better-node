@@ -11,4 +11,4 @@ declare global {
     replaceAll(searchValue: string, replaceValue: string): string;
   }
 }
-export = {};
+export {};
