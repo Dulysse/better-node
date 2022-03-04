@@ -1,4 +1,4 @@
-# Better Node
+# [Better Node]('https://www.npmjs.com/package/@dulysse1/better-node')
 ###### ✅  Work in `Javascript` and `Typescript` ✅ 
 
 ### How to install ?
