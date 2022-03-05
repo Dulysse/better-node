@@ -17,3 +17,7 @@ console.log(
 const array = [ 1, 2, 3, "hello", "world", 1, "4" ];
 array.drop("world", 1, "4")
 console.log(array);
+
+console.log(
+  [ 1, 4, 329032, 22, "3242" ].sum()
+)

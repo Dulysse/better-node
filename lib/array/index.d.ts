@@ -6,6 +6,7 @@ export * from './randomize';
 export * from './first';
 export * from './last';
 export * from './drop';
+export * from './sum';
 
 declare global {
   interface Array {
