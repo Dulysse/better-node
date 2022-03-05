@@ -5,6 +5,9 @@ require('../');
 console.log(Math.PI.between(3, 4));
 
 const arr = [ "hello", 2, 3, 2, 1, "derfrftrf", 2 ]
+const barr = arr.copy();
+barr.push('pute')
+console.log(arr);
 
 console.log(
   arr.first()
