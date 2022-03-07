@@ -51,6 +51,24 @@ console.log(array);
 ```node
 > [ 2, 3, 'hello' ]
 ```
+```typescript
+const array = [ 1, 2, 3 ];
+const array_copy = array.copy();
+array.push(4);
+console.log(array_copy);
+```
+```node
+> [ 1, 2, 3 ]
+```
+```typescript
+const array = [ 15, 14, 18 ];
+console.log(
+  array.sum()
+);
+```
+```node
+> 47
+```
 
 #### Number
 ```typescript

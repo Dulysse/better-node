@@ -7,6 +7,7 @@ export * from './first';
 export * from './last';
 export * from './drop';
 export * from './sum';
+export * from './copy';
 export * from './insert';
 
 declare global {
