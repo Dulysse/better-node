@@ -6,7 +6,7 @@ declare global {
      * @param elem One or many elements of your array you want to destroy
      * @return {T[]} your array without dropped elements.
      */
-    drop(...elem: T[]): T[];
+    drop<C extends T>(...elem: C[]): Exclude<T, C>[];
   }
 }
 export {};
