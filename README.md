@@ -122,4 +122,3 @@ console.log(
 * [Github](https://github.com/Dulysse)
 * [GitLab](https://gitlab.com/Dulysse1)
 * [Linkedin](https://www.linkedin.com/in/ulysse-dupont-994848197/)
-* [npm module]('https://www.npmjs.com/package/@dulysse1/better-node')
