@@ -27,6 +27,7 @@
 
 #### String
 ```typescript
+// STRING REPLACE ALL
 console.log(
   "I like 🐑 , 🐑 is my favorite pet 🐑 !".replaceAll('🐑','🦁')
 );
@@ -36,6 +37,7 @@ console.log(
 ```
 #### Array
 ```typescript
+// ARRAY GENERATOR
 console.log(
   new Array(10).randomize().asc()
 );
@@ -44,6 +46,7 @@ console.log(
 > [ 0, 1, 3, 5, 5, 5, 8, 8, 8, 8 ]
 ```
 ```typescript
+// ARRAY DROP
 const array = [ 1, 2, 3, "hello", "world", 1, "4" ];
 array.drop("world", 1, "4")
 console.log(array);
@@ -51,9 +54,40 @@ console.log(array);
 ```node
 > [ 2, 3, 'hello' ]
 ```
+```typescript
+// ARRAY COPY
+const array = [ 1, 2, 3 ];
+const array_copy = array.copy();
+array.push(4);
+console.log(array_copy);
+```
+```node
+> [ 1, 2, 3 ]
+```
+```typescript
+// ARRAY SUM
+const array = [ 15, 14, 18 ];
+console.log(
+  array.sum()
+);
+```
+```node
+> 47
+```
+```typescript
+// ARRAY INSERT
+const array = [ 1, 2, 3 ];
+array.insert(4, 1);
+console.log(array);
+
+```
+```node
+> [ 1, 4, 2, 3 ]
+```
 
 #### Number
 ```typescript
+// NUMBER PRECISION
 console.log(
   Math.PI.float(2)
 );
@@ -62,6 +96,7 @@ console.log(
 > 3.14
 ```
 ```typescript
+// NUMBER IS BETWEEN
 const age = 18;
 console.log(
   age.between(18, 25)
@@ -71,7 +106,10 @@ console.log(
 > true
 ```
 
+## And more... :)
+
 ### Contact
 * [Github](https://github.com/Dulysse)
 * [GitLab](https://gitlab.com/Dulysse1)
 * [Linkedin](https://www.linkedin.com/in/ulysse-dupont-994848197/)
+* [npm module]('https://www.npmjs.com/package/@dulysse1/better-node')
