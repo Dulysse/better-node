@@ -41,28 +41,11 @@ console.log(
   "Server internal error! ⚠️".red.bold
 );
 ```
-<style>
-.box {
-  background-color: #F4F4F4FF;
-}
-.arrow {
-  color: #AA00AA;
-  zoom: .8;
-  margin: 0;
-}
-.colored--text {
-  font-size: .9rem;
-  color: red;
-  font-weight: bold;
-  padding-top: 20px;
-  padding-left: .5rem;
-}
-</style>
-<div class="box">
-  <span class="arrow">
+<div style="background-color: #F4F4F4FF;" >
+  <span style="color: #AA00AA;zoom: .8;margin: 0;">
     &gt;
   </span>
-  <span class="colored--text">
+  <span style="font-size: .9rem;color: red;font-weight: bold;padding-top: 20px;padding-left: .5rem;">
     Server internal error! ⚠️ 
   </span> 
 </div>
