@@ -38,17 +38,12 @@ console.log(
 ```typescript
 // STRING STYLE
 console.log(
-  "Server internal error! ⚠️".red.bold
+  "Server internal error! ⚠️".red
 );
 ```
-<div style="background-color: #F4F4F4FF;" >
-  <span style="color: #AA00AA;zoom: .8;margin: 0;">
-    &gt;
-  </span>
-  <span style="font-size: .9rem;color: red;font-weight: bold;padding-top: 20px;padding-left: .5rem;">
-    Server internal error! ⚠️ 
-  </span> 
-</div>
+```node 
+> 'Server internal error! ⚠️'  <= your text will be red 🔴  
+```
 
 #### Array
 ```typescript
