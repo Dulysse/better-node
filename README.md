@@ -41,23 +41,6 @@ console.log(
   "Server internal error! ⚠️".red.bold
 );
 ```
-<style scoped>
-  .box {
-    background-color: #F4F4F4FF;
-  }
-  .arrow {
-    color: #AA00AA;
-    zoom: .8;
-    margin: 0;
-  }
-  .colored--text {
-    font-size: .9rem;
-    color: red;
-    font-weight: bold;
-    padding-top: 20px;
-    padding-left: .5rem;
-  }
-</style>
 <div class="box">
   <span class="arrow">
     >
@@ -144,3 +127,22 @@ console.log(
 * [GitLab](https://gitlab.com/Dulysse1)
 * [Linkedin](https://www.linkedin.com/in/ulysse-dupont-994848197/)
 * [npm module]('https://www.npmjs.com/package/@dulysse1/better-node')
+
+
+<style scoped>
+  .box {
+    background-color: #F4F4F4FF;
+  }
+  .arrow {
+    color: #AA00AA;
+    zoom: .8;
+    margin: 0;
+  }
+  .colored--text {
+    font-size: .9rem;
+    color: red;
+    font-weight: bold;
+    padding-top: 20px;
+    padding-left: .5rem;
+  }
+</style>
