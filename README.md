@@ -35,6 +35,37 @@ console.log(
 ```node
 > 'I like 🦁 , 🦁 is my favorite pet 🦁 !'
 ```
+```typescript
+// STRING STYLE
+console.log(
+  "Server internal error! ⚠️".red.bold
+);
+```
+<style scoped>
+  .box {
+    background-color: #F4F4F4FF;
+  }
+  .arrow {
+    color: #AA00AA;
+    zoom: .8;
+    margin: 0;
+  }
+  .colored--text {
+    font-size: .9rem;
+    color: red;
+    font-weight: bold;
+    padding-top: 20px;
+    padding-left: .5rem;
+  }
+</style>
+<div class="box">
+  <span class="arrow">
+    >
+  </span>
+  <span class="colored--text">
+    Server internal error! ⚠️ 
+  </span> 
+</div>
 #### Array
 ```typescript
 // ARRAY GENERATOR

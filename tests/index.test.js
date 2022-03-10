@@ -17,7 +17,6 @@ console.log(
   Math.degrees(2.343342)
 );
 
-
 const array = [ 1, 2, 3, "hello" ];
 array.drop("hello", 1, "4")
 console.log(array);
@@ -26,3 +25,5 @@ const a = [ true ];
 const b = Object.copy(a);
 b.insert(1, b.length);
 console.log(a, b);
+
+console.log('Wow'.bg_green.black);
