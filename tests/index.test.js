@@ -27,3 +27,7 @@ b.insert(1, b.length);
 console.log(a, b);
 
 console.log('Wow'.bg_green.black);
+
+const Arr = [ true ];
+
+Arr.asc()
