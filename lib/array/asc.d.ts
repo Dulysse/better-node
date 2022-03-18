@@ -5,7 +5,7 @@ declare global {
      * ### Order your array in ascending order
      * @return {number[] | null} your sorted array or null in case of other type than number.
      */
-    asc(): OnlyArrayOf<T, boolean>;
+    asc(): OnlyArrayOf<T, number>;
   }
 }
 export {};
