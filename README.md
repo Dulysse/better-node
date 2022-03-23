@@ -35,6 +35,16 @@ console.log(
 ```node
 > 'I like 🦁 , 🦁 is my favorite pet 🦁 !'
 ```
+```typescript
+// STRING STYLE
+console.log(
+  "Server internal error! ⚠️".red
+);
+```
+```node 
+> 'Server internal error! ⚠️'  <= your text will be red 🔴  
+```
+
 #### Array
 ```typescript
 // ARRAY GENERATOR
@@ -112,4 +122,3 @@ console.log(
 * [Github](https://github.com/Dulysse)
 * [GitLab](https://gitlab.com/Dulysse1)
 * [Linkedin](https://www.linkedin.com/in/ulysse-dupont-994848197/)
-* [npm module]('https://www.npmjs.com/package/@dulysse1/better-node')

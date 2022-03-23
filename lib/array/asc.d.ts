@@ -1,4 +1,3 @@
-import { OnlyNumber } from './types';
 declare global {
   interface Array<T> {
     /**
@@ -6,7 +5,7 @@ declare global {
      * ### Order your array in ascending order
      * @return {number[] | null} your sorted array or null in case of other type than number.
      */
-    asc(): 'error' extends OnlyNumber<T> ? null : number[];
+    asc(): OnlyArrayOf<T, number>;
   }
 }
 export {};
