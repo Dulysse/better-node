@@ -44,6 +44,15 @@ console.log(
 ```node 
 > 'Server internal error! ⚠️'  <= your text will be red 🔴  
 ```
+```typescript
+// REVERSE YOUR STRING
+console.log(
+  "Hello World!".reverse()
+);
+```
+```node 
+> '!dlroW olleH'
+```
 
 #### Array
 ```typescript

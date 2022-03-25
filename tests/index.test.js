@@ -28,6 +28,4 @@ console.log(a, b);
 
 console.log('Wow'.bg_green.black);
 
-const Arr = [ true ];
-
-Arr.asc()
+console.log("Hello World!".reverse());
