@@ -29,3 +29,7 @@ console.log(a, b);
 console.log('Wow'.bg_green.black);
 
 console.log("Hello World!".reverse());
+
+const l = [ 1, 2, 3, 4 ];
+l.update([ 2, 222, 3, 4, 34 ]);
+console.log(l);
