@@ -28,6 +28,8 @@ console.log(a, b);
 
 console.log('Wow'.bg_green.black);
 
-const Arr = [ true ];
+console.log("Hello World!".reverse());
 
-Arr.asc()
+const l = [ 1, 2, 3, 4 ];
+l.update([ 2, 222, 3, 4, 34 ]);
+console.log(l);
