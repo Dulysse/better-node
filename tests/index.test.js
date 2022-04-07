@@ -34,4 +34,4 @@ const l = [ 1, 2, 3, 4 ];
 l.update([ 2, 222, 3, 3, 34 ]);
 console.log(l);
 
-console.log([1, 2, 3, 4, 5, 1].replaceAll(1, "dezfz"))
+console.log([1, 2, 3, 4, 5, 1].shuffle())
