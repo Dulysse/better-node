@@ -10,8 +10,11 @@ export * from './sum';
 export * from './copy';
 export * from './insert';
 export * from './update';
+export * from './shuffle';
+export * from './replace';
+export * from './replaceAll';
 declare global {
   interface Array {
-    fill<S>(value: S, start?: number, end?: number): S[];
+    fill<S extends any>(value: S, start?: number, end?: number): S[];
   }
 }
