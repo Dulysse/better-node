@@ -65,6 +65,30 @@ console.log(
 > [ 0, 1, 3, 5, 5, 5, 8, 8, 8, 8 ]
 ```
 ```typescript
+// ARRAY REPLACE ELEMENT
+const array = [1, 2, 1, 1];
+
+array.replace(1, 3);
+console.log(array);
+
+array.replaceAll(1, 3);
+console.log(array);
+```
+```node
+> [ 3, 2, 1, 1 ]
+> [ 3, 2, 3, 3 ]
+```
+```typescript
+// ARRAY SHUFFLE
+const array = [1, 2, 3, 4, 5, 6];
+console.log(
+  array.shuffle()
+);
+```
+```node
+> [ 3, 6, 1, 4, 2, 5 ]
+```
+```typescript
 // ARRAY DROP
 const array = [ 1, 2, 3, "hello", "world", 1, "4" ];
 array.drop("world", 1, "4")
