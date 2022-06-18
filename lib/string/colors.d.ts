@@ -1,93 +1,131 @@
 declare global {
   interface String {
     /**
-     * Edit your string style
+     * `From @dulysse1/better-node`
+     * ### Customize your log color
      */
     bold: string;
     /**
-     * Edit your string style
+     * `From @dulysse1/better-node`
+     * ### Customize your log color
      */
     dim: string;
     /**
-     * Edit your string style
+     * `From @dulysse1/better-node`
+     * ### Customize your log color
      */
     italic: string;
     /**
-     * Edit your string style
+     * `From @dulysse1/better-node`
+     * ### Customize your log color
      */
     underline: string;
     /**
-     * Edit your string style
+     * `From @dulysse1/better-node`
+     * ### Customize your log color
+     */
+     blink: string;
+    /**
+     * `From @dulysse1/better-node`
+     * ### Customize your log color
      */
     inverse: string;
     /**
-     * Edit your string style
+     * `From @dulysse1/better-node`
+     * ### Customize your log color
      */
     hidden: string;
     /**
-     * Edit your string style
+     * `From @dulysse1/better-node`
+     * ### Customize your log color
      */
     black: string;
     /**
-     * Edit your string style
+     * `From @dulysse1/better-node`
+     * ### Customize your log color
      */
     red: string;
     /**
-     * Edit your string style
+     * `From @dulysse1/better-node`
+     * ### Customize your log color
      */
     green: string;
     /**
-     * Edit your string style
+     * `From @dulysse1/better-node`
+     * ### Customize your log color
      */
     yellow: string;
     /**
-     * Edit your string style
+     * `From @dulysse1/better-node`
+     * ### Customize your log color
      */
     blue: string;
     /**
-     * Edit your string style
+     * `From @dulysse1/better-node`
+     * ### Customize your log color
      */
     magenta: string;
     /**
-     * Edit your string style
+     * `From @dulysse1/better-node`
+     * ### Customize your log color
      */
     cyan: string;
     /**
-     * Edit your string style
+     * `From @dulysse1/better-node`
+     * ### Customize your log color
      */
     white: string;
-    /**
-     * Edit your string style
+     /**
+     * `From @dulysse1/better-node`
+     * ### Customize your log color
      */
+    crimson: string;
+    /**
+     * `From @dulysse1/better-node`
+     * ### Customize your log color
+     */
+    
     bg_black: string;
     /**
-     * Edit your string style
+     * `From @dulysse1/better-node`
+     * ### Customize your log color
      */
     bg_red: string;
     /**
-     * Edit your string style
+     * `From @dulysse1/better-node`
+     * ### Customize your log color
      */
     bg_green: string;
     /**
-     * Edit your string style
+     * `From @dulysse1/better-node`
+     * ### Customize your log color
      */
     bg_yellow: string;
     /**
-     * Edit your string style
+     * `From @dulysse1/better-node`
+     * ### Customize your log color
      */
     bg_blue: string;
     /**
-     * Edit your string style
+     * `From @dulysse1/better-node`
+     * ### Customize your log color
      */
     bg_magenta: string;
     /**
-     * Edit your string style
+     * `From @dulysse1/better-node`
+     * ### Customize your log color
      */
     bg_cyan: string;
     /**
-     * Edit your string style
+     * `From @dulysse1/better-node`
+     * ### Customize your log color
      */
     bg_white: string;
+    /**
+     * `From @dulysse1/better-node`
+     * ### Customize your log color
+     */
+     bg_crimson: string;
   }
 }
 export {};

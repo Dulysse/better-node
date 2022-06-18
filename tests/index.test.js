@@ -34,4 +34,6 @@ const l = [ 1, 2, 3, 4 ];
 l.update([ 2, 222, 3, 3, 34 ]);
 console.log(l);
 
-console.log([1, 2, 3, 4, 5, 1].shuffle())
+console.log([1, 2, 3, 4, 5, 1].shuffle());
+
+console.log("UserHasName".uncapitalized(true, " "));

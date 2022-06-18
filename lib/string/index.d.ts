@@ -1,3 +1,4 @@
 export * from './replaceAll';
 export * from './colors';
 export * from './reverse';
+export * from './capitalize';

@@ -53,6 +53,24 @@ console.log(
 ```node 
 > '!dlroW olleH'
 ```
+```typescript
+// CAPITALIZE YOUR STRING
+console.log(
+  "user_has_name".capitalized(false, "_")
+);
+```
+```node 
+> 'userHasName'
+```
+```typescript
+// UN-CAPITALIZE YOUR STRING
+console.log(
+  "UserHasName".uncapitalized(true, "-")
+);
+```
+```node 
+> 'user-has-name'
+```
 
 #### Array
 ```typescript
