@@ -36,4 +36,8 @@ console.log(l);
 
 console.log([1, 2, 3, 4, 5, 1].shuffle());
 
-console.log("UserHasName".uncapitalized(true, " "));
+console.log("UserHasName".uncapitalized("_", true));
+
+let name = "Francois";
+console.log(name.replaceAll("a", "x"))
+console.log(name)
