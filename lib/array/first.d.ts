@@ -5,7 +5,7 @@ declare global {
      * ### Get the first element of your array
      * @returns {T | null} your first element or null 
      */
-    first(): this extends { length : infer R } ? R extends 0 ? null : T : never;
+    first(): this['length'] extends 0 ? null : T;
   }
 }
 export {};
