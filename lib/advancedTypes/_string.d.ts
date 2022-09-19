@@ -1,8 +1,8 @@
-import { _Equal } from "./operators";
+import { _Equal, _And } from "./operators";
 import { 
   _Length as ArrayLength
 } from "./_array";
-import { _Sub, _Add } from "./_number";
+import { _Sub, _Add, _Lower, _IsPositive, _IsNegative } from "./_number";
 import { IterationOf } from "./iterations";
 
 export declare type _Split<
@@ -77,24 +77,50 @@ export declare type _Reverse<
   : never
 : never;
 
-// TODO: finish
 export declare type _Slice<
   T extends string,
   Start=0,
   End=_Length<T>,
-  Counter=Start,
+  Counter=(
+    _IsNegative<
+      IterationOf<Start>
+    > extends true 
+      ? _Add<
+        IterationOf<_Length<T>>,
+        IterationOf<Start>
+      >[0]
+    : Start
+  ),
   Result=""
 > = Counter extends End
   ? Result
-: _Equal<_At<T, Counter>, never> extends true ?
-  Result
-: _Slice<
-  T,
-  Start,
-  End,
-  _Add<
-    IterationOf<Counter>, 
-    IterationOf<1>
-  >[0],
-  `${Result}${_At<T, Counter>}`
->;
+: _Lower<
+  IterationOf<Start>,
+  IterationOf<End>
+> extends true 
+  ? _Slice<
+      T,
+      Start,
+      (
+        _IsNegative<
+          IterationOf<End>
+        > extends true 
+          ? _Add<
+              IterationOf<_Length<T>>,
+              IterationOf<End>
+            >[0]
+        : End
+      ),
+      _Add<
+        IterationOf<Counter>, 
+        IterationOf<1>
+      >[0],
+      `${Result}${
+        _Lower<
+          IterationOf<Counter>,
+          IterationOf<_Length<T>>
+        > extends true 
+          ? _At<T, Counter> 
+        : ""}`
+   >
+: "";
