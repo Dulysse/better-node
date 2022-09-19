@@ -33,3 +33,20 @@ export declare type _IndexOf<
 > = T extends `${infer Before}${S}${infer _}`
   ? _Length<Before>
 : -1;
+
+export declare type _Replace<
+  T extends string, 
+  From extends string, 
+  To extends string
+> = T extends `${infer Before}${From}${infer After}`
+  ? `${Before}${To}${After}`
+: T;
+
+export declare type _ReplaceAll<
+  T extends string, 
+  From extends string, 
+  To extends string,
+  Next=_Replace<T, From, To>
+> = T extends Next
+  ? T
+: _ReplaceAll<Next, From, To>;

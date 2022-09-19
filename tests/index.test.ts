@@ -1,3 +1,5 @@
 import "../";
 
-type a = T.String.IndexOf<"coucou", "s">
+type a = T.String.Replace<"coucou", "c", "s">
+
+
