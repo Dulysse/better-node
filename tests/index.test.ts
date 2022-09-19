@@ -1,5 +1,5 @@
 import "../";
 
-type a = T.String.Replace<"coucou", "c", "s">
+type a = T.String.Slice<"coucou", 1, 1>
 
 

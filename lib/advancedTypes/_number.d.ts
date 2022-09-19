@@ -1,4 +1,4 @@
-import { Cast } from "./operators";
+import { _Cast } from "./operators";
 import { Iteration, IterationOf, Pos, Prev, Next } from "./iterations";
 
 export declare type _SubPositive<N1 extends Iteration, N2 extends Iteration> = {
@@ -25,10 +25,10 @@ export declare type _AddNegative<N1 extends Iteration, N2 extends Iteration> = {
   2: number;
 }[Pos<N2> extends 0 ? 1 : number extends Pos<N2> ? 2 : 0];
 
-export declare type SubPositive<N1 extends Iteration, N2 extends Iteration> = _SubPositive<N1, N2> extends infer X ? Cast<X, Iteration> : never;
-export declare type SubNegative<N1 extends Iteration, N2 extends Iteration> = _SubNegative<N1, N2> extends infer X ? Cast<X, Iteration> : never;
-export declare type AddPositive<N1 extends Iteration, N2 extends Iteration> = _AddPositive<N1, N2> extends infer X ? Cast<X, Iteration> : never;
-export declare type AddNegative<N1 extends Iteration, N2 extends Iteration> = _AddNegative<N1, N2> extends infer X ? Cast<X, Iteration> : never;
+export declare type SubPositive<N1 extends Iteration, N2 extends Iteration> = _SubPositive<N1, N2> extends infer X ? _Cast<X, Iteration> : never;
+export declare type SubNegative<N1 extends Iteration, N2 extends Iteration> = _SubNegative<N1, N2> extends infer X ? _Cast<X, Iteration> : never;
+export declare type AddPositive<N1 extends Iteration, N2 extends Iteration> = _AddPositive<N1, N2> extends infer X ? _Cast<X, Iteration> : never;
+export declare type AddNegative<N1 extends Iteration, N2 extends Iteration> = _AddNegative<N1, N2> extends infer X ? _Cast<X, Iteration> : never;
 
 export declare type _IsNegative<N extends Iteration> = {
   '-': 1;
