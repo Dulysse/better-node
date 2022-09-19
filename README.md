@@ -53,6 +53,24 @@ console.log(
 ```node 
 > '!dlroW olleH'
 ```
+```typescript
+// CAPITALIZE YOUR STRING
+console.log(
+  "user_has_name".capitalized(false, "_")
+);
+```
+```node 
+> 'userHasName'
+```
+```typescript
+// UN-CAPITALIZE YOUR STRING
+console.log(
+  "UserHasName".uncapitalized(true, "-")
+);
+```
+```node 
+> 'user-has-name'
+```
 
 #### Array
 ```typescript
@@ -63,6 +81,30 @@ console.log(
 ```
 ```node
 > [ 0, 1, 3, 5, 5, 5, 8, 8, 8, 8 ]
+```
+```typescript
+// ARRAY REPLACE ELEMENT
+const array = [1, 2, 1, 1];
+
+array.replace(1, 3);
+console.log(array);
+
+array.replaceAll(1, 3);
+console.log(array);
+```
+```node
+> [ 3, 2, 1, 1 ]
+> [ 3, 2, 3, 3 ]
+```
+```typescript
+// ARRAY SHUFFLE
+const array = [1, 2, 3, 4, 5, 6];
+console.log(
+  array.shuffle()
+);
+```
+```node
+> [ 3, 6, 1, 4, 2, 5 ]
 ```
 ```typescript
 // ARRAY DROP
