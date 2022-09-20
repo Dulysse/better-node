@@ -85,7 +85,14 @@ export declare type _Slice<
     _IsNegative<
       IterationOf<Start>
     > extends true 
-      ? _Add<
+      ? _IsNegative<
+        _Add<
+          IterationOf<_Length<T>>,
+          IterationOf<Start>
+        >
+      > extends true 
+        ? 0
+      : _Add<
         IterationOf<_Length<T>>,
         IterationOf<Start>
       >[0]
@@ -99,28 +106,29 @@ export declare type _Slice<
   IterationOf<End>
 > extends true 
   ? _Slice<
-      T,
-      Start,
-      (
-        _IsNegative<
-          IterationOf<End>
-        > extends true 
-          ? _Add<
-              IterationOf<_Length<T>>,
-              IterationOf<End>
-            >[0]
-        : End
-      ),
-      _Add<
-        IterationOf<Counter>, 
-        IterationOf<1>
-      >[0],
-      `${Result}${
-        _Lower<
-          IterationOf<Counter>,
-          IterationOf<_Length<T>>
-        > extends true 
-          ? _At<T, Counter> 
-        : ""}`
-   >
+    T,
+    Start,
+    (
+      _IsNegative<
+        IterationOf<End>
+      > extends true 
+        ? _Add<
+            IterationOf<_Length<T>>,
+            IterationOf<End>
+          >[0]
+      : End
+    ),
+    _Add<
+      IterationOf<Counter>, 
+      IterationOf<1>
+    >[0],
+    `${Result}${
+      _Lower<
+        IterationOf<Counter>,
+        IterationOf<_Length<T>>
+      > extends true 
+        ? _At<T, Counter> 
+      : ""
+    }`
+  >
 : "";

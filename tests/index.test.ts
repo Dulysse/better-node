@@ -1,6 +1,6 @@
 import "../";
 
-type a = T.String.Slice<"coucou", -4>
+type a = T.String.Reverse<"Hello world!">
 
 
-type b = T.Number.IsZero<0>
+type b = T.Array.IndexOf<[1, 2, 3], 3>

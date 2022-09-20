@@ -8,7 +8,9 @@ import {
   _Negate,
   _IsPositive,
   _IsNegative,
-  _IsZero
+  _IsZero,
+  _Range,
+  _Enum
 } from "./_number";
 import { IterationOf } from "./iterations";
 
@@ -25,6 +27,8 @@ declare global {
       type GreaterEq<N1 extends number, N2 extends number> = _GreaterEq<IterationOf<N1>, IterationOf<N2>>;
       type LowerEq<N1 extends number, N2 extends number> = _LowerEq<IterationOf<N1>, IterationOf<N2>>;
       type Negate<N extends number> = _Negate<IterationOf<N>>;
+      type Enum<N extends number, Way="->"> = _Enum<IterationOf<N>, Way>;
+      type Range<N1 extends number, N2 extends number> = _Range<IterationOf<N1>, IterationOf<N2>>;
     }
   }
 }
