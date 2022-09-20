@@ -1,6 +1,7 @@
-import { _Sub } from "./_number";
-import { IterationOf } from "./iterations";
+import { _Add, _Sub } from "./_number";
+import { IterationOf, Pos } from "./iterations";
 import { _IndexOf as IndexOfString } from "./_string";
+import { _And, _Equal, _NotEqual } from "./operators";
 
 export declare type _StringLiteralType = string | number | bigint | boolean;
 
@@ -52,12 +53,14 @@ export declare type _Replace<
           AsChange extends false ? To : From
         ], 
         AsChange extends false ? true : AsChange,
-        _Sub<
-          IterationOf<
-            Counter extends number ? Counter : never
-          >, 
-          IterationOf<1>
-        >[0]
+        Pos<
+          _Sub<
+            IterationOf<
+              Counter extends number ? Counter : never
+            >, 
+            IterationOf<1>
+          >
+        >
       >
     : _Replace<
       [ ...End ],
@@ -68,12 +71,14 @@ export declare type _Replace<
         Start
       ], 
       AsChange,
-      _Sub<
-        IterationOf<
-          Counter extends number ? Counter : never
-        >, 
-        IterationOf<1>
-      >[0]
+      Pos<
+        _Sub<
+          IterationOf<
+            Counter extends number ? Counter : never
+          >, 
+          IterationOf<1>
+        >
+      >
     >
   : never
 : L;
@@ -100,12 +105,14 @@ export declare type _Reverse<
     ? End extends unknown[]
       ? _Reverse<
         End,
-        _Sub<
-          IterationOf<
-            Counter extends number ? Counter : never
-          >, 
-          IterationOf<1>
-        >[0],
+        Pos<
+          _Sub<
+            IterationOf<
+              Counter extends number ? Counter : never
+            >, 
+            IterationOf<1>
+          >
+        >,
         [ Start, ...Result ]
       >
     : never
@@ -126,6 +133,82 @@ export declare type _Last<
 
 export declare type _IndexOf<
   L extends any[],
-  T extends L[number],
-  S=_Join<L, "">
-> = IndexOfString<S, T>;
+  T extends any,
+  I=0
+> = _Equal<I, _Length<L>> extends true
+  ? -1
+: _Equal<L[I], T> extends true
+  ? I
+: _IndexOf<
+  L, 
+  T, 
+  Pos<
+    _Add<
+      IterationOf<I>,
+      IterationOf<1>
+    >
+  >
+>;
+
+export declare type _Includes<
+  L extends any[],
+  T extends any
+> = _NotEqual<
+  _IndexOf<L, T>,
+  -1
+>;
+
+export declare type _Filter<
+  L extends any[],
+  F extends () => any,
+  Result=[]
+> = F extends () => infer R
+  ? L extends [ infer K, ...infer Next ]
+    ? _Filter<
+      Next, 
+      F, 
+      [ 
+        ...Result,
+        ...(_Equal<R, K> extends true 
+          ? [ K ] 
+        : []) 
+      ]
+    >
+  : Result
+: never;
+
+export declare type _Find<
+  L extends any[],
+  F extends () => any,
+  Result=null
+> = F extends () => infer R
+  ? L extends [ infer K, ...infer Next ]
+    ? _Find<
+      Next, 
+      F, 
+      _Equal<R, K> extends true 
+        ? K 
+      : Result
+    >
+  : Result
+: never;
+
+export declare type _ToString<
+  L extends any[]
+> = _Join<L, ",">;
+
+export declare type _Slice<
+  L extends any[]
+> = never;
+
+export declare type _Splice<
+  L extends any[]
+> = never;
+
+export declare type _Concat<
+  L extends any[]
+> = never;
+
+export declare type _Push<
+  L extends any[]
+> = never;

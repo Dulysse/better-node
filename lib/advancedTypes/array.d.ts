@@ -6,7 +6,15 @@ import {
   _Reverse,
   _First,
   _Last,
-  _IndexOf
+  _IndexOf,
+  _Find,
+  _Filter,
+  _Includes,
+  _ToString,
+  _Splice,
+  _Slice,
+  _Concat,
+  _Push
 } from "./_array";
 
 declare global {
@@ -21,7 +29,15 @@ declare global {
       type Reverse<L extends any[]> = _Reverse<L>;
       type First<L extends any[]> = _First<L>;
       type Last<L extends any[]> = _Last<L>;
-      type IndexOf<L extends any[], T extends L[number]> = _IndexOf<L, T>;
+      type IndexOf<L extends any[], T extends any> = _IndexOf<L, T>;
+      type Includes<L extends any[], T extends any> = _Includes<L, T>;
+      type Find<L extends any[], F extends () => any> = _Find<L, F>;
+      type Filter<L extends any[], F extends () => any> = _Filter<L, F>;
+      type ToString<L extends any[]> = _ToString<L>;
+      type Splice<L extends any[]> = _Splice<L>;
+      type Slice<L extends any[]> = _Slice<L>;
+      type Concat<L extends any[]> = _Concat<L>;
+      type Push<L extends any[]> = _Push<L>;
     }
   }
 }
