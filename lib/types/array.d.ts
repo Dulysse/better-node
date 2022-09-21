@@ -14,7 +14,13 @@ import {
   _Splice,
   _Slice,
   _Concat,
-  _Push
+  _Push,
+  _Drop,
+  _Insert,
+  _Asc,
+  _Desc,
+  _Sum,
+  _Of
 } from "./_array";
 
 declare global {
@@ -38,6 +44,12 @@ declare global {
       type Slice<L extends any[]> = _Slice<L>;
       type Concat<L extends any[]> = _Concat<L>;
       type Push<L extends any[]> = _Push<L>;
+      type Drop<L extends any[]> = _Drop<L>
+      type Insert<L extends any[]> = _Insert<L>;
+      type Asc<L extends any[]> = _Asc<L>;
+      type Desc<L extends any[]> = _Desc<L>;
+      type Sum<L extends any[]> = _Sum<L>;
+      type Of<L extends any[]> = _Of<L>;
     }
   }
 }

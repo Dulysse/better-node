@@ -233,3 +233,7 @@ export declare type _Asc<
 export declare type _Desc<
   L extends any[]
 > = never;
+
+export declare type _Of<
+  L extends any[]
+> = never;

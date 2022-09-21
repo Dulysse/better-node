@@ -162,6 +162,14 @@ export declare type _Range<
   ? _Range<Next<N1>, N2, [ ...Result, Pos<N1> ]>
 : _Range<Prev<N1>, N2, [ ...Result, Pos<N1> ]>
 
+export declare type _Incr<
+  N extends Iteration
+> = Pos<_Add<N, IterationOf<1>>>;
+
+export declare type _Decr<
+  N extends Iteration
+> = Pos<_Sub<N, IterationOf<1>>>;
+
 export declare type _Between<
-  N extends number
+  N extends Iteration
 > = never;
