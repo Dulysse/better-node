@@ -206,9 +206,30 @@ export declare type _Splice<
 > = never;
 
 export declare type _Concat<
-  L extends any[]
+  L1 extends any[],
+  L2 extends any[]
 > = never;
 
 export declare type _Push<
+  L extends any[]
+> = never;
+
+export declare type _Insert<
+  L extends any[]
+> = never;
+
+export declare type _Drop<
+  L extends any[]
+> = never;
+
+export declare type _Sum<
+  L extends any[]
+> = never;
+
+export declare type _Asc<
+  L extends any[]
+> = never;
+
+export declare type _Desc<
   L extends any[]
 > = never;

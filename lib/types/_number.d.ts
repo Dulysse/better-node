@@ -161,3 +161,7 @@ export declare type _Range<
 : _Greater<N2, N1> extends true 
   ? _Range<Next<N1>, N2, [ ...Result, Pos<N1> ]>
 : _Range<Prev<N1>, N2, [ ...Result, Pos<N1> ]>
+
+export declare type _Between<
+  N extends number
+> = never;

@@ -1,5 +1,5 @@
 # [Better Node]('https://www.npmjs.com/package/@dulysse1/better-node')
-###### ✅  Work in `Javascript` and `Typescript` ✅ 
+###### ✅  Work for `Javascript` and `Typescript` ✅ 
 
 ### How to install ?
 
@@ -13,6 +13,7 @@
   /**
    * IMPORT AT THE TOP MODULE SCRIPT
    * (index.js, index.ts ...)
+   * SO THAT YOU CAN USE IT EVERYWHERE !
   **/
 
   import '@dulysse1/better-node';
@@ -24,6 +25,39 @@
   **/
 ```
 ### Examples
+
+```diff
++ New !
+``` 
+#### Namespace 👉 T 👈
+<i> A magic toolkit for typing </i>
+##### Architecture
+```txt
+/T
+  --/Array
+      --/Split
+      --/...
+  --/Any
+      --/Equal
+      --/...
+  --/Object
+      --/Merge
+      --/...
+  --/String
+      --/Replace
+      --/...
+  --/Number
+      --/Add
+      --/...
+```
+##### Usage example
+```typescript
+type 
+```
+
+```diff
++ ----
+``` 
 
 #### String
 ```typescript

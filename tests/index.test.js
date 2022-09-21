@@ -9,7 +9,7 @@ const barr = arr.copy();
 barr.push('pute')
 console.log(arr);
 
-const a = [ 1, 2, "" ].first()
+const a = [ 1, 2, "" ].asc()
 
 console.log(
   Math.degrees(2.343342)
