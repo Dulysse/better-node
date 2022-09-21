@@ -1,4 +1,4 @@
-import { _Cast, _Equal, _Or } from "./operators";
+import { _And, _Cast, _Equal, _Or } from "./operators";
 import { 
   Iteration, 
   IterationOf,
@@ -171,5 +171,10 @@ export declare type _Decr<
 > = Pos<_Sub<N, IterationOf<1>>>;
 
 export declare type _Between<
-  N extends Iteration
-> = never;
+  N extends Iteration,
+  From extends Iteration,
+  To extends Iteration
+> = _And<
+  _GreaterEq<N, From>,
+  _LowerEq<N, To>
+>;

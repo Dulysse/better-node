@@ -2,7 +2,13 @@ import { _Equal, _And } from "./operators";
 import { 
   _Length as ArrayLength
 } from "./_array";
-import { _Sub, _Add, _Lower, _IsPositive, _IsNegative } from "./_number";
+import { 
+  _Lower,
+  _IsPositive,
+  _IsNegative,
+  _Decr,
+  _Add
+} from "./_number";
 import { IterationOf } from "./iterations";
 
 export declare type _Split<
@@ -66,12 +72,11 @@ export declare type _Reverse<
   : T extends `${infer Start}${infer End}`
     ? _Reverse<
       End,
-      _Sub<
+      _Decr<
         IterationOf<
           Counter extends number ? Counter : never
-        >, 
-        IterationOf<1>
-      >[0],
+        >
+      >,
       `${Start}${Result}`
     >
   : never

@@ -34,7 +34,7 @@ declare global {
       type Range<N1 extends number, N2 extends number> = _Range<IterationOf<N1>, IterationOf<N2>>;
       type Incr<N extends number> = _Incr<IterationOf<N>>;
       type Decr<N extends number> = _Decr<IterationOf<N>>;
-      type Between<N extends number> = _Between<IterationOf<N>>;
+      type Between<N extends number, From extends number, To extends number> = _Between<IterationOf<N>, IterationOf<From>, IterationOf<To>>;
     }
   }
 }

@@ -1,4 +1,4 @@
-import { _Add, _Sub } from "./_number";
+import { _Decr, _Incr } from "./_number";
 import { IterationOf, Pos } from "./iterations";
 import { _IndexOf as IndexOfString } from "./_string";
 import { _And, _Equal, _NotEqual } from "./operators";
@@ -53,13 +53,10 @@ export declare type _Replace<
           AsChange extends false ? To : From
         ], 
         AsChange extends false ? true : AsChange,
-        Pos<
-          _Sub<
-            IterationOf<
-              Counter extends number ? Counter : never
-            >, 
-            IterationOf<1>
-          >
+        _Decr<
+          IterationOf<
+            Counter extends number ? Counter : never
+          >,
         >
       >
     : _Replace<
@@ -71,12 +68,9 @@ export declare type _Replace<
         Start
       ], 
       AsChange,
-      Pos<
-        _Sub<
-          IterationOf<
-            Counter extends number ? Counter : never
-          >, 
-          IterationOf<1>
+      _Decr<
+        IterationOf<
+          Counter extends number ? Counter : never
         >
       >
     >
@@ -105,12 +99,9 @@ export declare type _Reverse<
     ? End extends unknown[]
       ? _Reverse<
         End,
-        Pos<
-          _Sub<
-            IterationOf<
-              Counter extends number ? Counter : never
-            >, 
-            IterationOf<1>
+        _Decr<
+          IterationOf<
+            Counter extends number ? Counter : never
           >
         >,
         [ Start, ...Result ]
@@ -142,12 +133,7 @@ export declare type _IndexOf<
 : _IndexOf<
   L, 
   T, 
-  Pos<
-    _Add<
-      IterationOf<I>,
-      IterationOf<1>
-    >
-  >
+  _Incr<IterationOf<I>>
 >;
 
 export declare type _Includes<
