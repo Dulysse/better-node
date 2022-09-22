@@ -24,7 +24,7 @@ import {
 } from "./_array";
 
 declare global {
-  namespace T {
+  namespace Tx {
     namespace Array {
       type Pop<L extends any[]> = L extends [ ...infer Start, infer _ ] ? [ ...Start ] : never;
       type Shift<L extends any[]> = L extends [ infer _, ...infer Next ] ? [ ...Next ] : never;

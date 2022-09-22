@@ -2,7 +2,7 @@ import {
 } from "./_object";
 
 declare global {
-  namespace T {
+  namespace Tx {
     namespace Object {
       type Merge = never;
     }

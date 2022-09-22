@@ -7,7 +7,7 @@ import {
 } from "./operators";
 
 declare global {
-  namespace T {
+  namespace Tx {
     namespace Any {
       /**
        * `From @dulysse1/better-node`

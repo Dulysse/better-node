@@ -10,7 +10,7 @@ import {
 } from "./_string";
 
 declare global {
-  namespace T {
+  namespace Tx {
     namespace String {
       type Split<T extends string, S=""> = S extends string ? _Split<T, S> : never;
       type At<T extends string, I extends number> = _At<T, I>;

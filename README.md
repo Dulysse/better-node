@@ -29,7 +29,7 @@
 ```diff
 + New !
 ``` 
-#### Namespace 👉 T 👈
+#### Namespace 👉 Tx 👈
 <i> A magic toolkit for typing </i>
 ##### Architecture
 ```txt
@@ -52,7 +52,9 @@
 ```
 ##### Usage example
 ```typescript
-type 
+type Reversed = Tx.Array.Reverse<[1, 2, 3]>; // [3, 2, 1]
+type Replaced = Tx.String.ReplaceAll<"Hello world!", "o", "x">; // "Hellx wxrld!"
+// And more...
 ```
 
 ```diff

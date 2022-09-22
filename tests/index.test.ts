@@ -1,6 +1,6 @@
 import "../";
 
-type a = T.String.Reverse<"Hello world!">
+type a = Tx.String.Reverse<"Hello world!">
 
 
-type b = T.Number.Incr<99>
+type b = Tx.Array.Reverse<[1, 2, 3]>
