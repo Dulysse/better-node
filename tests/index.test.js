@@ -19,8 +19,8 @@ const array = [ 1, 2, 3, "hello" ];
 array.drop("hello", 1, "4")
 console.log(array);
 
-const a = [ true ];
-const b = Object.copy(a);
+const ax = [ true ];
+const b = Object.copy(ax);
 b.insert(1, b.length);
 console.log(a, b);
 

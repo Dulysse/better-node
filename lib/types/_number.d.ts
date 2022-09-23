@@ -87,16 +87,16 @@ export declare type _GreaterEq<
   N2 extends Iteration, 
   Result=_Sub<N1, N2>
 > = _Or<
-  _IsPositive<Result>, 
-  _IsZero<Result>
+  _IsPositive<_Cast<Result, Iteration>>, 
+  _IsZero<_Cast<Result, Iteration>>
 >;
 export declare type _LowerEq<
   N1 extends Iteration, 
   N2 extends Iteration, 
   Result=_Sub<N1, N2>
 > = _Or<
-  _IsNegative<Result>, 
-  _IsZero<Result>
+  _IsNegative<_Cast<Result, Iteration>>, 
+  _IsZero<_Cast<Result, Iteration>>
 >;
 export declare type _Enum<
   N extends Iteration,
@@ -124,43 +124,43 @@ export declare type EnumAscPositive<
   N extends Iteration,
   Start=IterationOf<0>,
   Result=[]
-> = _Equal<Pos<N>, Pos<Start>> extends true 
-  ? [ ...Result ] 
-: EnumAscPositive<N, Next<Start>, [ ...Result, Pos<Start> ]>;
+> = _Equal<Pos<N>, Pos<_Cast<Start, Iteration>>> extends true 
+  ? [ ..._Cast<Result, number[]> ] 
+: EnumAscPositive<N, Next<_Cast<Start, Iteration>>, [ ..._Cast<Result, number[]>, Pos<_Cast<Start, Iteration>> ]>;
 
 export declare type EnumAscNegative<
   N extends Iteration,
   End=IterationOf<0>,
   Result=[]
-> = _Equal<Pos<N>, Pos<End>> extends true 
-  ? [ ...Result ] 
-: EnumAscNegative<Next<N>, End, [ ...Result, Pos<Next<N>> ]>;
+> = _Equal<Pos<N>, Pos<_Cast<End, Iteration>>> extends true 
+  ? [ ..._Cast<Result, number[]> ] 
+: EnumAscNegative<Next<N>, End, [ ..._Cast<Result, number[]>, Pos<Next<N>> ]>;
 
 export declare type EnumDescPositive<
   N extends Iteration,
   End=IterationOf<0>,
   Result=[]
-> = _Equal<Pos<N>, Pos<End>> extends true 
-  ? [ ...Result ] 
-: EnumDescPositive<Prev<N>, End, [ ...Result, Pos<Prev<N>> ]>;
+> = _Equal<Pos<N>, Pos<_Cast<End, Iteration>>> extends true 
+  ? [ ..._Cast<Result, number[]> ] 
+: EnumDescPositive<Prev<N>, End, [ ..._Cast<Result, number[]>, Pos<Prev<N>> ]>;
 
 export declare type EnumDescNegative<
   N extends Iteration,
   Start=IterationOf<0>,
   Result=[]
-> = _Equal<Pos<N>, Pos<Start>> extends true 
-? [ ...Result ] 
-: EnumDescNegative<N, Prev<Start>, [ ...Result, Pos<Start> ]>;
+> = _Equal<Pos<N>, Pos<_Cast<Start, Iteration>>> extends true 
+? [ ..._Cast<Result, number[]> ] 
+: EnumDescNegative<N, Prev<_Cast<Start, Iteration>>, [ ..._Cast<Result, number[]>, Pos<_Cast<Start, Iteration>> ]>;
 
 export declare type _Range<
   N1 extends Iteration, 
   N2 extends Iteration,
   Result=[]
 > = _Equal<Pos<N1>, Pos<N2>> extends true 
-  ? [ ...Result, Pos<N1> ]
+  ? [ ..._Cast<Result, number[]>, Pos<N1> ]
 : _Greater<N2, N1> extends true 
-  ? _Range<Next<N1>, N2, [ ...Result, Pos<N1> ]>
-: _Range<Prev<N1>, N2, [ ...Result, Pos<N1> ]>
+  ? _Range<Next<N1>, N2, [ ..._Cast<Result, number[]>, Pos<N1> ]>
+: _Range<Prev<N1>, N2, [ ..._Cast<Result, number[]>, Pos<N1> ]>
 
 export declare type _Incr<
   N extends Iteration

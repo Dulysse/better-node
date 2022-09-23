@@ -40,12 +40,12 @@ declare global {
       type Find<L extends any[], F extends () => any> = _Find<L, F>;
       type Filter<L extends any[], F extends () => any> = _Filter<L, F>;
       type ToString<L extends any[]> = _ToString<L>;
-      type Splice<L extends any[]> = _Splice<L>;
-      type Slice<L extends any[]> = _Slice<L>;
-      type Concat<L extends any[]> = _Concat<L>;
-      type Push<L extends any[]> = _Push<L>;
+      type Splice<L extends any[], Start=0, DeleteCount=_Length<L>> = _Splice<L, Start, DeleteCount>;
+      type Slice<L extends any[], Start=0, End=Length<L>> = _Slice<L, Start, End>;
+      type Concat<L1 extends any[], L2 extends any[]> = _Concat<L1, L2>;
+      type Push<L extends any[], T extends any> = _Push<L, T>;
       type Drop<L extends any[]> = _Drop<L>
-      type Insert<L extends any[]> = _Insert<L>;
+      type Insert<L extends any[], I extends number, T extends any> = _Insert<L, I, T>;
       type Asc<L extends any[]> = _Asc<L>;
       type Desc<L extends any[]> = _Desc<L>;
       type Sum<L extends any[]> = _Sum<L>;

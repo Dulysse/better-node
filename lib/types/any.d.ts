@@ -33,7 +33,7 @@ declare global {
        * @returns {boolean} true || false
        */
       type NotEqual<T1 extends any, T2 extends any> = _NotEqual<T1, T2>;
-       /**
+      /**
        * `From @dulysse1/better-node`
        * ### If B1 === true && B2 === true
        * @param {boolean} B1 First condition
@@ -41,7 +41,7 @@ declare global {
        * @returns {boolean} true || false
        */
       type And<B1 extends boolean, B2 extends boolean> = _And<B1, B2>;
-        /**
+      /**
        * `From @dulysse1/better-node`
        * ### If B1 === true || B2 === true
        * @param {boolean} B1 First condition

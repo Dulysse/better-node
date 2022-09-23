@@ -1,7 +1,6 @@
-import { _Decr, _Incr } from "./_number";
+import { _Decr, _Incr, _Lower, _IsNegative, _Add, _LowerEq, _Sub, _GreaterEq, _Greater } from "./_number";
 import { IterationOf, Pos } from "./iterations";
-import { _IndexOf as IndexOfString } from "./_string";
-import { _And, _Equal, _NotEqual } from "./operators";
+import { _And, _Equal, _NotEqual, _Cast, _Or } from "./operators";
 
 export declare type _StringLiteralType = string | number | bigint | boolean;
 
@@ -11,7 +10,7 @@ export declare type _StringLiteralTypeParser<
   ? T
 : {
   0: "[object Object]";
-  1: _Join<[ ...(T extends any[] ? T : []) ], ",">
+  1: _Join<[ ...(_Cast<T, []>) ], ",">
 }[T extends any[] ? 1 : 0];
 
 export declare type _Join<
@@ -56,7 +55,7 @@ export declare type _Replace<
         _Decr<
           IterationOf<
             Counter extends number ? Counter : never
-          >,
+          >
         >
       >
     : _Replace<
@@ -64,7 +63,7 @@ export declare type _Replace<
       From,
       To,
       [ 
-        ...(Result extends any[] ? Result : []),
+        ...(_Cast<Result, any[]>),
         Start
       ], 
       AsChange,
@@ -126,15 +125,17 @@ export declare type _IndexOf<
   L extends any[],
   T extends any,
   I=0
-> = _Equal<I, _Length<L>> extends true
-  ? -1
-: _Equal<L[I], T> extends true
-  ? I
-: _IndexOf<
-  L, 
-  T, 
-  _Incr<IterationOf<I>>
->;
+> = I extends number 
+  ? _Equal<I, _Length<L>> extends true
+    ? -1
+  : _Equal<L[I], T> extends true
+    ? I
+  : _IndexOf<
+    L, 
+    T, 
+    _Incr<IterationOf<I>>
+  > 
+: never;
 
 export declare type _Includes<
   L extends any[],
@@ -154,7 +155,7 @@ export declare type _Filter<
       Next, 
       F, 
       [ 
-        ...Result,
+        ...(_Cast<Result, any[]>),
         ...(_Equal<R, K> extends true 
           ? [ K ] 
         : []) 
@@ -184,24 +185,135 @@ export declare type _ToString<
 > = _Join<L, ",">;
 
 export declare type _Slice<
-  L extends any[]
-> = never;
+  L extends any[],
+  Start=0,
+  End=_Length<L>,
+  Counter=(
+    _IsNegative<
+      IterationOf<_Cast<Start, number>>
+    > extends true 
+      ? _IsNegative<
+        _Add<
+          IterationOf<_Length<L>>,
+          IterationOf<_Cast<Start, number>>
+        >
+      > extends true 
+        ? 0
+      : Pos<_Add<
+        IterationOf<_Length<L>>,
+        IterationOf<_Cast<Start, number>>
+      >>
+    : Start
+  ),
+  Result=[]
+> = Counter extends End
+? Result
+: _Lower<
+IterationOf<_Cast<Start, number>>,
+IterationOf<_Cast<End, number>>
+> extends true 
+? _Slice<
+  L,
+  Start,
+  (
+    _IsNegative<
+      IterationOf<_Cast<End, number>>
+    > extends true 
+      ? Pos<_Add<
+          IterationOf<_Length<L>>,
+          IterationOf<_Cast<End, number>>
+        >>
+    : End
+  ),
+  _Incr<
+    IterationOf<_Cast<Counter, number>>
+  >,
+  [ ..._Cast<Result, any[]>,
+    ...(_Lower<
+      IterationOf<_Cast<Counter, number>>,
+      IterationOf<_Length<L>>
+    > extends true 
+      ? [ L[_Cast<Counter, number>] ]
+    : [])
+  ]
+>
+: [];
 
 export declare type _Splice<
-  L extends any[]
-> = never;
+  L extends any[],
+  Start=0,
+  DeleteCount=_Length<L>,
+  Index=(
+    _IsNegative<
+      IterationOf<_Cast<Start, number>>
+    > extends true 
+      ? _IsNegative<
+        _Add<
+          IterationOf<_Length<L>>,
+          IterationOf<_Cast<Start, number>>
+        >
+      > extends true 
+        ? 0
+      : Pos<_Add<
+        IterationOf<_Length<L>>,
+        IterationOf<_Cast<Start, number>>
+      >>
+    : Start
+  ),
+  Target=(
+    _Greater<
+      IterationOf<Pos<_Add<
+        IterationOf<_Cast<Index, number>>,
+        IterationOf<_Cast<DeleteCount, number>>
+      >>>,
+      IterationOf<_Length<L>>
+    > extends true
+      ? _Length<L>
+    : Pos<_Add<
+      IterationOf<_Cast<Index, number>>,
+      IterationOf<_Cast<DeleteCount, number>>
+    >>
+  ),
+  Result=[]
+> = _Or<
+  _IsNegative<IterationOf<_Cast<Target, number>>>,
+  _GreaterEq<IterationOf<_Cast<Index, number>>, IterationOf<_Cast<Target, number>>>
+> extends true 
+  ? [
+    ...(_Cast<Result, any[]>),
+  ]
+: _Splice<
+  L,
+  Start,
+  DeleteCount,
+  _Incr<IterationOf<_Cast<Index, number>>>,
+  Target,
+  _Push<
+    _Cast<Result, any[]>,
+    L[_Cast<Index, number>]
+  >
+>
 
 export declare type _Concat<
   L1 extends any[],
   L2 extends any[]
-> = never;
+> = [
+  ...L1,
+  ...L2
+];
 
 export declare type _Push<
-  L extends any[]
-> = never;
+  L extends any[],
+  T extends any
+> = [
+  ...L,
+  T
+];
 
 export declare type _Insert<
-  L extends any[]
+  L extends any[],
+  I extends number,
+  T extends any
 > = never;
 
 export declare type _Drop<

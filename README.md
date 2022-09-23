@@ -54,7 +54,7 @@
 ```typescript
 type Reversed = Tx.Array.Reverse<[1, 2, 3]>; // [3, 2, 1]
 type Replaced = Tx.String.ReplaceAll<"Hello world!", "o", "x">; // "Hellx wxrld!"
-// And more...
+// More coming soon...
 ```
 
 ```diff

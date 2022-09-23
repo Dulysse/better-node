@@ -1,4 +1,4 @@
-import { _Equal, _And } from "./operators";
+import { _Equal, _And, _Cast } from "./operators";
 import { 
   _Length as ArrayLength
 } from "./_array";
@@ -7,9 +7,10 @@ import {
   _IsPositive,
   _IsNegative,
   _Decr,
-  _Add
+  _Add,
+  _Incr
 } from "./_number";
-import { IterationOf } from "./iterations";
+import { IterationOf, Pos } from "./iterations";
 
 export declare type _Split<
   T extends string, 
@@ -60,7 +61,7 @@ export declare type _ReplaceAll<
   Next=_Replace<T, From, To>
 > = T extends Next
   ? T
-: _ReplaceAll<Next, From, To>;
+: _ReplaceAll<_Cast<Next, string>, From, To>;
 
 export declare type _Reverse<
   T extends string,
@@ -88,51 +89,50 @@ export declare type _Slice<
   End=_Length<T>,
   Counter=(
     _IsNegative<
-      IterationOf<Start>
+      IterationOf<_Cast<Start, number>>
     > extends true 
       ? _IsNegative<
         _Add<
           IterationOf<_Length<T>>,
-          IterationOf<Start>
+          IterationOf<_Cast<Start, number>>
         >
       > extends true 
         ? 0
-      : _Add<
+      : Pos<_Add<
         IterationOf<_Length<T>>,
-        IterationOf<Start>
-      >[0]
+        IterationOf<_Cast<Start, number>>
+      >>
     : Start
   ),
   Result=""
 > = Counter extends End
   ? Result
 : _Lower<
-  IterationOf<Start>,
-  IterationOf<End>
+  IterationOf<_Cast<Start, number>>,
+  IterationOf<_Cast<End, number>>
 > extends true 
   ? _Slice<
     T,
     Start,
     (
       _IsNegative<
-        IterationOf<End>
+        IterationOf<_Cast<End, number>>
       > extends true 
-        ? _Add<
+        ? Pos<_Add<
             IterationOf<_Length<T>>,
-            IterationOf<End>
-          >[0]
+            IterationOf<_Cast<End, number>>
+          >>
       : End
     ),
-    _Add<
-      IterationOf<Counter>, 
-      IterationOf<1>
-    >[0],
-    `${Result}${
+    _Incr<
+      IterationOf<_Cast<Counter, number>>
+    >,
+    `${_Cast<Result, string>}${
       _Lower<
-        IterationOf<Counter>,
+        IterationOf<_Cast<Counter, number>>,
         IterationOf<_Length<T>>
       > extends true 
-        ? _At<T, Counter> 
+        ? _At<T, _Cast<Counter, number>> 
       : ""
     }`
   >
