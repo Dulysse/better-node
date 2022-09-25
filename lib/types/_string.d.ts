@@ -1,6 +1,6 @@
-import { _Equal, _And, _Cast } from "./operators";
+import { _Equal, _And, _Cast, _Or } from "./operators";
 import { 
-  _Length as ArrayLength
+  _Length as ArrayLength, _Push
 } from "./_array";
 import { 
   _Lower,
@@ -19,13 +19,19 @@ export declare type _Split<
 > = T extends `${infer Start}${S}${infer Next}` 
   ? _Split<
     Next, 
-    S, 
-    [ ...(Result extends any[] ? Result : []), Start ]
+    S,
+    _Push<
+      _Cast<Result, any[]>,
+      Start
+    >
   >
 : T extends `${infer End}` 
   ? _Equal<End, ""> extends true
-    ? [ ...(Result extends any[] ? Result : []) ] 
-  : [ ...(Result extends any[] ? Result : []), End ]
+    ? _Cast<Result, any[]> 
+  : _Push<
+    _Cast<Result, any[]>,
+    End
+  >
 : never;
 
 export declare type _At<
@@ -42,9 +48,42 @@ export declare type _Length<
 export declare type _IndexOf<
   T extends string,
   S extends string
-> = T extends `${infer Before}${S}${infer _}`
+> = _Or<
+  _Equal<T, string>,
+  _Equal<S, string>
+> extends true
+  ? number
+: _Length<S> extends 0 
+  ? 0
+: T extends `${infer Before}${S}${infer _}`
   ? _Length<Before>
 : -1;
+
+export declare type _LastIndexOf<
+  T extends string,
+  S extends string,
+  Result=-1
+> =  _Or<
+  _Equal<T, string>,
+  _Equal<S, string>
+> extends true
+  ? number
+: _Length<S> extends 0 
+  ? _Length<T>
+: T extends `${infer Before}${S}${infer End}`
+  ? _LastIndexOf<
+    End,
+    S,
+    _IsNegative<IterationOf<_Cast<Result, number>>> extends true 
+      ? _Length<Before>
+    : Pos<
+      _Add<
+        IterationOf<_Cast<Result, number>>,
+        IterationOf<_Incr<IterationOf<_Length<Before>>>>
+      >
+    >
+  >
+: Result;
 
 export declare type _Replace<
   T extends string, 

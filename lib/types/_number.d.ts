@@ -1,4 +1,4 @@
-import { _And, _Cast, _Equal, _Or } from "./operators";
+import { _And, _Cast, _Equal, _NotEqual, _Or } from "./operators";
 import { 
   Iteration, 
   IterationOf,
@@ -7,6 +7,7 @@ import {
   Next,
   IterationMap
 } from "./iterations";
+import { _Desc, _Length, _Push } from "./_array";
 
 export declare type _Way = '->' | '<-';
 
@@ -39,6 +40,63 @@ export declare type SubNegative<N1 extends Iteration, N2 extends Iteration> = _S
 export declare type AddPositive<N1 extends Iteration, N2 extends Iteration> = _AddPositive<N1, N2> extends infer X ? _Cast<X, Iteration> : never;
 export declare type AddNegative<N1 extends Iteration, N2 extends Iteration> = _AddNegative<N1, N2> extends infer X ? _Cast<X, Iteration> : never;
 
+export declare type MultiplyPositive<
+  N1 extends Iteration, 
+  N2 extends Iteration,
+  Result=IterationOf<0>
+> =  
+_Or< 
+  _IsZero<N2>,
+  _Equal<Result, IterationOf<number>>
+> extends true
+  ? Result
+: MultiplyPositive<
+  N1,
+  IterationOf<_Decr<N2>>,
+  _Cast<IterationOf<number>, _Add<N1, _Cast<Result, Iteration>>>
+>;
+
+export declare type MultiplyNegative<
+  N1 extends Iteration, 
+  N2 extends Iteration,
+  Result=MultiplyPositive<N1, _Negate<N2>>
+> = _Negate<
+  _Cast<Result, Iteration>
+>;
+
+export declare type DividePositive<
+  N1 extends Iteration, 
+  N2 extends Iteration,
+  Total=IterationOf<0>,
+  IsPositive=_IsPositive<N1>
+> = _IsZero<N2> extends true 
+  ? never
+: _IsZero<N1> extends true 
+  ? Total
+: _Or<
+  _And<
+    _IsNegative<N1>,
+    _Equal<IsPositive, true>
+  >,
+  _And<
+    _IsPositive<N1>,
+    _NotEqual<IsPositive, true>
+  >
+> extends true 
+  ? IterationOf<IsPositive extends true ? _Decr<_Cast<Total, Iteration>> : _Incr<_Cast<Total, Iteration>>>
+: DividePositive<
+  IsPositive extends true ? _Sub<N1, N2> : _Add<N1, N2>,
+  N2,
+  IterationOf<IsPositive extends true ? _Incr<_Cast<Total, Iteration>> : _Decr<_Cast<Total, Iteration>>>,
+  IsPositive
+>;
+
+export declare type DivideNegative<
+  N1 extends Iteration, 
+  N2 extends Iteration
+> = _Negate<DividePositive<N1, _Negate<N2>>>;
+
+
 export declare type _IsPositive<N extends Iteration> = {
   '-': false;
   '+': true;
@@ -61,27 +119,49 @@ export declare type _Sub<
   N1 extends Iteration, 
   N2 extends Iteration
 > = {
-  'false': SubPositive<N1, N2>;
-  'true': SubNegative<N1, N2>;
+  'false': _Or<_Equal<Pos<N1>, number>, _Equal<Pos<N2>, number>> extends true ? IterationOf<number> : SubPositive<N1, N2>;
+  'true': _Or<_Equal<Pos<N1>, number>, _Equal<Pos<N2>, number>> extends true ? IterationOf<number> : SubNegative<N1, N2>;
 }[`${_IsNegative<N2>}`];
+
 export declare type _Add<
   N1 extends Iteration, 
   N2 extends Iteration
 > = {
-  'false': AddPositive<N1, N2>;
-  'true': AddNegative<N1, N2>;
+  'false': _Or<_Equal<Pos<N1>, number>, _Equal<Pos<N2>, number>> extends true ? IterationOf<number> : AddPositive<N1, N2>;
+  'true': _Or<_Equal<Pos<N1>, number>, _Equal<Pos<N2>, number>> extends true ? IterationOf<number> : AddNegative<N1, N2>;
 }[`${_IsNegative<N2>}`];
+
+export declare type _Multiply<
+  N1 extends Iteration, 
+  N2 extends Iteration
+> = {
+  'false': _Or<_Equal<Pos<N1>, number>, _Equal<Pos<N2>, number>> extends true ? IterationOf<number> : MultiplyPositive<N1, N2>;
+  'true': _Or<_Equal<Pos<N1>, number>, _Equal<Pos<N2>, number>> extends true ? IterationOf<number> : MultiplyNegative<N1, N2>;
+}[`${_IsNegative<N2>}`];
+
+export declare type _Divide<
+  N1 extends Iteration, 
+  N2 extends Iteration
+> = {
+  'false': _Or<_Equal<Pos<N1>, number>, _Equal<Pos<N2>, number>> extends true ? IterationOf<number> : DividePositive<N1, N2>;
+  'true': _Or<_Equal<Pos<N1>, number>, _Equal<Pos<N2>, number>> extends true ? IterationOf<number> : DivideNegative<N1, N2>;
+}[`${_IsNegative<N2>}`];
+
+
 export declare type _Negate<
   N extends Iteration
 > = IterationMap[N[4]];
+
 export declare type _Greater<
   N1 extends Iteration, 
   N2 extends Iteration
 > = _IsPositive<_Sub<N1, N2>>;
+
 export declare type _Lower<
   N1 extends Iteration, 
   N2 extends Iteration
 > = _IsNegative<_Sub<N1, N2>>;
+
 export declare type _GreaterEq<
   N1 extends Iteration, 
   N2 extends Iteration, 
@@ -90,6 +170,7 @@ export declare type _GreaterEq<
   _IsPositive<_Cast<Result, Iteration>>, 
   _IsZero<_Cast<Result, Iteration>>
 >;
+
 export declare type _LowerEq<
   N1 extends Iteration, 
   N2 extends Iteration, 
@@ -98,6 +179,7 @@ export declare type _LowerEq<
   _IsNegative<_Cast<Result, Iteration>>, 
   _IsZero<_Cast<Result, Iteration>>
 >;
+
 export declare type _Enum<
   N extends Iteration,
   Way extends _Way
@@ -125,42 +207,87 @@ export declare type EnumAscPositive<
   Start=IterationOf<0>,
   Result=[]
 > = _Equal<Pos<N>, Pos<_Cast<Start, Iteration>>> extends true 
-  ? [ ..._Cast<Result, number[]> ] 
-: EnumAscPositive<N, Next<_Cast<Start, Iteration>>, [ ..._Cast<Result, number[]>, Pos<_Cast<Start, Iteration>> ]>;
+  ? _Cast<Result, number[]> 
+: EnumAscPositive<
+  N, 
+  Next<_Cast<Start, Iteration>>,
+  _Push<
+    _Cast<Result, number[]>,
+    Pos<_Cast<Start, Iteration>>
+  >
+>;
 
 export declare type EnumAscNegative<
   N extends Iteration,
   End=IterationOf<0>,
   Result=[]
 > = _Equal<Pos<N>, Pos<_Cast<End, Iteration>>> extends true 
-  ? [ ..._Cast<Result, number[]> ] 
-: EnumAscNegative<Next<N>, End, [ ..._Cast<Result, number[]>, Pos<Next<N>> ]>;
+  ? _Cast<Result, number[]>
+: EnumAscNegative<
+  Next<N>, 
+  End,
+  _Push<
+    _Cast<Result, number[]>,
+    Pos<Next<N>>
+  >
+>;
 
 export declare type EnumDescPositive<
   N extends Iteration,
   End=IterationOf<0>,
   Result=[]
 > = _Equal<Pos<N>, Pos<_Cast<End, Iteration>>> extends true 
-  ? [ ..._Cast<Result, number[]> ] 
-: EnumDescPositive<Prev<N>, End, [ ..._Cast<Result, number[]>, Pos<Prev<N>> ]>;
+  ? _Cast<Result, number[]> 
+: EnumDescPositive<
+  Prev<N>, 
+  End, 
+  _Push<
+    _Cast<Result, number[]>,
+    Pos<Prev<N>>
+  >
+>;
 
 export declare type EnumDescNegative<
   N extends Iteration,
   Start=IterationOf<0>,
   Result=[]
 > = _Equal<Pos<N>, Pos<_Cast<Start, Iteration>>> extends true 
-? [ ..._Cast<Result, number[]> ] 
-: EnumDescNegative<N, Prev<_Cast<Start, Iteration>>, [ ..._Cast<Result, number[]>, Pos<_Cast<Start, Iteration>> ]>;
+? _Cast<Result, number[]> 
+: EnumDescNegative<
+  N, 
+  Prev<_Cast<Start, Iteration>>,
+  _Push<
+    _Cast<Result, number[]>,
+    Pos<_Cast<Start, Iteration>>
+  >
+>;
 
 export declare type _Range<
   N1 extends Iteration, 
   N2 extends Iteration,
   Result=[]
 > = _Equal<Pos<N1>, Pos<N2>> extends true 
-  ? [ ..._Cast<Result, number[]>, Pos<N1> ]
+  ? _Push<
+    _Cast<Result, number[]>,
+    Pos<N1>
+  >
 : _Greater<N2, N1> extends true 
-  ? _Range<Next<N1>, N2, [ ..._Cast<Result, number[]>, Pos<N1> ]>
-: _Range<Prev<N1>, N2, [ ..._Cast<Result, number[]>, Pos<N1> ]>
+  ? _Range<
+    Next<N1>, 
+    N2,
+    _Push<
+      _Cast<Result, number[]>,
+      Pos<N1>
+    >
+  >
+: _Range<
+  Prev<N1>, 
+  N2, 
+  _Push<
+    _Cast<Result, number[]>,
+    Pos<N1>
+  >
+>
 
 export declare type _Incr<
   N extends Iteration
@@ -177,4 +304,24 @@ export declare type _Between<
 > = _And<
   _GreaterEq<N, From>,
   _LowerEq<N, To>
+>;
+
+export declare type _IsEven<
+  N extends Iteration
+> = _Equal<
+  _Multiply<
+    _Divide<N, IterationOf<2>>,
+    IterationOf<2>
+  >,
+  N
+>;
+
+export declare type _IsOdd<
+  N extends Iteration
+> = _NotEqual<
+  _Multiply<
+    _Divide<N, IterationOf<2>>,
+    IterationOf<2>
+  >,
+  N
 >;

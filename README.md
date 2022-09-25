@@ -33,7 +33,7 @@
 <i> A magic toolkit for typing </i>
 ##### Architecture
 ```txt
-/T
+/Tx
   --/Array
       --/Split
       --/...
@@ -52,9 +52,28 @@
 ```
 ##### Usage example
 ```typescript
-type Reversed = Tx.Array.Reverse<[1, 2, 3]>; // [3, 2, 1]
-type Replaced = Tx.String.ReplaceAll<"Hello world!", "o", "x">; // "Hellx wxrld!"
-// More coming soon...
+type T1 = Tx.Array.Reverse<[1, 2, 3]>;
+type T1 = [3, 2, 1];
+
+type T2 = Tx.String.ReplaceAll<"Hello world!", "o", "x">;
+type T2 = "Hellx wxrld!";
+
+type T3 = Tx.Number.Multiply<9, 9>;
+type T3 = 81;
+
+type T4 = Tx.Object.Merge<{ name: "hello" }, { age: 22 }>;
+type T4 = { name: "hello", age: 22 };
+
+type T5 = Tx.String.Slice<"Hello world!", 1, 4>;
+type T5 = "ell";
+
+type T6 = Tx.Number.Sub<19, 8>;
+type T6 = 11;
+
+type T7 = Tx.Array.Average<[1, 2, 3, 4, 5]>;
+type T7 = 3;
+
+// AND MUCH MORE !
 ```
 
 ```diff

@@ -13,15 +13,21 @@ import {
   _Enum,
   _Incr,
   _Decr,
-  _Between
+  _Between,
+  _Multiply,
+  _Divide,
+  _IsOdd,
+  _IsEven
 } from "./_number";
-import { IterationOf } from "./iterations";
+import { IterationOf, Pos } from "./iterations";
 
 declare global {
   namespace Tx {
     namespace Number {
-      type Sub<N1 extends number, N2 extends number> = N1 extends unknown ? N2 extends unknown ? _Sub<IterationOf<N1>, IterationOf<N2>>[0] : never : never;
-      type Add<N1 extends number, N2 extends number> = N1 extends unknown ? N2 extends unknown ? _Add<IterationOf<N1>, IterationOf<N2>>[0] : never : never;
+      type Sub<N1 extends number, N2 extends number> = N1 extends unknown ? N2 extends unknown ? Pos<_Sub<IterationOf<N1>, IterationOf<N2>>> : never : never;
+      type Add<N1 extends number, N2 extends number> = N1 extends unknown ? N2 extends unknown ? Pos<_Add<IterationOf<N1>, IterationOf<N2>>> : never : never;
+      type Multiply<N1 extends number, N2 extends number> = N1 extends unknown ? N2 extends unknown ? Pos<_Multiply<IterationOf<N1>, IterationOf<N2>>> : never : never;
+      type Divide<N1 extends number, N2 extends number> = N1 extends unknown ? N2 extends unknown ? Pos<_Divide<IterationOf<N1>, IterationOf<N2>>> : never : never;
       type IsPositive<N extends number> = _IsPositive<IterationOf<N>>;
       type IsNegative<N extends number> = _IsNegative<IterationOf<N>>;
       type IsZero<N extends number> = _IsZero<IterationOf<N>>;
@@ -35,6 +41,8 @@ declare global {
       type Incr<N extends number> = _Incr<IterationOf<N>>;
       type Decr<N extends number> = _Decr<IterationOf<N>>;
       type Between<N extends number, From extends number, To extends number> = _Between<IterationOf<N>, IterationOf<From>, IterationOf<To>>;
+      type IsEven<N extends number> = _IsEven<IterationOf<N>>;
+      type IsOdd<N extends number> = _IsOdd<IterationOf<N>>;
     }
   }
 }

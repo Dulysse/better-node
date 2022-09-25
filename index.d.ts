@@ -12,6 +12,6 @@
 export * from './lib/array';
 export * from './lib/object';
 export * from './lib/string';
-export * from './lib/types';
 export * from './lib/number';
 export * from './lib/math';
+export * from './lib/types';

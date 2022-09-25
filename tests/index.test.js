@@ -21,7 +21,7 @@ console.log(array);
 
 const ax = [ true ];
 const b = Object.copy(ax);
-b.insert(1, b.length);
+b.insert("Hello", 2);
 console.log(a, b);
 
 console.log('Wow'.bg_green.black);

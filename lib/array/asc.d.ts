@@ -1,4 +1,4 @@
-import { _Equal } from "../types/operators";
+import { _Of } from "../types/_array";
 
 declare global {
   interface Array<T> {
@@ -7,7 +7,7 @@ declare global {
      * ### Order your array in ascending order
      * @return {number[] | null} your sorted array or null in case of other type than number.
      */
-    asc(): _Equal<T, number> extends true ? T[] : null
+    asc(): _Of<T[], number> extends true ? T[] : null; 
   }
 }
 export {};
