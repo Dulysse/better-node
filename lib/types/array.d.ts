@@ -333,19 +333,157 @@ declare global {
        * @param {any} T  The element to remove
        * @returns {any[]} The array without the dropped elements
       */
-      type Drop<L extends any[], T extends any> = _Drop<L, T>
+      type Drop<L extends any[], T extends any> = _Drop<L, T>;
+      /**
+       * `From @dulysse1/better-node`
+       * ### Insert an element in an array at a specific index
+       * @example
+       * ```ts
+       * type T = Tx.Array.Insert<[1, 2, 3, 4], 2, 5>;
+       * type T = [1, 2, 5, 3, 4];
+       * ```
+       * @param {any[]} L  The target array
+       * @param {number} I The index of the pushed element
+       * @param {any} T  The element to push
+       * @returns {any[]} The array with the new element
+      */
       type Insert<L extends any[], I extends number, T extends any> = _Insert<L, I, T>;
+      /**
+       * `From @dulysse1/better-node`
+       * ### Check the type of the array
+       * @example
+       * ```ts
+       * type T = Tx.Array.Of<["hello"], string>;
+       * type T = true;
+       * ```
+       * @param {any[]} L  The target array
+       * @param {any} T  The type to check
+       * @returns {boolean} A boolean at true if the array and type match
+      */
       type Of<L extends any[], T extends any> = _Of<L, T>;
+      /**
+       * `From @dulysse1/better-node`
+       * ### Create a new array with all sub-array elements concatenated into it recursively up to the specified depth
+       * @example
+       * ```ts
+       * type T = Tx.Array.Flat<["hello", [1, 2, 3]]>;
+       * type T = ["hello", 1, 2, 3];
+       * ```
+       * @param {any[]} L  The target array
+       * @param {number} Depth  The depth of concatenation
+       * @default 1
+       * @returns {any[]} The array concatenated `depth` time(s)
+      */
       type Flat<L extends any[], Depth=1> = _Flat<L, Depth>;
+      /**
+       * `From @dulysse1/better-node`
+       * ### Get the element at an index of the array
+       * @example
+       * ```ts
+       * type T = Tx.Array.At<[1, 2, "3", 4, 5], 2>;
+       * type T = "3";
+       * ```
+       * @param {any[]} L  The target array
+       * @param {number} I The index of the array
+       * @returns {any} The element at that index of `undefined`
+      */
       type At<L extends any[], I extends number> = _At<L, I>;
-
+      /**
+       * `From @dulysse1/better-node`
+       * ### Sort an array of numbers in ascending order
+       * @example
+       * ```ts
+       * type T = Tx.Array.Asc<[5, 2, 1, 4, 3]>;
+       * type T = [1, 2, 3, 4, 5];
+       * ```
+       * @param {number[]} L  The target array
+       * @returns {number[]} The array sorted
+      */
       type Asc<L extends number[]> = _Asc<L>;
+      /**
+       * `From @dulysse1/better-node`
+       * ### Sort an array of numbers in descending order
+       * @example
+       * ```ts
+       * type T = Tx.Array.Desc<[5, 2, 1, 4, 3]>;
+       * type T = [5, 4, 3, 2, 1];
+       * ```
+       * @param {number[]} L  The target array
+       * @returns {number[]} The array sorted
+      */
       type Desc<L extends number[]> = _Desc<L>;
+      /**
+       * `From @dulysse1/better-node`
+       * ### Get the sum of all elements of an array of numbers
+       * @example
+       * ```ts
+       * type T = Tx.Array.Sum<[5, 2, 1, 4, 3]>;
+       * type T = 15
+       * ```
+       * @param {number[]} L  The target array
+       * @returns {number} The sum of the elements of the array
+      */
       type Sum<L extends number[]> = _Sum<L>;
+      /**
+       * `From @dulysse1/better-node`
+       * ### Get the average of all elements of an array of numbers
+       * @example
+       * ```ts
+       * type T = Tx.Array.Average<[5, 2, 1, 4, 3]>;
+       * type T = 3
+       * ```
+       * @param {number[]} L  The target array
+       * @returns {number} The average of the elements of the array
+      */
       type Average<L extends number[]> = _Average<L>;
+      /**
+       * `From @dulysse1/better-node`
+       * ### Get the `minimum` value of an element in an array of numbers
+       * @example
+       * ```ts
+       * type T = Tx.Array.Min<[5, 2, 1, 4, 3]>;
+       * type T = 1
+       * ```
+       * @param {number[]} L  The target array
+       * @returns {number} The minimum value of the array
+      */
       type Min<L extends number[]> = _Min<L>;
+      /**
+       * `From @dulysse1/better-node`
+       * ### Get the `maximum` value of an element in an array of numbers
+       * @example
+       * ```ts
+       * type T = Tx.Array.Max<[5, 2, 1, 4, 3]>;
+       * type T = 5
+       * ```
+       * @param {number[]} L  The target array
+       * @returns {number} The maximum value of the array
+      */
       type Max<L extends number[]> = _Max<L>;
+      /**
+       * `From @dulysse1/better-node`
+       * ### Get the median of all elements of an array of numbers
+       * @example
+       * ```ts
+       * type T = Tx.Array.Average<[5, 2, 1, 4, 3]>;
+       * type T = 3
+       * ```
+       * @param {number[]} L  The target array
+       * @returns {number} The median of the elements of the array
+      */
       type Median<L extends number[]> = _Median<L>;
+      /**
+       * `From @dulysse1/better-node`
+       * ### Check if an array of numbers is sorted in `ASC` or `DESC`
+       * @example
+       * ```ts
+       * type T = Tx.Array.IsSorted<[5, 2, 1, 4, 3], "ASC">;
+       * type T = false
+       * ```
+       * @param {number[]} L  The target array
+       * @param {"ASC"|"DESC"} Type "ASC" or "DESC" 
+       * @returns {boolean} A boolean at true if the array is sorted
+      */
       type IsSorted<L extends number[], Type extends ("ASC"|"DESC")> = _IsSorted<L, Type>;
     }
   }

@@ -19,3 +19,5 @@ type h = Tx.Array.Average<[ 0, 10, 10, 13, 22 ]>;
 type i = Tx.Array.Filter<[ 0, 10, 10, 13, 22, 10 ], () => "10">;
 
 type j = Tx.Object.Object;
+
+type k = Tx.Object.Omit<{ name?: "françois", age: 22 }, "age">;
