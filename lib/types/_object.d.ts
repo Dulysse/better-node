@@ -1,4 +1,5 @@
 import { _Equal, _Cast } from "./operators";
+import { _Exclude } from "./_union";
 
 export declare type _Object = {
   [key: string]: any;
@@ -30,7 +31,7 @@ export declare type _Partial<
 export declare type _Omit<
   O extends _Object,
   K extends keyof _Object,
-  E=Exclude<keyof O, K>
+  E=_Exclude<keyof O, K>
 > = {
   [K in _Cast<E, keyof _Object>]: O[_Cast<K, keyof _Object>];
 }

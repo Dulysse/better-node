@@ -653,3 +653,7 @@ declare type _OneFlat<
     >     
   > 
 : never;
+
+export declare type _ToUnion<
+  L extends any[]
+> = L[number];

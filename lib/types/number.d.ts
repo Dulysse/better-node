@@ -17,7 +17,8 @@ import {
   _Multiply,
   _Divide,
   _IsOdd,
-  _IsEven
+  _IsEven,
+  _Way
 } from "./_number";
 import { IterationOf, Pos } from "./iterations";
 
@@ -153,7 +154,7 @@ declare global {
        * @param {"->"|"<-"} Way "->" OR "<-"
        * @returns {number[]} A range of numbers
       */
-      type Enum<N extends number, Way="->"> = _Enum<IterationOf<N>, Way>;
+      type Enum<N extends number, Way extends _Way="->"> = _Enum<IterationOf<N>, Way>;
       /**
        * `From @dulysse1/better-node`
        * ### Check if `N` is between two numbers or not

@@ -49,6 +49,9 @@
   --/Number
       --/Add
       --/...
+  --/Union
+      --/ToArray
+      --/...
 ```
 ##### Usage example
 ```typescript
@@ -72,6 +75,9 @@ type T6 = 11;
 
 type T7 = Tx.Array.Average<[1, 2, 3, 4, 5]>;
 type T7 = 3;
+
+type T8 = Tx.Union.ToArray<1 | 2 | 3 | 4 | 5>;
+type T8 = [1, 2, 3, 4, 5];
 
 // AND MUCH MORE !
 ```

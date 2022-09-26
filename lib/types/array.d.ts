@@ -30,7 +30,8 @@ import {
   _Min,
   _Max,
   _Median,
-  _At
+  _At,
+  _ToUnion
 } from "./_array";
 
 declare global {
@@ -485,6 +486,18 @@ declare global {
        * @returns {boolean} A boolean at true if the array is sorted
       */
       type IsSorted<L extends number[], Type extends ("ASC"|"DESC")> = _IsSorted<L, Type>;
+      /**
+       * `From @dulysse1/better-node`
+       * ### Transform an array to an union
+       * @example 
+       * ```ts
+       * type T = Tx.Array.ToUnion<["hello", "world"]>;
+       * type T = "hello" | "world";
+       * ```
+       * @param {any[]} L  The target union type
+       * @returns {any} The array as union type
+      */
+      type ToUnion<L extends any[]> = _ToUnion<L>; 
     }
   }
 }
