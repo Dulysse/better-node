@@ -1,5 +1,5 @@
 import { 
-  Object,
+  _Object,
   _Merge
 } from "./_object";
 
@@ -11,7 +11,7 @@ declare global {
        * ### Type global object
        * @returns {Object} Object
        */
-      type Object = Object;
+      type Object = _Object;
       /**
        * `From @dulysse1/better-node`
        * ### Merge O1 and O2
