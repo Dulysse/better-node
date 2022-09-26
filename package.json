@@ -3,7 +3,10 @@
   "version": "2.1.2",
   "description": "Improve Node types & add object properties",
   "main": "index.js",
-  "author": "Ulysse Dupont",
+  "author": {
+    "name": "Ulysse Dupont",
+    "url": "https://github.com/dulysse"
+  },
   "repository": {
     "url": "https://github.com/Dulysse/better-node",
     "type": "public"
@@ -24,6 +27,9 @@
     "array",
     "number",
     "object",
-    "string"
+    "string",
+    "safe",
+    "tools",
+    "typesafe"
   ]
 }
