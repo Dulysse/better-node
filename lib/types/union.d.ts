@@ -1,4 +1,4 @@
-import { _Last, _Exclude, _ToArray } from "./_union";
+import { _Last, _Exclude, _ToArray, _Length } from "./_union";
 
 declare global {
   namespace Tx {
@@ -39,7 +39,19 @@ declare global {
        * @param {any} U  The target union type
        * @returns {any[]} The union as array
       */
-      type ToArray<U extends any> = _ToArray<U, M>;
+      type ToArray<U extends any> = _ToArray<U>;
+      /**
+       * `From @dulysse1/better-node`
+       * ### get the length of the union
+       * @example 
+       * ```ts
+       * type T = Tx.Union.Length<"hello" | "world">;
+       * type T = 2;
+       * ```
+       * @param {any} U  The target union type
+       * @returns {any[]} The length of the union
+      */
+       type Length<U extends any> = _Length<U>;
     }
   }
 }
