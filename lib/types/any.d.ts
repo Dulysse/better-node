@@ -3,7 +3,8 @@ import {
   _NotEqual, 
   _Cast,
   _And,
-  _Or
+  _Or,
+  _Not
 } from "./operators";
 
 declare global {
@@ -74,6 +75,18 @@ declare global {
        * @returns {boolean} a boolean
        */
       type Or<B1 extends boolean, B2 extends boolean> = _Or<B1, B2>;
+      /**
+       * `From @dulysse1/better-node`
+       * ### `true` -> `false` || `false` -> `true` 
+       * @example 
+       * ```ts
+       * type T = Tx.Any.Not<true>;
+       * type T = false;
+       * ```
+       * @param {boolean} B The target condition
+       * @returns {boolean} the negate boolean of `B`
+       */
+      type Not<B extends boolean> = _Not<B>;
     }
   } 
 }

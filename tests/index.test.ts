@@ -25,3 +25,5 @@ type k = Tx.Object.Omit<{ name?: "françois", age: 22 }, "age">;
 type l = Tx.Union.ToArray<"coucou" | "lol">
 
 type m = Tx.Array.ToUnion<l>;
+
+type n = Tx.Any.NotEqual<"test", "test2">
