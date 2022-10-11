@@ -79,6 +79,9 @@ type T7 = 3;
 type T8 = Tx.Union.ToArray<1 | 2 | 3 | 4 | 5>;
 type T8 = [1, 2, 3, 4, 5];
 
+type T9 = Tx.String.Last<"hello">;
+type T9 = "o"
+
 // AND MUCH MORE !
 ```
 
