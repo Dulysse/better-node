@@ -1,4 +1,4 @@
-import { _Equal, _And, _Cast, _Or } from "./operators";
+import { _Equal, _And, _Cast, _Or, _NotEqual } from "./operators";
 import { 
   _Length as ArrayLength, _Push
 } from "./_array";
@@ -32,6 +32,28 @@ export declare type _Split<
     _Cast<Result, any[]>,
     End
   >
+: never;
+
+export declare type _First<
+  T extends string
+> = T extends string 
+  ? _NotEqual<T, string> extends true 
+    ? _NotEqual<_Length<T>, 0> extends true
+      ? T extends `${infer F}${string}`
+        ? F
+      : string
+    : undefined
+  : string
+: never;
+
+export declare type _Last<
+  T extends string
+> = T extends string 
+  ? _NotEqual<T, string> extends true 
+    ? _NotEqual<_Length<T>, 0> extends true
+      ? _At<T, _Decr<IterationOf<_Length<T>>>>
+    : undefined
+  : string
 : never;
 
 export declare type _At<

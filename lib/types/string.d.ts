@@ -7,12 +7,38 @@ import {
   _Replace,
   _ReplaceAll,
   _Reverse,
-  _Slice
+  _Slice,
+  _First,
+  _Last
 } from "./_string";
 
 declare global {
   namespace Tx {
     namespace String {
+      /**
+       * `From @dulysse1/better-node`
+       * ### Get the `first` element of a string 
+       * @example 
+       * ```ts
+       * type T = Tx.String.First<"hello">;
+       * type T = "h";
+       * ```
+       * @param {string} T  The target string
+       * @returns {string} The `first` element of the string
+      */
+      type First<T extends string> = _First<T>;
+      /**
+        * `From @dulysse1/better-node`
+        * ### Get the `last` element of a string 
+        * @example 
+        * ```ts
+        * type T = Tx.String.Last<"hello">;
+        * type T = "o";
+        * ```
+        * @param {string} T  The target string
+        * @returns {string} The `last` element of the string
+      */
+      type Last<T extends string> = _Last<T>;
       /**
        * `From @dulysse1/better-node`
        * ### Split a string to an array

@@ -39,3 +39,5 @@ console.log("UserHasName".uncapitalized("_", true));
 let name = "Francois";
 console.log(name.replaceAll("a", "x"))
 console.log(name)
+
+console.log("coucou".last())

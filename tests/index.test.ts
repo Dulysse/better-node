@@ -27,3 +27,5 @@ type l = Tx.Union.ToArray<"coucou" | "lol">
 type m = Tx.Array.ToUnion<l>;
 
 type n = Tx.Any.NotEqual<"test", "test2">
+
+type o = Tx.String.Last<"coucou">;
