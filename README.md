@@ -3,11 +3,14 @@
 
 ### How to install ?
 
-```node
+#### With npm
+
+```shell
 > npm install @dulysse1/better-node
 ```
+#### With yarn
 
-```node
+```shell
 > yarn add @dulysse1/better-node
 ```
 
