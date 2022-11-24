@@ -7,6 +7,10 @@
 > npm install @dulysse1/better-node
 ```
 
+```node
+> yarn add @dulysse1/better-node
+```
+
 ### How to use ?
 
 ```typescript
