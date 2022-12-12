@@ -1,10 +1,12 @@
-type ObjectKeys<T> = 
+import { _ToUnion } from "../types/_array";
+
+type ObjectKeys<T> =
     T extends object ? (keyof T)[] :
     T extends number ? [] :
     T extends Array<any> | string ? string[] :
     never;
 
-type ObjectValues<T> = 
+type ObjectValues<T> =
   T extends { [key: string]: infer R } ? R[] :
   T extends number ? [] :
   T extends Array<any> | string ? string[] :
@@ -15,8 +17,8 @@ declare global {
   interface ObjectConstructor {
     keys<T>(o: T): ObjectKeys<T>;
     entries<T>(o: T): [
-      UnpackArrayType<ObjectKeys<T>>, 
-      UnpackArrayType<ObjectValues<T>>
+      _ToUnion<ObjectKeys<T>>,
+      _ToUnion<ObjectValues<T>>
     ][];
     values<T>(o: T): ObjectValues<T>;
     /**
