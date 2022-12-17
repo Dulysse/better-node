@@ -1,6 +1,6 @@
 {
   "name": "@dulysse1/better-node",
-  "version": "2.1.8",
+  "version": "2.1.9",
   "description": "Improve Node types & add object properties",
   "main": "index.js",
   "author": {
