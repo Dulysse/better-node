@@ -29,5 +29,40 @@ declare global {
      */
     copy<T>(o: T): T extends object ? T : Error;
   }
+  interface Object {
+    /**
+     * `From @dulysse1/better-node`
+     * ### Make a copy of an object
+     * @returns {this} your object copied in memory
+     */
+    copy(): this;
+    /**
+     * `From @dulysse1/better-node`
+     * ### Get list of object entries
+     * @returns your object entries as array
+     */
+    entries(): [
+      string | symbol | number,
+      unknown
+    ][];
+    /**
+     * `From @dulysse1/better-node`
+     * ### Get list of object keys
+     * @returns object keys as array
+     */
+    keys(): string | symbol | number[];
+    /**
+     * `From @dulysse1/better-node`
+     * ### Get list of object values
+     * @returns object values as array
+     */
+    values(): unknown[];
+    /**
+     * `From @dulysse1/better-node`
+     * ### Make an object iterable called by the semantics of the for-of statement.
+     * @returns the object with `[Symbol.iteration]` method
+     */
+    iterable<T extends Object[number] = Object["entries"]>(fn: T): ReturnType<T>;
+  }
 }
 export {};

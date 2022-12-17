@@ -46,3 +46,11 @@ Object.entries({
   test: "test",
   demo: true
 });
+
+const x = {
+  "test": true
+};
+
+for (const i of x.iterable(Object.values)) {
+  console.log(i);
+}
