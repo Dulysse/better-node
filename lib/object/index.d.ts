@@ -1,4 +1,5 @@
 import { _ToUnion } from "../types/_array";
+import { _Merge } from "../types/_object";
 
 type ObjectKeys<T> =
     T extends object ? (keyof T)[] :
@@ -62,7 +63,7 @@ declare global {
      * ### Make an object iterable called by the semantics of the for-of statement.
      * @returns the object with `[Symbol.iteration]` method
      */
-    iterable<T extends Object[number] = Object["entries"]>(fn: T): ReturnType<T>;
+    iterable<T extends Generator>(fn: T): _Merge<{ [Symbol.iterator]: T }, this>;
   }
 }
 export {};

@@ -48,9 +48,19 @@ Object.entries({
 });
 
 const x = {
-  "test": true
+  "test": true,
+  "demo": "false"
 };
 
-for (const i of x.iterable(Object.values)) {
-  console.log(i);
-}
+const fs = async function*() {
+  for (const e of Object.entries(x)) {
+    await new Promise(res => setTimeout(res, 1000));
+    yield e;
+  }
+};
+
+(async() => {
+  for await (const i of fs()) {
+    console.log(i)
+  }
+})();
