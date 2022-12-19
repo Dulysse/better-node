@@ -237,62 +237,6 @@ console.log(
 ```node
 > true
 ```
-
-#### Object
-```typescript
-// OBJECT ENTRIES
-const user = {
-  name: "ulysse",
-  age: 22
-};
-console.log(
-  user.entries()
-);
-```
-```node
-> [ [ "name", "ulysse" ], [ "age", 22 ] ]
-```
-```typescript
-// OBJECT KEYS
-const user = {
-  name: "ulysse",
-  age: 22
-};
-console.log(
-  user.keys()
-);
-```
-```node
-> [ "name", "age" ]
-```
-```typescript
-// OBJECT VALUES
-const user = {
-  name: "ulysse",
-  age: 22
-};
-console.log(
-  user.values()
-);
-```
-```node
-> [ "ulysse", 22 ]
-```
-```typescript
-// OBJECT ITERATION
-const user = {
-  name: "ulysse",
-  age: 22
-};
-for (const i of user.iterable()) {
-  console.log(i)
-}
-```
-```node
-> [ "name", "ulysse" ]
-> [ "age", 22 ]
-```
-
 ## And more... :)
 
 ### Contact

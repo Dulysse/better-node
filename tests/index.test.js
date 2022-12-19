@@ -41,26 +41,3 @@ console.log(name.replaceAll("a", "x"));
 console.log(name);
 
 console.log("coucou".last());
-
-Object.entries({
-  test: "test",
-  demo: true
-});
-
-const x = {
-  "test": true,
-  "demo": "false"
-};
-
-const fs = async function*() {
-  for (const e of Object.entries(x)) {
-    await new Promise(res => setTimeout(res, 1000));
-    yield e;
-  }
-};
-
-(async() => {
-  for await (const i of fs()) {
-    console.log(i)
-  }
-})();
