@@ -4,7 +4,7 @@ declare global {
      * `From @dulysse1/better-node`
      * ### Customize your log color
      */
-    bold: string;
+    bolded: string;
     /**
      * `From @dulysse1/better-node`
      * ### Customize your log color

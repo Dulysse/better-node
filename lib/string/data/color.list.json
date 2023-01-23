@@ -1,5 +1,5 @@
 {
-  "bold": "\u001B[1m",
+  "bolded": "\u001B[1m",
   "dim": "\u001B[2m",
   "italic": "\u001B[3m",
   "underline": "\u001B[4m",
