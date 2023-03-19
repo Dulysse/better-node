@@ -1,4 +1,3 @@
-/// <reference path="../types/_array.d.ts" />
 interface Array<T> {
   /**
    * @from `@dulysse1/better-node`
@@ -7,5 +6,5 @@ interface Array<T> {
    * @param newElement The new value you want to assign
    * @returns {T[]} your array updated
    */
-  replaceAll<C extends T, N extends any>(currentElement: C, newElement: N): _ReplaceAll<T[], C, N> | (T | N)[];
+  replaceAll<C extends T, N extends any>(currentElement: C, newElement: N): (T | N)[];
 }

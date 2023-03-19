@@ -1,4 +1,3 @@
-/// <reference path="capitalized.d.ts" />
 interface String {
   /**
      * @from `@dulysse1/better-node`
@@ -8,5 +7,5 @@ interface String {
      * @param sep Your Uncapitalized separator
      * @returns {string} Your string uncapitalized
   */
-  uncapitalized<T extends Separator>(sep?: T, firstChar = true): string;
+  uncapitalized<T extends "-" | "_" | " ">(sep?: T, firstChar = true): string;
 }

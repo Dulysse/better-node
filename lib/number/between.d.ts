@@ -1,5 +1,3 @@
-/// <reference path="../types/number.d.ts" />
-/// <reference path="../types/operators.d.ts" />
 interface Number {
   /**
    * @from `@dulysse1/better-node`
@@ -11,5 +9,5 @@ interface Number {
   between<
     Min extends number,
     Max extends number
-  >(min: number, max: number): _Cast<Tx.Number.Between<Min, Max>, boolean>;
+  >(min: number, max: number): boolean;
 }

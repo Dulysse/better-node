@@ -1,4 +1,3 @@
-type Separator = "-" | "_" | " ";
 interface String {
   /**
      * @from `@dulysse1/better-node`
@@ -8,5 +7,5 @@ interface String {
      * @param sep Your capitalize separator
      * @returns {string} Your string capitalized
   */
-  capitalized<T extends Separator>(sep?: T, firstChar = true): string;
+  capitalized<T extends "-" | "_" | " ">(sep?: T, firstChar = true): string;
 }
