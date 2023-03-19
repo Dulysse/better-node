@@ -1,2 +1,2 @@
-export * from './float';
-export * from './between';
+/// <reference path="between.d.ts" />
+/// <reference path="float.d.ts" />

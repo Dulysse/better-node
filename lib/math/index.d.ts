@@ -1,2 +1,2 @@
-export * from './radian';
-export * from './degree';
+/// <reference path="radian.d.ts" />
+/// <reference path="degree.d.ts" />

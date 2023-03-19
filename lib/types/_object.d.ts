@@ -1,13 +1,14 @@
-import { _Equal, _Cast } from "./operators";
-import { _Exclude } from "./_union";
+/// <reference path="operators.d.ts" />
+/// <reference path="_union.d.ts" />
 
-export declare type _Object = {
+declare type _Object = {
   [key: string]: any;
   [key: number]: any;
   [key: bigint]: any;
+  [key: symbol]: any;
 }
 
-export declare type _Merge<
+declare type _Merge<
   O1 extends _Object,
   O2 extends _Object
 > = {
@@ -16,22 +17,22 @@ export declare type _Merge<
   : O1[_Cast<K, keyof _Object>];
 }
 
-export declare type _Required<
+declare type _Required<
   O extends _Object
 > = {
   [K in keyof O]-?: O[_Cast<K, keyof _Object>];
 }
 
-export declare type _Partial<
+declare type _Partial<
   O extends _Object
 > = {
   [K in keyof O]?: O[_Cast<K, keyof _Object>];
 }
 
-export declare type _Omit<
+declare type _Omit<
   O extends _Object,
   K extends keyof _Object,
-  E=_Exclude<keyof O, K>
+  E=_UnionExclude<keyof O, K>
 > = {
   [K in _Cast<E, keyof _Object>]: O[_Cast<K, keyof _Object>];
 }

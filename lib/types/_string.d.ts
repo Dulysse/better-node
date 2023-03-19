@@ -1,23 +1,14 @@
-import { _Equal, _And, _Cast, _Or, _NotEqual } from "./operators";
-import { 
-  _Length as ArrayLength, _Push
-} from "./_array";
-import { 
-  _Lower,
-  _IsPositive,
-  _IsNegative,
-  _Decr,
-  _Add,
-  _Incr
-} from "./_number";
-import { IterationOf, Pos } from "./iterations";
+/// <reference path="operators.d.ts" />
+/// <reference path="_array.d.ts" />
+/// <reference path="iterations.d.ts" />
+/// <reference path="_number.d.ts" />
 
-export declare type _Split<
+declare type _StringSplit<
   T extends string, 
   S extends string,
   Result=[]
 > = T extends `${infer Start}${S}${infer Next}` 
-  ? _Split<
+  ? _StringSplit<
     Next, 
     S,
     _Push<
@@ -34,11 +25,11 @@ export declare type _Split<
   >
 : never;
 
-export declare type _First<
+declare type _StringFirst<
   T extends string
 > = T extends string 
   ? _NotEqual<T, string> extends true 
-    ? _NotEqual<_Length<T>, 0> extends true
+    ? _NotEqual<_StringLength<T>, 0> extends true
       ? T extends `${infer F}${string}`
         ? F
       : string
@@ -46,28 +37,28 @@ export declare type _First<
   : string
 : never;
 
-export declare type _Last<
+declare type _StringLast<
   T extends string
 > = T extends string 
   ? _NotEqual<T, string> extends true 
-    ? _NotEqual<_Length<T>, 0> extends true
-      ? _At<T, _Decr<IterationOf<_Length<T>>>>
+    ? _NotEqual<_StringLength<T>, 0> extends true
+      ? _StringAt<T, _Decr<IterationOf<_StringLength<T>>>>
     : undefined
   : string
 : never;
 
-export declare type _At<
+declare type _StringAt<
   T extends string, 
   I extends number,
-  Result=_Split<T, "">[I]
+  Result=_StringSplit<T, "">[I]
 > = Result extends string ? Result : never;
 
-export declare type _Length<
+declare type _StringLength<
   T extends string, 
-  Result=ArrayLength<_Split<T, "">>
+  Result=_Length<_StringSplit<T, "">>
 > = Result extends number ? Result : never;
 
-export declare type _IndexOf<
+declare type _StringIndexOf<
   T extends string,
   S extends string
 > = _Or<
@@ -75,13 +66,13 @@ export declare type _IndexOf<
   _Equal<S, string>
 > extends true
   ? number
-: _Length<S> extends 0 
+: _StringLength<S> extends 0 
   ? 0
 : T extends `${infer Before}${S}${infer _}`
-  ? _Length<Before>
+  ? _StringLength<Before>
 : -1;
 
-export declare type _LastIndexOf<
+declare type _StringLastIndexOf<
   T extends string,
   S extends string,
   Result=-1
@@ -90,24 +81,24 @@ export declare type _LastIndexOf<
   _Equal<S, string>
 > extends true
   ? number
-: _Length<S> extends 0 
-  ? _Length<T>
+: _StringLength<S> extends 0 
+  ? _StringLength<T>
 : T extends `${infer Before}${S}${infer End}`
-  ? _LastIndexOf<
+  ? _StringLastIndexOf<
     End,
     S,
     _IsNegative<IterationOf<_Cast<Result, number>>> extends true 
-      ? _Length<Before>
+      ? _StringLength<Before>
     : Pos<
       _Add<
         IterationOf<_Cast<Result, number>>,
-        IterationOf<_Incr<IterationOf<_Length<Before>>>>
+        IterationOf<_Incr<IterationOf<_StringLength<Before>>>>
       >
     >
   >
 : Result;
 
-export declare type _Replace<
+declare type _StringReplace<
   T extends string, 
   From extends string, 
   To extends string
@@ -115,24 +106,24 @@ export declare type _Replace<
   ? `${Before}${To}${After}`
 : T;
 
-export declare type _ReplaceAll<
+declare type _StringReplaceAll<
   T extends string, 
   From extends string, 
   To extends string,
-  Next=_Replace<T, From, To>
+  Next=_StringReplace<T, From, To>
 > = T extends Next
   ? T
-: _ReplaceAll<_Cast<Next, string>, From, To>;
+: _StringReplaceAll<_Cast<Next, string>, From, To>;
 
-export declare type _Reverse<
+declare type _StringReverse<
   T extends string,
-  Counter=_Length<T>,
+  Counter=_StringLength<T>,
   Result=""
 > = Result extends string 
   ? Counter extends 0
     ? Result
   : T extends `${infer Start}${infer End}`
-    ? _Reverse<
+    ? _StringReverse<
       End,
       _Decr<
         IterationOf<
@@ -144,23 +135,23 @@ export declare type _Reverse<
   : never
 : never;
 
-export declare type _Slice<
+declare type _StringSlice<
   T extends string,
   Start=0,
-  End=_Length<T>,
+  End=_StringLength<T>,
   Counter=(
     _IsNegative<
       IterationOf<_Cast<Start, number>>
     > extends true 
       ? _IsNegative<
         _Add<
-          IterationOf<_Length<T>>,
+          IterationOf<_StringLength<T>>,
           IterationOf<_Cast<Start, number>>
         >
       > extends true 
         ? 0
       : Pos<_Add<
-        IterationOf<_Length<T>>,
+        IterationOf<_StringLength<T>>,
         IterationOf<_Cast<Start, number>>
       >>
     : Start
@@ -172,7 +163,7 @@ export declare type _Slice<
   IterationOf<_Cast<Start, number>>,
   IterationOf<_Cast<End, number>>
 > extends true 
-  ? _Slice<
+  ? _StringSlice<
     T,
     Start,
     (
@@ -180,7 +171,7 @@ export declare type _Slice<
         IterationOf<_Cast<End, number>>
       > extends true 
         ? Pos<_Add<
-            IterationOf<_Length<T>>,
+            IterationOf<_StringLength<T>>,
             IterationOf<_Cast<End, number>>
           >>
       : End
@@ -191,9 +182,9 @@ export declare type _Slice<
     `${_Cast<Result, string>}${
       _Lower<
         IterationOf<_Cast<Counter, number>>,
-        IterationOf<_Length<T>>
+        IterationOf<_StringLength<T>>
       > extends true 
-        ? _At<T, _Cast<Counter, number>> 
+        ? _StringAt<T, _Cast<Counter, number>> 
       : ""
     }`
   >

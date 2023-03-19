@@ -1,21 +1,21 @@
-import { _Insert, _Length as L } from "./_array";
+/// <reference path="_array.d.ts" />
 
-export declare type IntersectOf<U extends any> = (U extends unknown ? (k: U) => void : never) extends ((k: infer I) => void) ? I : never;
+declare type IntersectOf<U extends any> = (U extends unknown ? (k: U) => void : never) extends ((k: infer I) => void) ? I : never;
 
-export declare type _Last<U extends any> = IntersectOf<U extends unknown ? (x: U) => void : never> extends (x: infer P) => void ? P : never;
-export declare type _Exclude<U extends any, M extends any> = U extends M ? never : U;
+declare type _UnionLast<U extends any> = IntersectOf<U extends unknown ? (x: U) => void : never> extends (x: infer P) => void ? P : never;
+declare type _UnionExclude<U extends any, M extends any> = U extends M ? never : U;
 
-export declare type _ToArray<
+declare type _UnionToArray<
   U extends any, 
   LN extends any[] = [], 
-  LastU = _Last<U>
+  LastU = _UnionLast<U>
 > = [LastU] extends [never] 
   ? LN
-: _ToArray<
-  _Exclude<U, LastU>,
+: _UnionToArray<
+  _UnionExclude<U, LastU>,
   _Insert<LN, 0, LastU>
 >;
 
-export declare type _Length<
+declare type _UnionLength<
   U extends any
-> = L<_ToArray<U>>;
+> = L<_UnionToArray<U>>;

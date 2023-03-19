@@ -9,9 +9,9 @@
  * npm: https://www.npmjs.com/package/@dulysse1/better-node
  * 
  */
-export * from './lib/array';
-export * from './lib/object';
-export * from './lib/string';
-export * from './lib/number';
-export * from './lib/math';
-export * from './lib/types';
+/// <reference path="lib/array/index.d.ts" />
+/// <reference path="lib/object/index.d.ts" />
+/// <reference path="lib/string/index.d.ts" />
+/// <reference path="lib/number/index.d.ts" />
+/// <reference path="lib/math/index.d.ts" />
+/// <reference path="lib/types/index.d.ts" />

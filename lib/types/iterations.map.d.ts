@@ -1,4 +1,4 @@
-export declare type IterationMap = {
+declare type IterationMap = {
   '__': [number, '-' | '0' | '+', '__', '__', '__'];
   '-100': [-100, '-', '__', '-99', '100'];
   '-99': [-99, '-', '-100', '-98', '99'];

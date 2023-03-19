@@ -16,7 +16,7 @@ type g = Tx.Number.IsEven<0>;
 
 type h = Tx.Array.Average<[ 0, 10, 10, 13, 22 ]>;
 
-type i = Tx.Array.Filter<[ 0, 10, 10, 13, 22, 10 ], () => "10">;
+type i = Tx.Array.Filter<[ 0, 10, 10, 13, 22, 10 ], () => 10>;
 
 type j = Tx.Object.Object;
 

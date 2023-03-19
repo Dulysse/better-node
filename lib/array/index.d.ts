@@ -1,20 +1,15 @@
-export * from './average';
-export * from './flat';
-export * from './asc';
-export * from './desc';
-export * from './randomize';
-export * from './first';
-export * from './last';
-export * from './drop';
-export * from './sum';
-export * from './copy';
-export * from './insert';
-export * from './update';
-export * from './shuffle';
-export * from './replace';
-export * from './replaceAll';
-declare global {
-  interface Array {
-    fill<S extends any>(value: S, start?: number, end?: number): S[];
-  }
-}
+/// <reference path="average.d.ts" />
+/// <reference path="flat.d.ts" />
+/// <reference path="asc.d.ts" />
+/// <reference path="desc.d.ts" />
+/// <reference path="randomize.d.ts" />
+/// <reference path="first.d.ts" />
+/// <reference path="last.d.ts" />
+/// <reference path="drop.d.ts" />
+/// <reference path="sum.d.ts" />
+/// <reference path="copy.d.ts" />
+/// <reference path="insert.d.ts" />
+/// <reference path="update.d.ts" />
+/// <reference path="shuffle.d.ts" />
+/// <reference path="replace.d.ts" />
+/// <reference path="replaceAll.d.ts" />

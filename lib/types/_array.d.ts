@@ -1,28 +1,10 @@
-import { 
-  _Decr,
-  _Incr,
-  _Lower,
-  _IsNegative,
-  _Add,
-  _LowerEq,
-  _Sub,
-  _GreaterEq,
-  _Greater,
-  _Divide,
-  _IsEven
-} from "./_number";
-import { Iteration, IterationOf, Pos } from "./iterations";
-import { 
-  _And,
-  _Equal,
-  _NotEqual,
-  _Cast,
-  _Or
-} from "./operators";
+/// <reference path="iterations.d.ts" />
+/// <reference path="operators.d.ts" />
+/// <reference path="_number.d.ts" />
 
-export declare type _StringLiteralType = string | number | bigint | boolean;
+declare type _StringLiteralType = string | number | bigint | boolean;
 
-export declare type _StringLiteralTypeParser<
+declare type _StringLiteralTypeParser<
   T extends any
 > = T extends _StringLiteralType 
   ? T
@@ -31,7 +13,7 @@ export declare type _StringLiteralTypeParser<
   1: _Join<_Cast<T, any[]>, ",">
 }[T extends any[] ? 1 : 0];
 
-export declare type _Join<
+declare type _Join<
   L extends any[], 
   S extends string,
   Result=""
@@ -45,23 +27,23 @@ export declare type _Join<
   : never 
 : Result;
 
-export declare type _Length<
+declare type _Length<
   L extends any[]
 > = L extends any[] ? L['length'] : never;
 
-export declare type _Pop<
+declare type _Pop<
   L extends any[]
 > = L extends [ ...infer Start, infer _ ] 
   ? [ ...Start ] 
 : never;
 
-export declare type _Shift<
+declare type _Shift<
   L extends any[]
 > = L extends [ infer _, ...infer Next ] 
   ? [ ...Next ] 
 : never;
 
-export declare type _Replace<
+declare type _Replace<
   L extends any[], 
   From extends any, 
   To extends any,
@@ -106,7 +88,7 @@ export declare type _Replace<
   : never
 : L;
 
-export declare type _ReplaceAll<
+declare type _ReplaceAll<
   L extends any[], 
   From extends any,
   To extends any,
@@ -117,7 +99,7 @@ export declare type _ReplaceAll<
   ? _ReplaceAll<Next, From, To>
 : never;
 
-export declare type _Reverse<
+declare type _Reverse<
   L extends any[],
   Counter=_Length<L>,
   Result=[]
@@ -139,19 +121,19 @@ export declare type _Reverse<
   : never
 : never;
 
-export declare type _First<
+declare type _First<
   L extends any[]
 > = L extends [ infer First, ...infer _ ] 
   ? First
 : never;
 
-export declare type _Last<
+declare type _Last<
   L extends any[]
 > = L extends [ ...infer _, infer Last ] 
   ? Last
 : never;
 
-export declare type _IndexOf<
+declare type _IndexOf<
   L extends any[],
   T extends any,
   I=0
@@ -167,7 +149,7 @@ export declare type _IndexOf<
   > 
 : never;
 
-export declare type _LastIndexOf<
+declare type _LastIndexOf<
   L extends any[],
   T extends any,
   I=_Length<L>
@@ -183,7 +165,7 @@ export declare type _LastIndexOf<
   > 
 : never;
 
-export declare type _Includes<
+declare type _Includes<
   L extends any[],
   T extends any
 > = _NotEqual<
@@ -191,7 +173,7 @@ export declare type _Includes<
   -1
 >;
 
-export declare type _Filter<
+declare type _Filter<
   L extends any[],
   F extends () => any,
   Result=[]
@@ -210,7 +192,7 @@ export declare type _Filter<
   : Result
 : never;
 
-export declare type _Find<
+declare type _Find<
   L extends any[],
   F extends () => any,
   Result=null
@@ -226,11 +208,11 @@ export declare type _Find<
   : Result
 : never;
 
-export declare type _ToString<
+declare type _ToString<
   L extends any[]
 > = _Join<L, ",">;
 
-export declare type _Slice<
+declare type _Slice<
   L extends any[],
   Start=0,
   End=_Length<L>,
@@ -286,7 +268,7 @@ IterationOf<_Cast<End, number>>
 >
 : [];
 
-export declare type _Splice<
+declare type _Splice<
   L extends any[],
   Start=0,
   DeleteCount=_Length<L>,
@@ -339,7 +321,7 @@ export declare type _Splice<
   >
 >
 
-export declare type _Concat<
+declare type _Concat<
   L1 extends any[],
   L2 extends any[]
 > = [
@@ -347,7 +329,7 @@ export declare type _Concat<
   ...L2
 ];
 
-export declare type _Push<
+declare type _Push<
   L extends any[],
   T extends any
 > = [
@@ -355,7 +337,7 @@ export declare type _Push<
   T
 ];
 
-export declare type _Insert<
+declare type _Insert<
   L extends any[],
   I extends number,
   T extends any
@@ -373,7 +355,7 @@ export declare type _Insert<
   >
 >
 
-export declare type _Drop<
+declare type _Drop<
   L extends any[],
   T extends any,
   Result=[]
@@ -392,7 +374,7 @@ export declare type _Drop<
   >
 : never;
 
-export declare type _Sum<
+declare type _Sum<
   L extends number[],
   Total=0
 > = _Equal<_Length<L>, 0> extends true 
@@ -409,20 +391,20 @@ export declare type _Sum<
   >
 : never;
 
-export declare type _Average<
+declare type _Average<
   L extends number[],
   Result=(_Divide<
     IterationOf<_Cast<_Sum<L>, number>>,
     IterationOf<_Cast<_Length<L>, number>>
   >)
-> = Pos<
+> = _Equal<L, number[]> extends true ? number : Pos<
   _Cast<
     Result,
     Iteration
   >
 >;
 
-export declare type _IsSorted<
+declare type _IsSorted<
   L extends number[],
   Type extends ("ASC"|"DESC"),
   Result=true
@@ -457,7 +439,7 @@ export declare type _IsSorted<
   ? number[]
 : Result;
 
-export declare type _Asc<
+declare type _Asc<
   L extends number[],
   Result=[] 
 > = _Equal<_Length<L>, 0> extends true 
@@ -496,7 +478,7 @@ export declare type _Asc<
   ? number[]
 : never;
 
-export declare type _Desc<
+declare type _Desc<
   L extends number[],
   Result=[] 
 > = _Equal<_Length<L>, 0> extends true 
@@ -535,15 +517,15 @@ export declare type _Desc<
   ? number[]
 : never;
 
-export declare type _Min<
+declare type _Min<
   L extends number[]
 > = _First<_Asc<L>>;
 
-export declare type _Max<
+declare type _Max<
   L extends number[]
 > = _First<_Desc<L>>;
 
-export declare type _Median<
+declare type _Median<
   L extends number[],
   AL=_Asc<L>
 > = _IsEven<IterationOf<_Length<_Cast<AL, number[]>>>> extends true 
@@ -579,7 +561,7 @@ export declare type _Median<
   >
 >;
 
-export declare type _Of<
+declare type _Of<
   L extends any[],
   T extends any
 > = L extends (infer R)[]
@@ -588,7 +570,7 @@ export declare type _Of<
   : false
 : never;
 
-export declare type _At<
+declare type _At<
   L extends any[],
   I extends number,
   Index=(
@@ -615,7 +597,7 @@ export declare type _At<
   ? L[_Cast<Index, number>]
 : undefined;
 
-export declare type _Flat<
+declare type _Flat<
   L extends any[],
   Depth=1
 > = _Or<
@@ -654,6 +636,6 @@ declare type _OneFlat<
   > 
 : never;
 
-export declare type _ToUnion<
+declare type _ToUnion<
   L extends any[]
 > = L[number];
