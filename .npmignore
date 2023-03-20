@@ -1,3 +1,6 @@
 tests/
 tsconfig.json
 .vscode/
+.prettierignore
+.prettierrc.json
+.husky/

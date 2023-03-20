@@ -7,7 +7,7 @@
  * @description Improve Node types & add object properties
  * Project: 'https://github.com/Dulysse/better-node'
  * npm: https://www.npmjs.com/package/@dulysse1/better-node
- * 
+ *
  */
 /// <reference path="lib/array/index.d.ts" />
 /// <reference path="lib/object/index.d.ts" />
