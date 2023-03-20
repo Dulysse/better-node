@@ -3,7 +3,6 @@
 	"version": "2.2.3",
 	"description": "Improve Node types & add object properties",
 	"main": "./index.js",
-	"module": "./index.mjs",
 	"types": "./index.d.ts",
 	"lint-staged": {
 		"**/*": "prettier --write --ignore-unknown"
@@ -12,37 +11,30 @@
 		"./package.json": "./package.json",
 		".": {
 			"types": "./index.d.ts",
-			"import": "./index.mjs",
 			"default": "./index.js"
 		},
 		"./array": {
 			"types": "./lib/array/index.d.ts",
-			"import": "./lib/array/index.mjs",
 			"default": "./lib/array/index.js"
 		},
 		"./string": {
 			"types": "./lib/string/index.d.ts",
-			"import": "./lib/string/index.mjs",
 			"default": "./lib/string/index.js"
 		},
 		"./math": {
 			"types": "./lib/math/index.d.ts",
-			"import": "./lib/math/index.mjs",
 			"default": "./lib/math/index.js"
 		},
 		"./number": {
 			"types": "./lib/number/index.d.ts",
-			"import": "./lib/number/index.mjs",
 			"default": "./lib/number/index.js"
 		},
 		"./object": {
 			"types": "./lib/object/index.d.ts",
-			"import": "./lib/object/index.mjs",
 			"default": "./lib/object/index.js"
 		},
 		"./tx": {
 			"types": "./lib/types/index.d.ts",
-			"import": "./lib/types/index.mjs",
 			"default": "./lib/types/index.js"
 		}
 	},

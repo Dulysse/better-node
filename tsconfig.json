@@ -80,5 +80,5 @@
 		"skipLibCheck": true /* Skip type checking of declaration files. */,
 		"forceConsistentCasingInFileNames": true /* Disallow inconsistently-cased references to the same file. */
 	},
-	"exclude": ["index.js", "index.mjs", "lib"]
+	"exclude": ["index.js", "lib"]
 }
