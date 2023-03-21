@@ -5,6 +5,8 @@ namespace Tx {
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Type global object
+		 * @param {any} T Return type of object
+		 * @default any
 		 * @example
 		 * ```ts
 		 * type T = Tx.Object.Object;
@@ -12,7 +14,7 @@ namespace Tx {
 		 * ```
 		 * @returns {Object} Object
 		 */
-		type Object = _Object;
+		type Object<T = any> = _Object<T>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Merge `O1` and `O2`

@@ -1,4 +1,4 @@
-declare type _Cast<A1 extends any, A2 extends any> = A1 extends A2 ? A1 : A2;
+declare type _Satisfy<A1 extends any, A2 extends any> = A1 extends A2 ? A1 : A2;
 
 declare type _Not<B extends boolean> = _And<
 	B extends boolean ? true : false,

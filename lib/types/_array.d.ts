@@ -9,7 +9,7 @@ declare type _StringLiteralTypeParser<T extends any> =
 		? T
 		: {
 				0: "[object Object]";
-				1: _Join<_Cast<T, any[]>, ",">;
+				1: _Join<_Satisfy<T, any[]>, ",">;
 		  }[T extends any[] ? 1 : 0];
 
 declare type _Join<L extends any[], S extends string, Result = ""> = L extends [
@@ -53,7 +53,7 @@ declare type _Replace<
 					End,
 					From,
 					To,
-					_Push<_Cast<Result, any[]>, AsChange extends false ? To : From>,
+					_Push<_Satisfy<Result, any[]>, AsChange extends false ? To : From>,
 					AsChange extends false ? true : AsChange,
 					_Decr<IterationOf<Counter extends number ? Counter : never>>
 			  >
@@ -61,7 +61,7 @@ declare type _Replace<
 					End,
 					From,
 					To,
-					_Push<_Cast<Result, any[]>, Start>,
+					_Push<_Satisfy<Result, any[]>, Start>,
 					AsChange,
 					_Decr<IterationOf<Counter extends number ? Counter : never>>
 			  >
@@ -139,7 +139,7 @@ declare type _Filter<
 		? _Filter<
 				Next,
 				F,
-				_Concat<_Cast<Result, any[]>, _Equal<R, K> extends true ? [K] : []>
+				_Concat<_Satisfy<Result, any[]>, _Equal<R, K> extends true ? [K] : []>
 		  >
 		: Result
 	: never;
@@ -160,34 +160,34 @@ declare type _Slice<
 	L extends any[],
 	Start = 0,
 	End = _Length<L>,
-	Counter = _IsNegative<IterationOf<_Cast<Start, number>>> extends true
+	Counter = _IsNegative<IterationOf<_Satisfy<Start, number>>> extends true
 		? _IsNegative<
-				_Add<IterationOf<_Length<L>>, IterationOf<_Cast<Start, number>>>
+				_Add<IterationOf<_Length<L>>, IterationOf<_Satisfy<Start, number>>>
 		  > extends true
 			? 0
-			: Pos<_Add<IterationOf<_Length<L>>, IterationOf<_Cast<Start, number>>>>
+			: Pos<_Add<IterationOf<_Length<L>>, IterationOf<_Satisfy<Start, number>>>>
 		: Start,
 	Result = []
 > = Counter extends End
 	? Result
 	: _Lower<
-			IterationOf<_Cast<Start, number>>,
-			IterationOf<_Cast<End, number>>
+			IterationOf<_Satisfy<Start, number>>,
+			IterationOf<_Satisfy<End, number>>
 	  > extends true
 	? _Slice<
 			L,
 			Start,
-			_IsNegative<IterationOf<_Cast<End, number>>> extends true
-				? Pos<_Add<IterationOf<_Length<L>>, IterationOf<_Cast<End, number>>>>
+			_IsNegative<IterationOf<_Satisfy<End, number>>> extends true
+				? Pos<_Add<IterationOf<_Length<L>>, IterationOf<_Satisfy<End, number>>>>
 				: End,
-			_Incr<IterationOf<_Cast<Counter, number>>>,
+			_Incr<IterationOf<_Satisfy<Counter, number>>>,
 			_Concat<
-				_Cast<Result, any[]>,
+				_Satisfy<Result, any[]>,
 				_Lower<
-					IterationOf<_Cast<Counter, number>>,
+					IterationOf<_Satisfy<Counter, number>>,
 					IterationOf<_Length<L>>
 				> extends true
-					? [L[_Cast<Counter, number>]]
+					? [L[_Satisfy<Counter, number>]]
 					: []
 			>
 	  >
@@ -197,19 +197,19 @@ declare type _Splice<
 	L extends any[],
 	Start = 0,
 	DeleteCount = _Length<L>,
-	Index = _IsNegative<IterationOf<_Cast<Start, number>>> extends true
+	Index = _IsNegative<IterationOf<_Satisfy<Start, number>>> extends true
 		? _IsNegative<
-				_Add<IterationOf<_Length<L>>, IterationOf<_Cast<Start, number>>>
+				_Add<IterationOf<_Length<L>>, IterationOf<_Satisfy<Start, number>>>
 		  > extends true
 			? 0
-			: Pos<_Add<IterationOf<_Length<L>>, IterationOf<_Cast<Start, number>>>>
+			: Pos<_Add<IterationOf<_Length<L>>, IterationOf<_Satisfy<Start, number>>>>
 		: Start,
 	Target = _Greater<
 		IterationOf<
 			Pos<
 				_Add<
-					IterationOf<_Cast<Index, number>>,
-					IterationOf<_Cast<DeleteCount, number>>
+					IterationOf<_Satisfy<Index, number>>,
+					IterationOf<_Satisfy<DeleteCount, number>>
 				>
 			>
 		>,
@@ -218,16 +218,16 @@ declare type _Splice<
 		? _Length<L>
 		: Pos<
 				_Add<
-					IterationOf<_Cast<Index, number>>,
-					IterationOf<_Cast<DeleteCount, number>>
+					IterationOf<_Satisfy<Index, number>>,
+					IterationOf<_Satisfy<DeleteCount, number>>
 				>
 		  >,
 	Result = []
 > = _Or<
-	_IsNegative<IterationOf<_Cast<Target, number>>>,
+	_IsNegative<IterationOf<_Satisfy<Target, number>>>,
 	_GreaterEq<
-		IterationOf<_Cast<Index, number>>,
-		IterationOf<_Cast<Target, number>>
+		IterationOf<_Satisfy<Index, number>>,
+		IterationOf<_Satisfy<Target, number>>
 	>
 > extends true
 	? Result
@@ -235,9 +235,9 @@ declare type _Splice<
 			L,
 			Start,
 			DeleteCount,
-			_Incr<IterationOf<_Cast<Index, number>>>,
+			_Incr<IterationOf<_Satisfy<Index, number>>>,
 			Target,
-			_Push<_Cast<Result, any[]>, L[_Cast<Index, number>]>
+			_Push<_Satisfy<Result, any[]>, L[_Satisfy<Index, number>]>
 	  >;
 
 declare type _Concat<L1 extends any[], L2 extends any[]> = [...L1, ...L2];
@@ -262,7 +262,7 @@ declare type _Drop<L extends any[], T extends any, Result = []> = _Equal<
 			Next,
 			T,
 			_Concat<
-				_Cast<Result, any[]>,
+				_Satisfy<Result, any[]>,
 				_Equal<Start, T> extends true ? [] : [Start]
 			>
 	  >
@@ -272,14 +272,14 @@ declare type _Sum<L extends number[], Total = 0> = _Equal<
 	_Length<L>,
 	0
 > extends true
-	? _Cast<Total, number>
+	? _Satisfy<Total, number>
 	: L extends [infer Start, ...infer Next]
 	? _Sum<
-			_Cast<Next, number[]>,
+			_Satisfy<Next, number[]>,
 			Pos<
 				_Add<
-					IterationOf<_Cast<Total, number>>,
-					IterationOf<_Cast<Start, number>>
+					IterationOf<_Satisfy<Total, number>>,
+					IterationOf<_Satisfy<Start, number>>
 				>
 			>
 	  >
@@ -288,34 +288,36 @@ declare type _Sum<L extends number[], Total = 0> = _Equal<
 declare type _Average<
 	L extends number[],
 	Result = _Divide<
-		IterationOf<_Cast<_Sum<L>, number>>,
-		IterationOf<_Cast<_Length<L>, number>>
+		IterationOf<_Satisfy<_Sum<L>, number>>,
+		IterationOf<_Satisfy<_Length<L>, number>>
 	>
-> = _Equal<L, number[]> extends true ? number : Pos<_Cast<Result, Iteration>>;
+> = _Equal<L, number[]> extends true
+	? number
+	: Pos<_Satisfy<Result, Iteration>>;
 
 declare type _IsSorted<
 	L extends number[],
 	Type extends "ASC" | "DESC",
 	Result = true
 > = _Equal<_Length<L>, 0> extends true
-	? _Cast<Result, boolean>
+	? _Satisfy<Result, boolean>
 	: L extends [infer Start, infer Second, ...infer Next]
 	? _IsSorted<
-			[_Cast<Second, number>, ..._Cast<Next, number[]>],
+			[_Satisfy<Second, number>, ..._Satisfy<Next, number[]>],
 			Type,
 			_Or<
 				_And<
 					_Equal<Type, "ASC">,
 					_Greater<
-						IterationOf<_Cast<Start, number>>,
-						IterationOf<_Cast<Second, number>>
+						IterationOf<_Satisfy<Start, number>>,
+						IterationOf<_Satisfy<Second, number>>
 					>
 				>,
 				_And<
 					_Equal<Type, "DESC">,
 					_Lower<
-						IterationOf<_Cast<Start, number>>,
-						IterationOf<_Cast<Second, number>>
+						IterationOf<_Satisfy<Start, number>>,
+						IterationOf<_Satisfy<Second, number>>
 					>
 				>
 			> extends true
@@ -330,18 +332,21 @@ declare type _Asc<L extends number[], Result = []> = _Equal<
 	_Length<L>,
 	0
 > extends true
-	? _IsSorted<_Cast<Result, number[]>, "ASC"> extends true
-		? _Cast<Result, number[]>
-		: _Asc<_Cast<Result, number[]>>
+	? _IsSorted<_Satisfy<Result, number[]>, "ASC"> extends true
+		? _Satisfy<Result, number[]>
+		: _Asc<_Satisfy<Result, number[]>>
 	: L extends [infer First, ...infer Next]
 	? Result extends [...infer _, infer Last]
 		? _LowerEq<
-				IterationOf<_Cast<Last, number>>,
-				IterationOf<_Cast<First, number>>
+				IterationOf<_Satisfy<Last, number>>,
+				IterationOf<_Satisfy<First, number>>
 		  > extends true
-			? _Asc<_Cast<Next, number[]>, _Push<Result, _Cast<First, number>>>
-			: _Asc<_Cast<Next, number[]>, _Insert<Result, 0, _Cast<First, number>>>
-		: _Asc<_Cast<Next, number[]>, [First]>
+			? _Asc<_Satisfy<Next, number[]>, _Push<Result, _Satisfy<First, number>>>
+			: _Asc<
+					_Satisfy<Next, number[]>,
+					_Insert<Result, 0, _Satisfy<First, number>>
+			  >
+		: _Asc<_Satisfy<Next, number[]>, [First]>
 	: _Equal<L, number[]> extends true
 	? number[]
 	: never;
@@ -350,18 +355,21 @@ declare type _Desc<L extends number[], Result = []> = _Equal<
 	_Length<L>,
 	0
 > extends true
-	? _IsSorted<_Cast<Result, number[]>, "DESC"> extends true
-		? _Cast<Result, number[]>
-		: _Desc<_Cast<Result, number[]>>
+	? _IsSorted<_Satisfy<Result, number[]>, "DESC"> extends true
+		? _Satisfy<Result, number[]>
+		: _Desc<_Satisfy<Result, number[]>>
 	: L extends [infer First, ...infer Next]
 	? Result extends [...infer _, infer Last]
 		? _GreaterEq<
-				IterationOf<_Cast<Last, number>>,
-				IterationOf<_Cast<First, number>>
+				IterationOf<_Satisfy<Last, number>>,
+				IterationOf<_Satisfy<First, number>>
 		  > extends true
-			? _Desc<_Cast<Next, number[]>, _Push<Result, _Cast<First, number>>>
-			: _Desc<_Cast<Next, number[]>, _Insert<Result, 0, _Cast<First, number>>>
-		: _Desc<_Cast<Next, number[]>, [First]>
+			? _Desc<_Satisfy<Next, number[]>, _Push<Result, _Satisfy<First, number>>>
+			: _Desc<
+					_Satisfy<Next, number[]>,
+					_Insert<Result, 0, _Satisfy<First, number>>
+			  >
+		: _Desc<_Satisfy<Next, number[]>, [First]>
 	: _Equal<L, number[]> extends true
 	? number[]
 	: never;
@@ -371,17 +379,17 @@ declare type _Min<L extends number[]> = _First<_Asc<L>>;
 declare type _Max<L extends number[]> = _First<_Desc<L>>;
 
 declare type _Median<L extends number[], AL = _Asc<L>> = _IsEven<
-	IterationOf<_Length<_Cast<AL, number[]>>>
+	IterationOf<_Length<_Satisfy<AL, number[]>>>
 > extends true
 	? _Average<
 			_Splice<
-				_Cast<AL, number[]>,
+				_Satisfy<AL, number[]>,
 				_Decr<
 					IterationOf<
-						_Cast<
+						_Satisfy<
 							Pos<
 								_Divide<
-									IterationOf<_Length<_Cast<AL, number[]>>>,
+									IterationOf<_Length<_Satisfy<AL, number[]>>>,
 									IterationOf<2>
 								>
 							>,
@@ -393,9 +401,11 @@ declare type _Median<L extends number[], AL = _Asc<L>> = _IsEven<
 			>
 	  >
 	: _At<
-			_Cast<AL, number[]>,
-			_Cast<
-				Pos<_Divide<IterationOf<_Length<_Cast<AL, number[]>>>, IterationOf<2>>>,
+			_Satisfy<AL, number[]>,
+			_Satisfy<
+				Pos<
+					_Divide<IterationOf<_Length<_Satisfy<AL, number[]>>>, IterationOf<2>>
+				>,
 				number
 			>
 	  >;
@@ -409,38 +419,38 @@ declare type _Of<L extends any[], T extends any> = L extends (infer R)[]
 declare type _At<
 	L extends any[],
 	I extends number,
-	Index = _IsNegative<IterationOf<_Cast<I, number>>> extends true
+	Index = _IsNegative<IterationOf<_Satisfy<I, number>>> extends true
 		? _IsNegative<
-				_Add<IterationOf<_Length<L>>, IterationOf<_Cast<I, number>>>
+				_Add<IterationOf<_Length<L>>, IterationOf<_Satisfy<I, number>>>
 		  > extends true
 			? 0
-			: Pos<_Add<IterationOf<_Length<L>>, IterationOf<_Cast<I, number>>>>
+			: Pos<_Add<IterationOf<_Length<L>>, IterationOf<_Satisfy<I, number>>>>
 		: I
 > = _Greater<
 	IterationOf<_Length<L>>,
-	IterationOf<_Cast<Index, number>>
+	IterationOf<_Satisfy<Index, number>>
 > extends true
-	? L[_Cast<Index, number>]
+	? L[_Satisfy<Index, number>]
 	: undefined;
 
 declare type _Flat<L extends any[], Depth = 1> = _Or<
-	_Or<_Equal<Depth, 0>, _IsNegative<IterationOf<_Cast<Depth, number>>>>,
+	_Or<_Equal<Depth, 0>, _IsNegative<IterationOf<_Satisfy<Depth, number>>>>,
 	_And<_NotEqual<Depth, 0>, _Equal<_OneFlat<L>, L>>
 > extends true
 	? L
-	: _Flat<_OneFlat<L>, _Decr<IterationOf<_Cast<Depth, number>>>>;
+	: _Flat<_OneFlat<L>, _Decr<IterationOf<_Satisfy<Depth, number>>>>;
 
 declare type _OneFlat<L extends any[], Result = []> = _Equal<
 	_Length<L>,
 	0
 > extends true
-	? _Cast<Result, any[]>
+	? _Satisfy<Result, any[]>
 	: L extends [infer Start, ...infer Next]
 	? _OneFlat<
-			_Cast<Next, any[]>,
+			_Satisfy<Next, any[]>,
 			Start extends any[]
-				? _Concat<_Cast<Result, any[]>, _Cast<Start, any>>
-				: _Push<_Cast<Result, any[]>, _Cast<Start, any>>
+				? _Concat<_Satisfy<Result, any[]>, _Satisfy<Start, any>>
+				: _Push<_Satisfy<Result, any[]>, _Satisfy<Start, any>>
 	  >
 	: never;
 

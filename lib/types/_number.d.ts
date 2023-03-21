@@ -31,19 +31,19 @@ declare type _AddNegative<N1 extends Iteration, N2 extends Iteration> = {
 declare type SubPositive<
 	N1 extends Iteration,
 	N2 extends Iteration
-> = _SubPositive<N1, N2> extends infer X ? _Cast<X, Iteration> : never;
+> = _SubPositive<N1, N2> extends infer X ? _Satisfy<X, Iteration> : never;
 declare type SubNegative<
 	N1 extends Iteration,
 	N2 extends Iteration
-> = _SubNegative<N1, N2> extends infer X ? _Cast<X, Iteration> : never;
+> = _SubNegative<N1, N2> extends infer X ? _Satisfy<X, Iteration> : never;
 declare type AddPositive<
 	N1 extends Iteration,
 	N2 extends Iteration
-> = _AddPositive<N1, N2> extends infer X ? _Cast<X, Iteration> : never;
+> = _AddPositive<N1, N2> extends infer X ? _Satisfy<X, Iteration> : never;
 declare type AddNegative<
 	N1 extends Iteration,
 	N2 extends Iteration
-> = _AddNegative<N1, N2> extends infer X ? _Cast<X, Iteration> : never;
+> = _AddNegative<N1, N2> extends infer X ? _Satisfy<X, Iteration> : never;
 
 declare type MultiplyPositive<
 	N1 extends Iteration,
@@ -54,14 +54,14 @@ declare type MultiplyPositive<
 	: MultiplyPositive<
 			N1,
 			IterationOf<_Decr<N2>>,
-			_Cast<IterationOf<number>, _Add<N1, _Cast<Result, Iteration>>>
+			_Satisfy<IterationOf<number>, _Add<N1, _Satisfy<Result, Iteration>>>
 	  >;
 
 declare type MultiplyNegative<
 	N1 extends Iteration,
 	N2 extends Iteration,
 	Result = MultiplyPositive<N1, _Negate<N2>>
-> = _Negate<_Cast<Result, Iteration>>;
+> = _Negate<_Satisfy<Result, Iteration>>;
 
 declare type DividePositive<
 	N1 extends Iteration,
@@ -78,16 +78,16 @@ declare type DividePositive<
 	  > extends true
 	? IterationOf<
 			IsPositive extends true
-				? _Decr<_Cast<Total, Iteration>>
-				: _Incr<_Cast<Total, Iteration>>
+				? _Decr<_Satisfy<Total, Iteration>>
+				: _Incr<_Satisfy<Total, Iteration>>
 	  >
 	: DividePositive<
 			IsPositive extends true ? _Sub<N1, N2> : _Add<N1, N2>,
 			N2,
 			IterationOf<
 				IsPositive extends true
-					? _Incr<_Cast<Total, Iteration>>
-					: _Decr<_Cast<Total, Iteration>>
+					? _Incr<_Satisfy<Total, Iteration>>
+					: _Decr<_Satisfy<Total, Iteration>>
 			>,
 			IsPositive
 	  >;
@@ -166,8 +166,8 @@ declare type _GreaterEq<
 	N2 extends Iteration,
 	Result = _Sub<N1, N2>
 > = _Or<
-	_IsPositive<_Cast<Result, Iteration>>,
-	_IsZero<_Cast<Result, Iteration>>
+	_IsPositive<_Satisfy<Result, Iteration>>,
+	_IsZero<_Satisfy<Result, Iteration>>
 >;
 
 declare type _LowerEq<
@@ -175,8 +175,8 @@ declare type _LowerEq<
 	N2 extends Iteration,
 	Result = _Sub<N1, N2>
 > = _Or<
-	_IsNegative<_Cast<Result, Iteration>>,
-	_IsZero<_Cast<Result, Iteration>>
+	_IsNegative<_Satisfy<Result, Iteration>>,
+	_IsZero<_Satisfy<Result, Iteration>>
 >;
 
 declare type _Enum<N extends Iteration, Way extends _Way> = {
@@ -197,44 +197,48 @@ declare type EnumAscPositive<
 	N extends Iteration,
 	Start = IterationOf<0>,
 	Result = []
-> = _Equal<Pos<N>, Pos<_Cast<Start, Iteration>>> extends true
-	? _Cast<Result, number[]>
+> = _Equal<Pos<N>, Pos<_Satisfy<Start, Iteration>>> extends true
+	? _Satisfy<Result, number[]>
 	: EnumAscPositive<
 			N,
-			Next<_Cast<Start, Iteration>>,
-			_Push<_Cast<Result, number[]>, Pos<_Cast<Start, Iteration>>>
+			Next<_Satisfy<Start, Iteration>>,
+			_Push<_Satisfy<Result, number[]>, Pos<_Satisfy<Start, Iteration>>>
 	  >;
 
 declare type EnumAscNegative<
 	N extends Iteration,
 	End = IterationOf<0>,
 	Result = []
-> = _Equal<Pos<N>, Pos<_Cast<End, Iteration>>> extends true
-	? _Cast<Result, number[]>
-	: EnumAscNegative<Next<N>, End, _Push<_Cast<Result, number[]>, Pos<Next<N>>>>;
+> = _Equal<Pos<N>, Pos<_Satisfy<End, Iteration>>> extends true
+	? _Satisfy<Result, number[]>
+	: EnumAscNegative<
+			Next<N>,
+			End,
+			_Push<_Satisfy<Result, number[]>, Pos<Next<N>>>
+	  >;
 
 declare type EnumDescPositive<
 	N extends Iteration,
 	End = IterationOf<0>,
 	Result = []
-> = _Equal<Pos<N>, Pos<_Cast<End, Iteration>>> extends true
-	? _Cast<Result, number[]>
+> = _Equal<Pos<N>, Pos<_Satisfy<End, Iteration>>> extends true
+	? _Satisfy<Result, number[]>
 	: EnumDescPositive<
 			Prev<N>,
 			End,
-			_Push<_Cast<Result, number[]>, Pos<Prev<N>>>
+			_Push<_Satisfy<Result, number[]>, Pos<Prev<N>>>
 	  >;
 
 declare type EnumDescNegative<
 	N extends Iteration,
 	Start = IterationOf<0>,
 	Result = []
-> = _Equal<Pos<N>, Pos<_Cast<Start, Iteration>>> extends true
-	? _Cast<Result, number[]>
+> = _Equal<Pos<N>, Pos<_Satisfy<Start, Iteration>>> extends true
+	? _Satisfy<Result, number[]>
 	: EnumDescNegative<
 			N,
-			Prev<_Cast<Start, Iteration>>,
-			_Push<_Cast<Result, number[]>, Pos<_Cast<Start, Iteration>>>
+			Prev<_Satisfy<Start, Iteration>>,
+			_Push<_Satisfy<Result, number[]>, Pos<_Satisfy<Start, Iteration>>>
 	  >;
 
 declare type _Range<
@@ -242,10 +246,10 @@ declare type _Range<
 	N2 extends Iteration,
 	Result = []
 > = _Equal<Pos<N1>, Pos<N2>> extends true
-	? _Push<_Cast<Result, number[]>, Pos<N1>>
+	? _Push<_Satisfy<Result, number[]>, Pos<N1>>
 	: _Greater<N2, N1> extends true
-	? _Range<Next<N1>, N2, _Push<_Cast<Result, number[]>, Pos<N1>>>
-	: _Range<Prev<N1>, N2, _Push<_Cast<Result, number[]>, Pos<N1>>>;
+	? _Range<Next<N1>, N2, _Push<_Satisfy<Result, number[]>, Pos<N1>>>
+	: _Range<Prev<N1>, N2, _Push<_Satisfy<Result, number[]>, Pos<N1>>>;
 
 declare type _Incr<N extends Iteration> = Pos<_Add<N, IterationOf<1>>>;
 

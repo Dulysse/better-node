@@ -8,11 +8,11 @@ declare type _StringSplit<
 	S extends string,
 	Result = []
 > = T extends `${infer Start}${S}${infer Next}`
-	? _StringSplit<Next, S, _Push<_Cast<Result, any[]>, Start>>
+	? _StringSplit<Next, S, _Push<_Satisfy<Result, any[]>, Start>>
 	: T extends `${infer End}`
 	? _Equal<End, ""> extends true
-		? _Cast<Result, any[]>
-		: _Push<_Cast<Result, any[]>, End>
+		? _Satisfy<Result, any[]>
+		: _Push<_Satisfy<Result, any[]>, End>
 	: never;
 
 declare type _StringFirst<T extends string> = T extends string
@@ -67,11 +67,11 @@ declare type _StringLastIndexOf<
 	? _StringLastIndexOf<
 			End,
 			S,
-			_IsNegative<IterationOf<_Cast<Result, number>>> extends true
+			_IsNegative<IterationOf<_Satisfy<Result, number>>> extends true
 				? _StringLength<Before>
 				: Pos<
 						_Add<
-							IterationOf<_Cast<Result, number>>,
+							IterationOf<_Satisfy<Result, number>>,
 							IterationOf<_Incr<IterationOf<_StringLength<Before>>>>
 						>
 				  >
@@ -91,7 +91,7 @@ declare type _StringReplaceAll<
 	From extends string,
 	To extends string,
 	Next = _StringReplace<T, From, To>
-> = T extends Next ? T : _StringReplaceAll<_Cast<Next, string>, From, To>;
+> = T extends Next ? T : _StringReplaceAll<_Satisfy<Next, string>, From, To>;
 
 declare type _StringReverse<
 	T extends string,
@@ -113,36 +113,45 @@ declare type _StringSlice<
 	T extends string,
 	Start = 0,
 	End = _StringLength<T>,
-	Counter = _IsNegative<IterationOf<_Cast<Start, number>>> extends true
+	Counter = _IsNegative<IterationOf<_Satisfy<Start, number>>> extends true
 		? _IsNegative<
-				_Add<IterationOf<_StringLength<T>>, IterationOf<_Cast<Start, number>>>
+				_Add<
+					IterationOf<_StringLength<T>>,
+					IterationOf<_Satisfy<Start, number>>
+				>
 		  > extends true
 			? 0
 			: Pos<
-					_Add<IterationOf<_StringLength<T>>, IterationOf<_Cast<Start, number>>>
+					_Add<
+						IterationOf<_StringLength<T>>,
+						IterationOf<_Satisfy<Start, number>>
+					>
 			  >
 		: Start,
 	Result = ""
 > = Counter extends End
 	? Result
 	: _Lower<
-			IterationOf<_Cast<Start, number>>,
-			IterationOf<_Cast<End, number>>
+			IterationOf<_Satisfy<Start, number>>,
+			IterationOf<_Satisfy<End, number>>
 	  > extends true
 	? _StringSlice<
 			T,
 			Start,
-			_IsNegative<IterationOf<_Cast<End, number>>> extends true
+			_IsNegative<IterationOf<_Satisfy<End, number>>> extends true
 				? Pos<
-						_Add<IterationOf<_StringLength<T>>, IterationOf<_Cast<End, number>>>
+						_Add<
+							IterationOf<_StringLength<T>>,
+							IterationOf<_Satisfy<End, number>>
+						>
 				  >
 				: End,
-			_Incr<IterationOf<_Cast<Counter, number>>>,
-			`${_Cast<Result, string>}${_Lower<
-				IterationOf<_Cast<Counter, number>>,
+			_Incr<IterationOf<_Satisfy<Counter, number>>>,
+			`${_Satisfy<Result, string>}${_Lower<
+				IterationOf<_Satisfy<Counter, number>>,
 				IterationOf<_StringLength<T>>
 			> extends true
-				? _StringAt<T, _Cast<Counter, number>>
+				? _StringAt<T, _Satisfy<Counter, number>>
 				: ""}`
 	  >
 	: "";

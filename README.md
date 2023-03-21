@@ -16,6 +16,12 @@ npm install @dulysse1/better-node
 yarn add @dulysse1/better-node
 ```
 
+#### With pnpm
+
+```shell
+pnpm i @dulysse1/better-node
+```
+
 ### How to use ?
 
 ```typescript
@@ -72,33 +78,44 @@ require("@dulysse1/better-node");
 
 ```typescript
 type T1 = Tx.Array.Reverse<[1, 2, 3]>;
-type T1 = [3, 2, 1];
+//   ^? [3, 2, 1];
 
 type T2 = Tx.String.ReplaceAll<"Hello world!", "o", "x">;
-type T2 = "Hellx wxrld!";
+//   ^? "Hellx wxrld!";
 
 type T3 = Tx.Number.Multiply<9, 9>;
-type T3 = 81;
+//   ^? 81;
 
 type T4 = Tx.Object.Merge<{ name: "hello" }, { age: 22 }>;
-type T4 = { name: "hello"; age: 22 };
+//   ^? { name: "hello"; age: 22 };
 
 type T5 = Tx.String.Slice<"Hello world!", 1, 4>;
-type T5 = "ell";
+//   ^? "ell";
 
 type T6 = Tx.Number.Sub<19, 8>;
-type T6 = 11;
+//   ^? 11;
 
 type T7 = Tx.Array.Average<[1, 2, 3, 4, 5]>;
-type T7 = 3;
+//   ^? 3;
 
 type T8 = Tx.Union.ToArray<1 | 2 | 3 | 4 | 5>;
-type T8 = [1, 2, 3, 4, 5];
+//   ^? [1, 2, 3, 4, 5];
 
 type T9 = Tx.String.Last<"hello">;
-type T9 = "o";
+//   ^? "o";
 
-// AND MUCH MORE !
+// AND MUCH MORE COMPLEX TYPES !
+
+type IsPalindrome<T extends string> = Tx.Any.Equal<T, string> extends true
+	? boolean
+	: Tx.Any.Equal<Tx.String.Length<Tx.Any.Satisfy<T, string>>, 0> extends true
+	? true
+	: Tx.Any.Equal<Tx.String.First<T>, Tx.String.Last<T>> extends true
+	? IsPalindrome<Tx.String.Slice<T, 1, Tx.Number.Decr<Tx.String.Length<T>>>>
+	: false;
+
+type result = IsPalindrome<"kayak">;
+//      ^? true;
 ```
 
 ```diff

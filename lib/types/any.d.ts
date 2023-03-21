@@ -7,14 +7,14 @@ namespace Tx {
 		 * ### If T1 extends T2 ? T1 : T2
 		 * @example
 		 * ```ts
-		 * type T = Tx.Any.Cast<"hello", number>;
+		 * type T = Tx.Any.Satisfy<"hello", number>;
 		 * type T = number;
 		 * ```
 		 * @param {any} T1 Primary type
 		 * @param {any} T2 Compare to T1
 		 * @returns T1 or T2
 		 */
-		type Cast<T1 extends any, T2 extends any> = _Cast<T1, T2>;
+		type Satisfy<T1 extends any, T2 extends any> = _Satisfy<T1, T2>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### If T1 === T2 : true
