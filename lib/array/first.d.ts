@@ -15,5 +15,7 @@ interface ReadonlyArray<T> {
 	 * ### Get the first element of your array
 	 * @returns {T | undefined} your first element or null
 	 */
-	first(): Tx.Array.First<Tx.Union.ToArray<T>>;
+	first(): Tx.Any.Equal<T, never> extends true
+		? undefined
+		: Tx.Array.First<Tx.Union.ToArray<T>>;
 }

@@ -461,3 +461,14 @@ declare type _IsTuple<T> = T extends [unknown, ...unknown[]]
 		? true
 		: false
 	: false;
+
+declare type _Fill<N extends number, T extends any, R = []> = _Equal<
+	N,
+	number
+> extends true
+	? T[]
+	: _IsNegative<IterationOf<N>> extends true
+	? never
+	: _Equal<N, 0> extends true
+	? R
+	: _Fill<_Decr<IterationOf<N>>, T, [...R, T]>;

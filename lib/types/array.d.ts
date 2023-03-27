@@ -562,5 +562,18 @@ namespace Tx {
 		 * @returns {boolean} The array is a tuple or not
 		 */
 		type IsTuple<L extends readonly any[]> = _IsTuple<L>;
+		/**
+		 * @from `@dulysse1/better-node`
+		 * ### Fill an array of `T` with a length of `N`
+		 * @example
+		 * ```ts
+		 * type T = Tx.Array.Fill<4, "test">;
+		 * type T = ["test", "test", "test", "test"];
+		 * ```
+		 * @param {number} T  The length of the array
+		 * @param {any} T  The type of every element of this array
+		 * @returns {T[]} an array of `T` with a length of `N`
+		 */
+		type Fill<N extends number, T extends any> = _Fill<N, T>;
 	}
 }

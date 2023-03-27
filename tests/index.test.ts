@@ -31,9 +31,9 @@ type n = Tx.Any.NotEqual<"test", "test2">;
 type o = Tx.String.Last<"coucou">;
 //   ^?
 
-type test = Tx.Array.IsTuple<number[]>;
+type test = Tx.Array.Fill<10, "noobs">;
 //    ^?
 
-const a = <const>[2, 1, 3];
+const a = <const>[1, "", true];
 
-console.log(a.insert(33, 1));
+console.log(a.randomize(0, 10));
