@@ -19,7 +19,7 @@ interface ReadonlyArray<T> {
 	 * @param index Index where you want to insert your element in your array
 	 * @returns {(C | T)[]} your final array
 	 */
-	insert<const C extends any, I extends number>(
+	insert<const C extends unknown, I extends number>(
 		element: C,
 		index: I
 	): Tx.Array.Insert<Tx.Union.ToArray<T>, I, C>;

@@ -36,4 +36,4 @@ type test = Tx.Array.IsTuple<number[]>;
 
 const a = <const>[2, 1, 3];
 
-console.log(a.insert(2, 1));
+console.log(a.insert(33, 1));
