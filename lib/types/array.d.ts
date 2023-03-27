@@ -1,4 +1,5 @@
 /// <reference path="_array.d.ts" />
+/// <reference path="operators.d.ts" />
 
 namespace Tx {
 	namespace Array {
@@ -13,7 +14,7 @@ namespace Tx {
 		 * @param {any[]} L  The target array
 		 * @returns {any[]} The array updated
 		 */
-		type Pop<L extends any[]> = _Pop<L>;
+		type Pop<L extends readonly any[]> = _IsTuple<L> extends true ? _Pop<L> : L;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Get an array without the `first` element
@@ -25,7 +26,9 @@ namespace Tx {
 		 * @param {any[]} L  The target array
 		 * @returns {any[]} The array updated
 		 */
-		type Shift<L extends any[]> = _Shift<L>;
+		type Shift<L extends readonly any[]> = _IsTuple<L> extends true
+			? _Shift<L>
+			: L;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Join array items to a string with a separator
@@ -38,9 +41,10 @@ namespace Tx {
 		 * @param {string} S The char separator
 		 * @returns {string} The string of the array elements joined
 		 */
-		type Join<L extends any[], S = ","> = S extends string
-			? _Join<L, S>
-			: never;
+		type Join<
+			L extends readonly any[],
+			S extends string = ","
+		> = _IsTuple<L> extends true ? _Join<L, S> : string;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Get the length of an array
@@ -52,7 +56,9 @@ namespace Tx {
 		 * @param {any[]} L  The target array
 		 * @returns {number} The length of the array
 		 */
-		type Length<L extends any[]> = _Length<L>;
+		type Length<L extends readonly any[]> = _IsTuple<L> extends true
+			? _Length<L>
+			: number;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Replace an array element to another array element
@@ -70,11 +76,11 @@ namespace Tx {
 		 * @param {any} To Will be replaced by
 		 * @returns {any[]} The array updated
 		 */
-		type Replace<L extends any[], From extends any, To extends any> = _Replace<
-			L,
-			From,
-			To
-		>;
+		type Replace<
+			L extends readonly any[],
+			From extends any,
+			To extends any
+		> = _IsTuple<L> extends true ? _Replace<L, From, To> : (L[number] | To)[];
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Replace all array elements to another array element
@@ -93,10 +99,12 @@ namespace Tx {
 		 * @returns {any[]} The array updated
 		 */
 		type ReplaceAll<
-			L extends any[],
+			L extends readonly any[],
 			From extends any,
 			To extends any
-		> = _ReplaceAll<L, From, To>;
+		> = _IsTuple<L> extends true
+			? _ReplaceAll<L, From, To>
+			: (L[number] | To)[];
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Reverse an array
@@ -108,7 +116,9 @@ namespace Tx {
 		 * @param {any[]} L  The target array
 		 * @returns {any[]} The array reversed
 		 */
-		type Reverse<L extends any[]> = _Reverse<L>;
+		type Reverse<L extends readonly any[]> = _IsTuple<L> extends true
+			? _Reverse<L>
+			: L;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Get the `first` element of an array
@@ -120,7 +130,9 @@ namespace Tx {
 		 * @param {any[]} L  The target array
 		 * @returns {any[]} The `first` element of the array
 		 */
-		type First<L extends any[]> = _First<L>;
+		type First<L extends readonly any[]> = _IsTuple<L> extends true
+			? _First<L>
+			: L[number];
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Get the `last` element of an array
@@ -132,7 +144,9 @@ namespace Tx {
 		 * @param {any[]} L  The target array
 		 * @returns {any[]} The `last` element of the array
 		 */
-		type Last<L extends any[]> = _Last<L>;
+		type Last<L extends readonly any[]> = _IsTuple<L> extends true
+			? _Last<L>
+			: L[number];
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Get the `first` index of an element in an array
@@ -148,7 +162,10 @@ namespace Tx {
 		 * @param {any} T The element to find
 		 * @returns {number} The `first` index of the element in the array or `-1`
 		 */
-		type IndexOf<L extends any[], T extends any> = _IndexOf<L, T>;
+		type IndexOf<
+			L extends readonly any[],
+			T extends any
+		> = _IsTuple<L> extends true ? _IndexOf<L, T> : number;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Get the `last` index of an element in an array
@@ -164,7 +181,10 @@ namespace Tx {
 		 * @param {any} T The element to find
 		 * @returns {number} The `last` index of the element in the array or `-1`
 		 */
-		type LastIndexOf<L extends any[], T extends any> = _LastIndexOf<L, T>;
+		type LastIndexOf<
+			L extends readonly any[],
+			T extends any
+		> = _IsTuple<L> extends true ? _LastIndexOf<L, T> : number;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Check if an array including an element
@@ -180,7 +200,10 @@ namespace Tx {
 		 * @param {any} T The element to find
 		 * @returns {boolean} A boolean
 		 */
-		type Includes<L extends any[], T extends any> = _Includes<L, T>;
+		type Includes<
+			L extends readonly any[],
+			T extends any
+		> = _IsTuple<L> extends true ? _Includes<L, T> : boolean;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Find one element of an array by filter
@@ -201,9 +224,12 @@ namespace Tx {
 		 * @param {any[]} L  The target array
 		 * @param {any} T The element to find
 		 * @param {() => any} F The filter function
-		 * @returns {T} An element of the array founded or `null`
+		 * @returns {L} An element of the array founded or `null`
 		 */
-		type Find<L extends any[], F extends () => any> = _Find<L, F>;
+		type Find<
+			L extends readonly any[],
+			F extends () => any
+		> = _IsTuple<L> extends true ? _Find<L, F> : L[number] | null;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Find all elements of an array by filter
@@ -224,9 +250,12 @@ namespace Tx {
 		 * @param {any[]} L  The target array
 		 * @param {any} T The element to find
 		 * @param {() => any} F The filter function
-		 * @returns {T} All elements of the array founded or `[]`
+		 * @returns {L} All elements of the array founded or `[]`
 		 */
-		type Filter<L extends any[], F extends () => any> = _Filter<L, F>;
+		type Filter<
+			L extends readonly any[],
+			F extends () => any
+		> = _IsTuple<L> extends true ? _Filter<L, F> : L;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Parse an array to string
@@ -238,7 +267,9 @@ namespace Tx {
 		 * @param {any[]} L  The target array
 		 * @returns {string} The array as string
 		 */
-		type ToString<L extends any[]> = _ToString<L>;
+		type ToString<L extends readonly any[]> = _IsTuple<L> extends true
+			? _ToString<L>
+			: string;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Splice an array by `start` and `deleteCount` indexes
@@ -254,11 +285,11 @@ namespace Tx {
 		 * @default T['length']
 		 * @returns {any[]} The array spliced
 		 */
-		type Splice<L extends any[], Start = 0, DeleteCount = _Length<L>> = _Splice<
-			L,
-			Start,
-			DeleteCount
-		>;
+		type Splice<
+			L extends readonly any[],
+			Start extends number = 0,
+			DeleteCount extends number = _Length<L>
+		> = _IsTuple<L> extends true ? _Splice<L, Start, DeleteCount> : L;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Slice an array by `start` and `end` indexes
@@ -274,11 +305,11 @@ namespace Tx {
 		 * @default T['length']
 		 * @returns {any[]} The array sliced
 		 */
-		type Slice<L extends any[], Start = 0, End = Length<L>> = _Slice<
-			L,
-			Start,
-			End
-		>;
+		type Slice<
+			L extends readonly any[],
+			Start extends number = 0,
+			End extends number = Length<L>
+		> = _IsTuple<L> extends true ? _Slice<L, Start, End> : L;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Concatenate an array with another
@@ -291,7 +322,12 @@ namespace Tx {
 		 * @param {any[]} L2  The second array
 		 * @returns {any[]} The two arrays concatenated
 		 */
-		type Concat<L1 extends any[], L2 extends any[]> = _Concat<L1, L2>;
+		type Concat<
+			L1 extends readonly any[],
+			L2 extends readonly any[]
+		> = _IsTuple<L> extends true
+			? _Concat<L1, L2>
+			: (L1[number] | L2[number])[];
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Push an element to an array
@@ -304,7 +340,10 @@ namespace Tx {
 		 * @param {any} T  The element to push
 		 * @returns {any[]} The array with the pushed element
 		 */
-		type Push<L extends any[], T extends any> = _Push<L, T>;
+		type Push<
+			L extends readonly any[],
+			T extends any
+		> = _IsTuple<L> extends true ? _Push<L, T> : (L[number] | T)[];
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Drop from an array all exactly matching elements
@@ -317,7 +356,10 @@ namespace Tx {
 		 * @param {any} T  The element to remove
 		 * @returns {any[]} The array without the dropped elements
 		 */
-		type Drop<L extends any[], T extends any> = _Drop<L, T>;
+		type Drop<
+			L extends readonly any[],
+			T extends any
+		> = _IsTuple<L> extends true ? _Drop<L, T> : L;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Insert an element in an array at a specific index
@@ -331,11 +373,11 @@ namespace Tx {
 		 * @param {any} T  The element to push
 		 * @returns {any[]} The array with the new element
 		 */
-		type Insert<L extends any[], I extends number, T extends any> = _Insert<
-			L,
-			I,
-			T
-		>;
+		type Insert<
+			L extends readonly any[],
+			I extends number,
+			T extends any
+		> = _IsTuple<L> extends true ? _Insert<L, I, T> : (L[number] | T)[];
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Check the type of the array
@@ -348,7 +390,7 @@ namespace Tx {
 		 * @param {any} T  The type to check
 		 * @returns {boolean} A boolean at true if the array and type match
 		 */
-		type Of<L extends any[], T extends any> = _Of<L, T>;
+		type Of<L extends readonly any[], T extends any> = _Of<L, T>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Create a new array with all sub-array elements concatenated into it recursively up to the specified depth
@@ -362,7 +404,10 @@ namespace Tx {
 		 * @default 1
 		 * @returns {any[]} The array concatenated `depth` time(s)
 		 */
-		type Flat<L extends any[], Depth = 1> = _Flat<L, Depth>;
+		type Flat<
+			L extends readonly any[],
+			Depth extends number = 1
+		> = _IsTuple<L> extends true ? _Flat<L, Depth> : L;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Get the element at an index of the array
@@ -375,7 +420,10 @@ namespace Tx {
 		 * @param {number} I The index of the array
 		 * @returns {any} The element at that index of `undefined`
 		 */
-		type At<L extends any[], I extends number> = _At<L, I>;
+		type At<
+			L extends readonly any[],
+			I extends number
+		> = _IsTuple<L> extends true ? _At<L, I> : L[number];
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Sort an array of numbers in ascending order
@@ -387,7 +435,9 @@ namespace Tx {
 		 * @param {number[]} L  The target array
 		 * @returns {number[]} The array sorted
 		 */
-		type Asc<L extends number[]> = _Asc<L>;
+		type Asc<L extends readonly number[]> = _IsTuple<L> extends true
+			? _Asc<L>
+			: number[];
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Sort an array of numbers in descending order
@@ -399,7 +449,9 @@ namespace Tx {
 		 * @param {number[]} L  The target array
 		 * @returns {number[]} The array sorted
 		 */
-		type Desc<L extends number[]> = _Desc<L>;
+		type Desc<L extends readonly number[]> = _IsTuple<L> extends true
+			? _Desc<L>
+			: number[];
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Get the sum of all elements of an array of numbers
@@ -411,7 +463,9 @@ namespace Tx {
 		 * @param {number[]} L  The target array
 		 * @returns {number} The sum of the elements of the array
 		 */
-		type Sum<L extends number[]> = _Sum<L>;
+		type Sum<L extends readonly number[]> = _IsTuple<L> extends true
+			? _Sum<L>
+			: number;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Get the average of all elements of an array of numbers
@@ -423,7 +477,9 @@ namespace Tx {
 		 * @param {number[]} L  The target array
 		 * @returns {number} The average of the elements of the array
 		 */
-		type Average<L extends number[]> = _Average<L>;
+		type Average<L extends readonly number[]> = _IsTuple<L> extends true
+			? _Average<L>
+			: number;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Get the `minimum` value of an element in an array of numbers
@@ -435,7 +491,9 @@ namespace Tx {
 		 * @param {number[]} L  The target array
 		 * @returns {number} The minimum value of the array
 		 */
-		type Min<L extends number[]> = _Min<L>;
+		type Min<L extends readonly number[]> = _IsTuple<L> extends true
+			? _Min<L>
+			: number;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Get the `maximum` value of an element in an array of numbers
@@ -447,7 +505,9 @@ namespace Tx {
 		 * @param {number[]} L  The target array
 		 * @returns {number} The maximum value of the array
 		 */
-		type Max<L extends number[]> = _Max<L>;
+		type Max<L extends readonly number[]> = _IsTuple<L> extends true
+			? _Max<L>
+			: number;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Get the median of all elements of an array of numbers
@@ -459,7 +519,9 @@ namespace Tx {
 		 * @param {number[]} L  The target array
 		 * @returns {number} The median of the elements of the array
 		 */
-		type Median<L extends number[]> = _Median<L>;
+		type Median<L extends readonly number[]> = _IsTuple<L> extends true
+			? _Median<L>
+			: number;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Check if an array of numbers is sorted in `ASC` or `DESC`
@@ -472,10 +534,10 @@ namespace Tx {
 		 * @param {"ASC"|"DESC"} Type "ASC" or "DESC"
 		 * @returns {boolean} A boolean at true if the array is sorted
 		 */
-		type IsSorted<L extends number[], Type extends "ASC" | "DESC"> = _IsSorted<
-			L,
-			Type
-		>;
+		type IsSorted<
+			L extends number[],
+			Type extends "ASC" | "DESC"
+		> = _IsTuple<L> extends true ? _IsSorted<L, Type> : boolean;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Transform an array to an union
@@ -484,9 +546,21 @@ namespace Tx {
 		 * type T = Tx.Array.ToUnion<["hello", "world"]>;
 		 * type T = "hello" | "world";
 		 * ```
-		 * @param {any[]} L  The target union type
+		 * @param {any[]} L  The target array
 		 * @returns {any} The array as union type
 		 */
-		type ToUnion<L extends any[]> = _ToUnion<L>;
+		type ToUnion<L extends readonly any[]> = _ToUnion<L>;
+		/**
+		 * @from `@dulysse1/better-node`
+		 * ### Check if an array is a tuple
+		 * @example
+		 * ```ts
+		 * type T = Tx.Array.IsTuple<["hello", "world"]>;
+		 * type T = true;
+		 * ```
+		 * @param {any[]} L  The target array
+		 * @returns {boolean} The array is a tuple or not
+		 */
+		type IsTuple<L extends readonly any[]> = _IsTuple<L>;
 	}
 }

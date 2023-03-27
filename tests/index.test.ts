@@ -30,3 +30,10 @@ type n = Tx.Any.NotEqual<"test", "test2">;
 //   ^?
 type o = Tx.String.Last<"coucou">;
 //   ^?
+
+type test = Tx.Array.IsTuple<number[]>;
+//    ^?
+
+const a = <const>[2, 1, 3];
+
+console.log(a.insert(2, 1));

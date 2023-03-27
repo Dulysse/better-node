@@ -455,3 +455,9 @@ declare type _OneFlat<L extends any[], Result = []> = _Equal<
 	: never;
 
 declare type _ToUnion<L extends any[]> = L[number];
+
+declare type _IsTuple<T> = T extends [unknown, ...unknown[]]
+	? Exclude<T[0], undefined> extends unknown
+		? true
+		: false
+	: false;

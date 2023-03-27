@@ -1,4 +1,5 @@
 /// <reference path="_string.d.ts" />
+/// <reference path="operators.d.ts" />
 
 namespace Tx {
 	namespace String {
@@ -13,7 +14,9 @@ namespace Tx {
 		 * @param {string} T  The target string
 		 * @returns {string} The `first` element of the string
 		 */
-		type First<T extends string> = _StringFirst<T>;
+		type First<T extends string> = _Equal<T, string> extends true
+			? string
+			: _StringFirst<T>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Get the `last` element of a string
@@ -25,7 +28,9 @@ namespace Tx {
 		 * @param {string} T  The target string
 		 * @returns {string} The `last` element of the string
 		 */
-		type Last<T extends string> = _StringLast<T>;
+		type Last<T extends string> = _Equal<T, string> extends true
+			? string
+			: _StringLast<T>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Split a string to an array
@@ -39,9 +44,12 @@ namespace Tx {
 		 * @default ""
 		 * @returns {string[]} The string splitted to array
 		 */
-		type Split<T extends string, S = ""> = S extends string
-			? _StringSplit<T, S>
-			: never;
+		type Split<T extends string, S extends string = ""> = _Equal<
+			T,
+			string
+		> extends true
+			? string
+			: _StringSplit<T, S>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Get an element of a string by `Index`
@@ -54,7 +62,9 @@ namespace Tx {
 		 * @param {number} I The index of the string
 		 * @returns {string} The char in the string
 		 */
-		type At<T extends string, I extends number> = _StringAt<T, I>;
+		type At<T extends string, I extends number> = _Equal<T, string> extends true
+			? string
+			: _StringAt<T, I>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Get the length of a string
@@ -66,7 +76,9 @@ namespace Tx {
 		 * @param {string} T  The target string
 		 * @returns {number} The length of the string
 		 */
-		type Length<T extends string> = _StringLength<T>;
+		type Length<T extends string> = _Equal<T, string> extends true
+			? number
+			: _StringLength<T>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Get the first index of an element in a string
@@ -79,7 +91,12 @@ namespace Tx {
 		 * @param {string} S The element to find
 		 * @returns {number} The first index of your element or `-1`
 		 */
-		type IndexOf<T extends string, S extends string> = _StringIndexOf<T, S>;
+		type IndexOf<T extends string, S extends string> = _Equal<
+			T,
+			string
+		> extends true
+			? number
+			: _StringIndexOf<T, S>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Get the last index of an element in a string
@@ -92,10 +109,12 @@ namespace Tx {
 		 * @param {string} S The element to find
 		 * @returns {number} The last index of your element or `-1`
 		 */
-		type LastIndexOf<T extends string, S extends string> = _StringLastIndexOf<
+		type LastIndexOf<T extends string, S extends string> = _Equal<
 			T,
-			S
-		>;
+			string
+		> extends true
+			? number
+			: _StringLastIndexOf<T, S>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Replace a char to another in a string
@@ -117,7 +136,7 @@ namespace Tx {
 			T extends string,
 			From extends string,
 			To extends string
-		> = _StringReplace<T, From, To>;
+		> = _Equal<T, string> extends true ? string : _StringReplace<T, From, To>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Replace all matching char to another in a string
@@ -139,7 +158,9 @@ namespace Tx {
 			T extends string,
 			From extends string,
 			To extends string
-		> = _StringReplaceAll<T, From, To>;
+		> = _Equal<T, string> extends true
+			? string
+			: _StringReplaceAll<T, From, To>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Reverse a string
@@ -151,7 +172,9 @@ namespace Tx {
 		 * @param {string} T  The target string
 		 * @returns {string} The string reversed
 		 */
-		type Reverse<T extends string> = _StringReverse<T>;
+		type Reverse<T extends string> = _Equal<T, string> extends true
+			? string
+			: _StringReverse<T>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Slice a string by `start` and `end` indexes
@@ -167,10 +190,11 @@ namespace Tx {
 		 * @default T['length']
 		 * @returns {string} The string sliced
 		 */
-		type Slice<T extends string, Start = 0, End = Length<T>> = _StringSlice<
+		type Slice<T extends string, Start = 0, End = Length<T>> = _Equal<
 			T,
-			Start,
-			End
-		>;
+			string
+		> extends true
+			? string
+			: _StringSlice<T, Start, End>;
 	}
 }
