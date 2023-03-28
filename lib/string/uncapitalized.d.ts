@@ -7,5 +7,8 @@ interface String {
 	 * @param sep Your Uncapitalized separator
 	 * @returns {string} Your string uncapitalized
 	 */
-	uncapitalized<T extends "-" | "_" | " ">(sep?: T, firstChar = true): string;
+	uncapitalized<T extends "-" | "_" | " ">(
+		sep?: T,
+		firstChar?: boolean
+	): string;
 }

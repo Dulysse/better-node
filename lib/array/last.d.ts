@@ -1,4 +1,5 @@
 /// <reference path="../types/array.d.ts" />
+/// <reference path="../types/union.d.ts" />
 
 interface Array<T> {
 	/**
@@ -6,7 +7,9 @@ interface Array<T> {
 	 * ### Get the last element of your array
 	 * @returns {T | undefined} your last element or null
 	 */
-	last(): T | undefined;
+	last(): Tx.Array.IsTuple<this> extends true
+		? Tx.Array.Last<this>
+		: T | undefined;
 }
 
 interface ReadonlyArray<T> {
@@ -17,5 +20,5 @@ interface ReadonlyArray<T> {
 	 */
 	last(): Tx.Any.Equal<T, never> extends true
 		? undefined
-		: Tx.Array.Last<Tx.Union.ToArray<T>>;
+		: Tx.Array.Last<Tx.Array.Readable<this>>;
 }

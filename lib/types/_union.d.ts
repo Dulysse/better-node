@@ -23,4 +23,4 @@ declare type _UnionToArray<
 	? LN
 	: _UnionToArray<_UnionExclude<U, LastU>, _Insert<LN, 0, LastU>>;
 
-declare type _UnionLength<U extends any> = L<_UnionToArray<U>>;
+declare type _UnionLength<U extends any> = _Length<_UnionToArray<U>>;

@@ -1,7 +1,7 @@
 /// <reference path="iterations.d.ts" />
 /// <reference path="_number.d.ts" />
 
-namespace Tx {
+declare namespace Tx {
 	namespace Number {
 		/**
 		 * @from `@dulysse1/better-node`

@@ -1,6 +1,6 @@
 /// <reference path="_union.d.ts" />
 
-namespace Tx {
+declare namespace Tx {
 	namespace Union {
 		/**
 		 * @from `@dulysse1/better-node`

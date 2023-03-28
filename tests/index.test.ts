@@ -34,6 +34,7 @@ type o = Tx.String.Last<"coucou">;
 type test = Tx.Array.Fill<10, "noobs">;
 //    ^?
 
-const a = <const>[1, "", true];
+const a = "coucou";
 
-console.log(a.randomize(0, 10));
+a.first();
+// ^?

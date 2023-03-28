@@ -7,5 +7,5 @@ interface String {
 	 * @param sep Your capitalize separator
 	 * @returns {string} Your string capitalized
 	 */
-	capitalized<T extends "-" | "_" | " ">(sep?: T, firstChar = true): string;
+	capitalized<T extends "-" | "_" | " ">(sep?: T, firstChar?: boolean): string;
 }

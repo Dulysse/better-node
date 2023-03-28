@@ -386,14 +386,11 @@ declare type _Median<L extends number[], AL = _Asc<L>> = _IsEven<
 				_Satisfy<AL, number[]>,
 				_Decr<
 					IterationOf<
-						_Satisfy<
-							Pos<
-								_Divide<
-									IterationOf<_Length<_Satisfy<AL, number[]>>>,
-									IterationOf<2>
-								>
-							>,
-							number
+						Pos<
+							_Divide<
+								IterationOf<_Length<_Satisfy<AL, number[]>>>,
+								IterationOf<2>
+							>
 						>
 					>
 				>,
@@ -471,4 +468,10 @@ declare type _Fill<N extends number, T extends any, R = []> = _Equal<
 	? never
 	: _Equal<N, 0> extends true
 	? R
-	: _Fill<_Decr<IterationOf<N>>, T, [...R, T]>;
+	: _Fill<_Decr<IterationOf<N>>, T, [..._Satisfy<R, any[]>, T]>;
+
+declare type _Readable<L extends readonly any[]> = L extends readonly [
+	...infer R
+]
+	? R
+	: never;

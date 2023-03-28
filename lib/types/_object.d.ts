@@ -4,7 +4,6 @@
 declare type _Object<T = any> = {
 	[key: string]: T;
 	[key: number]: T;
-	[key: bigint]: T;
 	[key: symbol]: T;
 };
 

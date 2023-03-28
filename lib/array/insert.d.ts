@@ -1,4 +1,5 @@
 /// <reference path="../types/array.d.ts" />
+/// <reference path="../types/union.d.ts" />
 
 interface Array<T> {
 	/**
@@ -8,7 +9,12 @@ interface Array<T> {
 	 * @param index Index where you want to insert your element in your array
 	 * @returns {(C | T)[]} your final array
 	 */
-	insert<C>(element: C, index: number): (C | T)[];
+	insert<C, I extends number>(
+		element: C,
+		index: I
+	): Tx.Array.IsTuple<this> extends true
+		? Tx.Array.Insert<this, I, C>
+		: (C | T)[];
 }
 
 interface ReadonlyArray<T> {
@@ -22,7 +28,7 @@ interface ReadonlyArray<T> {
 	insert<const C extends unknown, I extends number>(
 		element: C,
 		index: I
-	): Tx.Array.Insert<Tx.Union.ToArray<T>, I, C>;
+	): Tx.Array.Insert<Tx.Array.Readable<this>, I, C>;
 	/**
 	 * @from `@dulysse1/better-node`
 	 * ### Insert an element in your array at specified index
@@ -33,5 +39,5 @@ interface ReadonlyArray<T> {
 	insert<C extends unknown, I extends number>(
 		element: C,
 		index: I
-	): Tx.Array.Insert<Tx.Union.ToArray<T>, I, C>;
+	): Tx.Array.Insert<Tx.Array.Readable<this>, I, C>;
 }

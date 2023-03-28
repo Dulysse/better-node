@@ -1,7 +1,7 @@
 /// <reference path="_string.d.ts" />
 /// <reference path="operators.d.ts" />
 
-namespace Tx {
+declare namespace Tx {
 	namespace String {
 		/**
 		 * @from `@dulysse1/better-node`
@@ -15,7 +15,7 @@ namespace Tx {
 		 * @returns {string} The `first` element of the string
 		 */
 		type First<T extends string> = _Equal<T, string> extends true
-			? string
+			? string | undefined
 			: _StringFirst<T>;
 		/**
 		 * @from `@dulysse1/better-node`
@@ -29,7 +29,7 @@ namespace Tx {
 		 * @returns {string} The `last` element of the string
 		 */
 		type Last<T extends string> = _Equal<T, string> extends true
-			? string
+			? string | undefined
 			: _StringLast<T>;
 		/**
 		 * @from `@dulysse1/better-node`
@@ -63,7 +63,7 @@ namespace Tx {
 		 * @returns {string} The char in the string
 		 */
 		type At<T extends string, I extends number> = _Equal<T, string> extends true
-			? string
+			? string | undefined
 			: _StringAt<T, I>;
 		/**
 		 * @from `@dulysse1/better-node`

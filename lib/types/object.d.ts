@@ -1,6 +1,6 @@
 /// <reference path="_object.d.ts" />
 
-namespace Tx {
+declare namespace Tx {
 	namespace Object {
 		/**
 		 * @from `@dulysse1/better-node`

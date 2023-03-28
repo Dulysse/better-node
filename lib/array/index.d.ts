@@ -9,7 +9,6 @@
 /// <reference path="sum.d.ts" />
 /// <reference path="copy.d.ts" />
 /// <reference path="insert.d.ts" />
-/// <reference path="update.d.ts" />
 /// <reference path="shuffle.d.ts" />
 /// <reference path="replace.d.ts" />
 /// <reference path="replaceAll.d.ts" />

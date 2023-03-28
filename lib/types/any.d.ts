@@ -1,6 +1,6 @@
 /// <reference path="operators.d.ts" />
 
-namespace Tx {
+declare namespace Tx {
 	namespace Any {
 		/**
 		 * @from `@dulysse1/better-node`
@@ -10,11 +10,11 @@ namespace Tx {
 		 * type T = Tx.Any.Satisfy<"hello", number>;
 		 * type T = number;
 		 * ```
-		 * @param {any} T1 Primary type
-		 * @param {any} T2 Compare to T1
+		 * @param {unknown} T1 Primary type
+		 * @param {unknown} T2 Compare to T1
 		 * @returns T1 or T2
 		 */
-		type Satisfy<T1 extends any, T2 extends any> = _Satisfy<T1, T2>;
+		type Satisfy<T1 extends unknown, T2 extends unknown> = _Satisfy<T1, T2>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### If T1 === T2 : true
@@ -23,11 +23,11 @@ namespace Tx {
 		 * type T = Tx.Any.Equal<"hello", "hello2">;
 		 * type T = false;
 		 * ```
-		 * @param {any} T1 First type
-		 * @param {any} T2 Second type
+		 * @param {unknown} T1 First type
+		 * @param {unknown} T2 Second type
 		 * @returns {boolean} a boolean
 		 */
-		type Equal<T1 extends any, T2 extends any> = _Equal<T1, T2>;
+		type Equal<T1 extends unknown, T2 extends unknown> = _Equal<T1, T2>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### If T1 !== T2 : true
@@ -36,11 +36,11 @@ namespace Tx {
 		 * type T = Tx.Any.NotEqual<"hello", "hello2">;
 		 * type T = true;
 		 * ```
-		 * @param {any} T1 First type
-		 * @param {any} T2 Second type
+		 * @param {unknown} T1 First type
+		 * @param {unknown} T2 Second type
 		 * @returns {boolean} a boolean
 		 */
-		type NotEqual<T1 extends any, T2 extends any> = _NotEqual<T1, T2>;
+		type NotEqual<T1 extends unknown, T2 extends unknown> = _NotEqual<T1, T2>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### If B1 === true && B2 === true
