@@ -124,11 +124,11 @@ type T9 = Tx.String.Last<"hello">;
 
 type IsPalindrome<T extends string> = Tx.Any.Equal<T, string> extends true
 	? boolean
-	: Tx.Any.Equal<Tx.String.Length<Tx.Any.Satisfy<T, string>>, 0> extends true
+: Tx.Any.Equal<Tx.String.Length<Tx.Any.Satisfy<T, string>>, 0> extends true
 	? true
-	: Tx.Any.Equal<Tx.String.First<T>, Tx.String.Last<T>> extends true
+: Tx.Any.Equal<Tx.String.First<T>, Tx.String.Last<T>> extends true
 	? IsPalindrome<Tx.String.Slice<T, 1, Tx.Number.Decr<Tx.String.Length<T>>>>
-	: false;
+: false;
 
 type result = IsPalindrome<"kayak">;
 //      ^? true;
