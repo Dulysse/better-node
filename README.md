@@ -24,6 +24,22 @@ pnpm i @dulysse1/better-node
 
 ### How to use ?
 
+<i>tsconfig.json</i>
+
+```json
+{
+	"compilerOptions": {
+		"lib": ["es2015"], // and more!
+
+		"strict": true, // recommended!
+
+		"strictNullChecks": true // recommended!
+	}
+}
+```
+
+<i>index.ts / index.js</i>
+
 ```typescript
 /**
  * IMPORT AT THE TOP MODULE SCRIPT
@@ -135,11 +151,11 @@ console.log("I like 🐑 , 🐑 is my favorite pet 🐑 !".replaceAll("🐑", "�
 
 ```typescript
 // STRING STYLE
-console.log("Server internal error! ⚠️".red);
+console.log("Server internal error! ⚠️".red.bolded);
 ```
 
 ```node
-> 'Server internal error! ⚠️'  <= your text will be red 🔴
+> 'Server internal error! ⚠️'  <= your text will be red and bolded 🔴
 ```
 
 ```typescript

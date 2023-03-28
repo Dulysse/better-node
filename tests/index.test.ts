@@ -36,5 +36,10 @@ type test = Tx.Array.Fill<10, "noobs">;
 
 const a = "coucou";
 
-a.first();
+type BetterLast<T extends string> = Tx.String.Slice<
+	T,
+	Tx.Number.Decr<Tx.String.Length<T>>
+>;
+
+type x = BetterLast<typeof a>;
 // ^?
