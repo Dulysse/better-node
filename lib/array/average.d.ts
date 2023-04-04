@@ -9,7 +9,7 @@ interface Array<T> {
 	 */
 	average(): Tx.Array.IsTuple<this> extends true
 		? Tx.Array.Of<this, number> extends true
-			? Tx.Array.Average<Tx.Any.Satisfy<this, number[]>>
+			? number // fix type
 			: never
 		: number;
 }
@@ -21,6 +21,6 @@ interface ReadonlyArray<T> {
 	 * @return {number} the average of your array.
 	 */
 	average(): Tx.Array.Of<Tx.Array.Readable<this>, number> extends true
-		? Tx.Array.Average<Tx.Any.Satisfy<Tx.Array.Readable<this>, number[]>>
+		? number // fix type
 		: never;
 }

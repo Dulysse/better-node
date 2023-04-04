@@ -285,16 +285,6 @@ declare type _Sum<L extends number[], Total = 0> = _Equal<
 	  >
 	: never;
 
-declare type _Average<
-	L extends number[],
-	Result = _Divide<
-		IterationOf<_Satisfy<_Sum<L>, number>>,
-		IterationOf<_Satisfy<_Length<L>, number>>
-	>
-> = _Equal<L, number[]> extends true
-	? number
-	: Pos<_Satisfy<Result, Iteration>>;
-
 declare type _IsSorted<
 	L extends number[],
 	Type extends "ASC" | "DESC",
@@ -377,35 +367,6 @@ declare type _Desc<L extends number[], Result = []> = _Equal<
 declare type _Min<L extends number[]> = _First<_Asc<L>>;
 
 declare type _Max<L extends number[]> = _First<_Desc<L>>;
-
-declare type _Median<L extends number[], AL = _Asc<L>> = _IsEven<
-	IterationOf<_Length<_Satisfy<AL, number[]>>>
-> extends true
-	? _Average<
-			_Splice<
-				_Satisfy<AL, number[]>,
-				_Decr<
-					IterationOf<
-						Pos<
-							_Divide<
-								IterationOf<_Length<_Satisfy<AL, number[]>>>,
-								IterationOf<2>
-							>
-						>
-					>
-				>,
-				2
-			>
-	  >
-	: _At<
-			_Satisfy<AL, number[]>,
-			_Satisfy<
-				Pos<
-					_Divide<IterationOf<_Length<_Satisfy<AL, number[]>>>, IterationOf<2>>
-				>,
-				number
-			>
-	  >;
 
 declare type _Of<L extends any[], T extends any> = L extends (infer R)[]
 	? R extends T

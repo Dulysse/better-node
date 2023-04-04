@@ -10,12 +10,6 @@ type d = Tx.Array.Asc<[1, 2, 3, 4, 1]>;
 //   ^?
 type e = Tx.Array.Flat<[1, 2, 3, [4, ["coucou"]]]>;
 //   ^?
-type f = Tx.Number.Multiply<3, 7>;
-//   ^?
-type g = Tx.Number.IsEven<0>;
-//   ^?
-type h = Tx.Array.Average<[0, 10, 10, 13, 22]>;
-//   ^?
 type i = Tx.Array.Filter<[0, 10, 10, 13, 22, 10], () => 10>;
 //   ^?
 type j = Tx.Object.Object;

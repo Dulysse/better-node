@@ -39,40 +39,6 @@ declare namespace Tx {
 			: never;
 		/**
 		 * @from `@dulysse1/better-node`
-		 * ### Multiply `N1` with `N2`
-		 * @example
-		 * ```ts
-		 * type T = Tx.Number.Multiply<10, 6>;
-		 * type T = 60;
-		 * ```
-		 * @param {number} N1 First number
-		 * @param {number} N2 Second number
-		 * @returns {number} The result of the multiplication
-		 */
-		type Multiply<N1 extends number, N2 extends number> = N1 extends unknown
-			? N2 extends unknown
-				? Pos<_Multiply<IterationOf<N1>, IterationOf<N2>>>
-				: never
-			: never;
-		/**
-		 * @from `@dulysse1/better-node`
-		 * ### Divide `N1` by `N2`
-		 * @example
-		 * ```ts
-		 * type T = Tx.Number.Divide<12, 6>;
-		 * type T = 2;
-		 * ```
-		 * @param {number} N1 First number
-		 * @param {number} N2 Second number
-		 * @returns {number} The result of the division
-		 */
-		type Divide<N1 extends number, N2 extends number> = N1 extends unknown
-			? N2 extends unknown
-				? Pos<_Divide<IterationOf<N1>, IterationOf<N2>>>
-				: never
-			: never;
-		/**
-		 * @from `@dulysse1/better-node`
 		 * ### Check if `N1` is greater than `N2`
 		 * @example
 		 * ```ts
@@ -221,30 +187,6 @@ declare namespace Tx {
 		 * @returns {number} The opposite number of `N`
 		 */
 		type Negate<N extends number> = _Negate<IterationOf<N>>;
-		/**
-		 * @from `@dulysse1/better-node`
-		 * ### Check if `N` is even
-		 * @example
-		 * ```ts
-		 * type T = Tx.Number.IsEven<30>;
-		 * type T = true
-		 * ```
-		 * @param {number} N The target number
-		 * @returns {boolean} A boolean at true if `N` is even
-		 */
-		type IsEven<N extends number> = _IsEven<IterationOf<N>>;
-		/**
-		 * @from `@dulysse1/better-node`
-		 * ### Check if `N` is odd
-		 * @example
-		 * ```ts
-		 * type T = Tx.Number.IsOdd<30>;
-		 * type T = false
-		 * ```
-		 * @param {number} N The target number
-		 * @returns {boolean} A boolean at true if `N` is odd
-		 */
-		type IsOdd<N extends number> = _IsOdd<IterationOf<N>>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Check if `N` is positive

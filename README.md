@@ -99,9 +99,6 @@ type T1 = Tx.Array.Reverse<[1, 2, 3]>;
 type T2 = Tx.String.ReplaceAll<"Hello world!", "o", "x">;
 //   ^? "Hellx wxrld!";
 
-type T3 = Tx.Number.Multiply<9, 9>;
-//   ^? 81;
-
 type T4 = Tx.Object.Merge<{ name: "hello" }, { age: 22 }>;
 //   ^? { name: "hello"; age: 22 };
 
@@ -110,9 +107,6 @@ type T5 = Tx.String.Slice<"Hello world!", 1, 4>;
 
 type T6 = Tx.Number.Sub<19, 8>;
 //   ^? 11;
-
-type T7 = Tx.Array.Average<[1, 2, 3, 4, 5]>;
-//   ^? 3;
 
 type T8 = Tx.Union.ToArray<1 | 2 | 3 | 4 | 5>;
 //   ^? [1, 2, 3, 4, 5];

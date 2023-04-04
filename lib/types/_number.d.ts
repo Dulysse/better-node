@@ -45,58 +45,6 @@ declare type AddNegative<
 	N2 extends Iteration
 > = _AddNegative<N1, N2> extends infer X ? _Satisfy<X, Iteration> : never;
 
-declare type MultiplyPositive<
-	N1 extends Iteration,
-	N2 extends Iteration,
-	Result = IterationOf<0>
-> = _Or<_IsZero<N2>, _Equal<Result, IterationOf<number>>> extends true
-	? Result
-	: MultiplyPositive<
-			N1,
-			IterationOf<_Decr<N2>>,
-			_Satisfy<IterationOf<number>, _Add<N1, _Satisfy<Result, Iteration>>>
-	  >;
-
-declare type MultiplyNegative<
-	N1 extends Iteration,
-	N2 extends Iteration,
-	Result = MultiplyPositive<N1, _Negate<N2>>
-> = _Negate<_Satisfy<Result, Iteration>>;
-
-declare type DividePositive<
-	N1 extends Iteration,
-	N2 extends Iteration,
-	Total = IterationOf<0>,
-	IsPositive = _IsPositive<N1>
-> = _IsZero<N2> extends true
-	? never
-	: _IsZero<N1> extends true
-	? Total
-	: _Or<
-			_And<_IsNegative<N1>, _Equal<IsPositive, true>>,
-			_And<_IsPositive<N1>, _NotEqual<IsPositive, true>>
-	  > extends true
-	? IterationOf<
-			IsPositive extends true
-				? _Decr<_Satisfy<Total, Iteration>>
-				: _Incr<_Satisfy<Total, Iteration>>
-	  >
-	: DividePositive<
-			IsPositive extends true ? _Sub<N1, N2> : _Add<N1, N2>,
-			N2,
-			IterationOf<
-				IsPositive extends true
-					? _Incr<_Satisfy<Total, Iteration>>
-					: _Decr<_Satisfy<Total, Iteration>>
-			>,
-			IsPositive
-	  >;
-
-declare type DivideNegative<
-	N1 extends Iteration,
-	N2 extends Iteration
-> = _Negate<DividePositive<N1, _Negate<N2>>>;
-
 declare type _IsPositive<N extends Iteration> = {
 	"-": false;
 	"+": true;
@@ -131,24 +79,6 @@ declare type _Add<N1 extends Iteration, N2 extends Iteration> = {
 	true: _Or<_Equal<Pos<N1>, number>, _Equal<Pos<N2>, number>> extends true
 		? IterationOf<number>
 		: AddNegative<N1, N2>;
-}[`${_IsNegative<N2>}`];
-
-declare type _Multiply<N1 extends Iteration, N2 extends Iteration> = {
-	false: _Or<_Equal<Pos<N1>, number>, _Equal<Pos<N2>, number>> extends true
-		? IterationOf<number>
-		: MultiplyPositive<N1, N2>;
-	true: _Or<_Equal<Pos<N1>, number>, _Equal<Pos<N2>, number>> extends true
-		? IterationOf<number>
-		: MultiplyNegative<N1, N2>;
-}[`${_IsNegative<N2>}`];
-
-declare type _Divide<N1 extends Iteration, N2 extends Iteration> = {
-	false: _Or<_Equal<Pos<N1>, number>, _Equal<Pos<N2>, number>> extends true
-		? IterationOf<number>
-		: DividePositive<N1, N2>;
-	true: _Or<_Equal<Pos<N1>, number>, _Equal<Pos<N2>, number>> extends true
-		? IterationOf<number>
-		: DivideNegative<N1, N2>;
 }[`${_IsNegative<N2>}`];
 
 declare type _Negate<N extends Iteration> = IterationMap[N[4]];
@@ -260,13 +190,3 @@ declare type _Between<
 	From extends Iteration,
 	To extends Iteration
 > = _And<_GreaterEq<N, From>, _LowerEq<N, To>>;
-
-declare type _IsEven<N extends Iteration> = _Equal<
-	_Multiply<_Divide<N, IterationOf<2>>, IterationOf<2>>,
-	N
->;
-
-declare type _IsOdd<N extends Iteration> = _NotEqual<
-	_Multiply<_Divide<N, IterationOf<2>>, IterationOf<2>>,
-	N
->;

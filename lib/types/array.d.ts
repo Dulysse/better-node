@@ -461,20 +461,6 @@ declare namespace Tx {
 		type Sum<L extends number[]> = _IsTuple<L> extends true ? _Sum<L> : number;
 		/**
 		 * @from `@dulysse1/better-node`
-		 * ### Get the average of all elements of an array of numbers
-		 * @example
-		 * ```ts
-		 * type T = Tx.Array.Average<[5, 2, 1, 4, 3]>;
-		 * type T = 3
-		 * ```
-		 * @param {number[]} L  The target array
-		 * @returns {number} The average of the elements of the array
-		 */
-		type Average<L extends number[]> = _IsTuple<L> extends true
-			? _Average<L>
-			: number;
-		/**
-		 * @from `@dulysse1/better-node`
 		 * ### Get the `minimum` value of an element in an array of numbers
 		 * @example
 		 * ```ts
@@ -497,20 +483,6 @@ declare namespace Tx {
 		 * @returns {number} The maximum value of the array
 		 */
 		type Max<L extends number[]> = _IsTuple<L> extends true ? _Max<L> : number;
-		/**
-		 * @from `@dulysse1/better-node`
-		 * ### Get the median of all elements of an array of numbers
-		 * @example
-		 * ```ts
-		 * type T = Tx.Array.Average<[5, 2, 1, 4, 3]>;
-		 * type T = 3
-		 * ```
-		 * @param {number[]} L  The target array
-		 * @returns {number} The median of the elements of the array
-		 */
-		type Median<L extends number[]> = _IsTuple<L> extends true
-			? _Median<L>
-			: number;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Check if an array of numbers is sorted in `ASC` or `DESC`

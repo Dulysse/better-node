@@ -21,9 +21,9 @@ interface String {
 	underline: string;
 	/**
 	 * @from `@dulysse1/better-node`
-	 * ### Make your string blink
+	 * ### Make your string blinked
 	 */
-	blink: string;
+	blinked: string;
 	/**
 	 * @from `@dulysse1/better-node`
 	 * ### Make your string inverse
