@@ -1,5 +1,4 @@
 /// <reference path="average.d.ts" />
-/// <reference path="flat.d.ts" />
 /// <reference path="asc.d.ts" />
 /// <reference path="desc.d.ts" />
 /// <reference path="randomize.d.ts" />

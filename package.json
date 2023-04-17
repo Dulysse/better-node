@@ -1,6 +1,6 @@
 {
 	"name": "@dulysse1/better-node",
-	"version": "2.2.9",
+	"version": "2.2.10",
 	"description": "Improve Node types & add object properties",
 	"main": "./index.js",
 	"types": "./index.d.ts",

@@ -48,7 +48,7 @@ declare namespace Tx {
 			T,
 			string
 		> extends true
-			? string
+			? string[]
 			: _StringSplit<T, S>;
 		/**
 		 * @from `@dulysse1/better-node`
