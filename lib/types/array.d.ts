@@ -11,10 +11,13 @@ declare namespace Tx {
 		 * type T = Tx.Array.Pop<[1, 2, 3, 4]>;
 		 * type T = [1, 2, 3];
 		 * ```
-		 * @param {unknown[]} L  The target array
+		 * @param {unknown[]} TArray  The target array
 		 * @returns {unknown[]} The array updated
 		 */
-		type Pop<L extends unknown[]> = _IsTuple<L> extends true ? _Pop<L> : L;
+		type Pop<TArray extends unknown[]> = _Satisfy<
+			_IsTuple<TArray> extends true ? _Pop<TArray> : TArray,
+			unknown[]
+		>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Get an array without the `first` element
@@ -23,10 +26,13 @@ declare namespace Tx {
 		 * type T = Tx.Array.Shift<[1, 2, 3, 4]>;
 		 * type T = [2, 3, 4];
 		 * ```
-		 * @param {unknown[]} L  The target array
+		 * @param {unknown[]} TArray  The target array
 		 * @returns {unknown[]} The array updated
 		 */
-		type Shift<L extends unknown[]> = _IsTuple<L> extends true ? _Shift<L> : L;
+		type Shift<TArray extends unknown[]> = _Satisfy<
+			_IsTuple<TArray> extends true ? _Shift<TArray> : TArray,
+			unknown[]
+		>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Join array items to a string with a separator
@@ -35,14 +41,14 @@ declare namespace Tx {
 		 * type T = Tx.Array.Join<[1, 2, 3, 4], "/">;
 		 * type T = "1/2/3/4";
 		 * ```
-		 * @param {unknown[]} L  The target array
+		 * @param {unknown[]} TArray  The target array
 		 * @param {string} S The char separator
 		 * @returns {string} The string of the array elements joined
 		 */
-		type Join<
-			L extends unknown[],
-			S extends string = ","
-		> = _IsTuple<L> extends true ? _Join<L, S> : string;
+		type Join<TArray extends unknown[], S extends string = ","> = _Satisfy<
+			_IsTuple<TArray> extends true ? _Join<TArray, S> : string,
+			string
+		>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Get the length of an array
@@ -51,12 +57,13 @@ declare namespace Tx {
 		 * type T = Tx.Array.Length<[1, 2, 3, 4]>;
 		 * type T = 4;
 		 * ```
-		 * @param {unknown[]} L  The target array
+		 * @param {unknown[]} TArray  The target array
 		 * @returns {number} The length of the array
 		 */
-		type Length<L extends unknown[]> = _IsTuple<L> extends true
-			? _Length<L>
-			: number;
+		type Length<TArray extends unknown[]> = _Satisfy<
+			_IsTuple<TArray> extends true ? _Length<TArray> : number,
+			number
+		>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Replace an array element to another array element
@@ -75,10 +82,15 @@ declare namespace Tx {
 		 * @returns {unknown[]} The array updated
 		 */
 		type Replace<
-			L extends unknown[],
+			TArray extends unknown[],
 			From extends unknown,
 			To extends unknown
-		> = _IsTuple<L> extends true ? _Replace<L, From, To> : (L[number] | To)[];
+		> = _Satisfy<
+			_IsTuple<TArray> extends true
+				? _Replace<TArray, From, To>
+				: (TArray[number] | To)[],
+			unknown[]
+		>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Replace all array elements to another array element
@@ -97,12 +109,12 @@ declare namespace Tx {
 		 * @returns {unknown[]} The array updated
 		 */
 		type ReplaceAll<
-			L extends unknown[],
+			TArray extends unknown[],
 			From extends unknown,
 			To extends unknown
-		> = _IsTuple<L> extends true
-			? _ReplaceAll<L, From, To>
-			: (L[number] | To)[];
+		> = _IsTuple<TArray> extends true
+			? _ReplaceAll<TArray, From, To>
+			: (TArray[number] | To)[];
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Reverse an array
@@ -111,12 +123,13 @@ declare namespace Tx {
 		 * type T = Tx.Array.Reverse<[true, 2, 3, "4"]>;
 		 * type T = ["4", 3, 2, true];
 		 * ```
-		 * @param {unknown[]} L  The target array
+		 * @param {unknown[]} TArray  The target array
 		 * @returns {unknown[]} The array reversed
 		 */
-		type Reverse<L extends unknown[]> = _IsTuple<L> extends true
-			? _Reverse<L>
-			: L;
+		type Reverse<TArray extends unknown[]> = _Satisfy<
+			_IsTuple<TArray> extends true ? _Reverse<TArray> : TArray,
+			unknown[]
+		>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Get the `first` element of an array
@@ -125,12 +138,13 @@ declare namespace Tx {
 		 * type T = Tx.Array.First<[1, 2, 3, 4]>;
 		 * type T = 1;
 		 * ```
-		 * @param {unknown[]} L  The target array
+		 * @param {unknown[]} TArray  The target array
 		 * @returns {unknown[]} The `first` element of the array
 		 */
-		type First<L extends unknown[]> = _IsTuple<L> extends true
-			? _First<L>
-			: L[number];
+		type First<TArray extends unknown[]> = _Satisfy<
+			_IsTuple<TArray> extends true ? _First<TArray> : TArray[number],
+			unknown[]
+		>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Get the `last` element of an array
@@ -139,12 +153,13 @@ declare namespace Tx {
 		 * type T = Tx.Array.Last<[1, 2, 3, 4]>;
 		 * type T = 4;
 		 * ```
-		 * @param {unknown[]} L  The target array
+		 * @param {unknown[]} TArray  The target array
 		 * @returns {unknown[]} The `last` element of the array
 		 */
-		type Last<L extends unknown[]> = _IsTuple<L> extends true
-			? _Last<L>
-			: L[number];
+		type Last<TArray extends unknown[]> = _Satisfy<
+			_IsTuple<TArray> extends true ? _Last<TArray> : TArray[number],
+			unknown[]
+		>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Get the `first` index of an element in an array
@@ -156,14 +171,14 @@ declare namespace Tx {
 		 * type T2 = Tx.Array.IndexOf<[1, 2, 3, 4], 3>;
 		 * type T2 = 2;
 		 * ```
-		 * @param {unknown[]} L  The target array
+		 * @param {unknown[]} TArray  The target array
 		 * @param {unknown} T The element to find
 		 * @returns {number} The `first` index of the element in the array or `-1`
 		 */
-		type IndexOf<
-			L extends unknown[],
-			T extends unknown
-		> = _IsTuple<L> extends true ? _IndexOf<L, T> : number;
+		type IndexOf<TArray extends unknown[], T extends unknown> = _Satisfy<
+			_IsTuple<TArray> extends true ? _IndexOf<TArray, T> : number,
+			number
+		>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Get the `last` index of an element in an array
@@ -175,14 +190,14 @@ declare namespace Tx {
 		 * type T2 = Tx.Array.LastIndexOf<[1, 2, 2, 2], 2>;
 		 * type T2 = 3;
 		 * ```
-		 * @param {unknown[]} L  The target array
+		 * @param {unknown[]} TArray  The target array
 		 * @param {unknown} T The element to find
 		 * @returns {number} The `last` index of the element in the array or `-1`
 		 */
-		type LastIndexOf<
-			L extends unknown[],
-			T extends unknown
-		> = _IsTuple<L> extends true ? _LastIndexOf<L, T> : number;
+		type LastIndexOf<TArray extends unknown[], T extends unknown> = _Satisfy<
+			_IsTuple<TArray> extends true ? _LastIndexOf<TArray, T> : number,
+			number
+		>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Check if an array including an element
@@ -194,14 +209,14 @@ declare namespace Tx {
 		 * type T2 = Tx.Array.Includes<[1, 2, 3, 4], 2>;
 		 * type T2 = true;
 		 * ```
-		 * @param {unknown[]} L  The target array
+		 * @param {unknown[]} TArray  The target array
 		 * @param {unknown} T The element to find
 		 * @returns {boolean} A boolean
 		 */
-		type Includes<
-			L extends unknown[],
-			T extends unknown
-		> = _IsTuple<L> extends true ? _Includes<L, T> : boolean;
+		type Includes<TArray extends unknown[], T extends unknown> = _Satisfy<
+			_IsTuple<TArray> extends true ? _Includes<TArray, T> : boolean,
+			boolean
+		>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Find one element of an array by filter
@@ -219,15 +234,15 @@ declare namespace Tx {
 		 * >;
 		 * type T2 = null;
 		 * ```
-		 * @param {unknown[]} L  The target array
+		 * @param {unknown[]} TArray  The target array
 		 * @param {unknown} T The element to find
 		 * @param {() => unknown} F The filter function
-		 * @returns {L} An element of the array founded or `null`
+		 * @returns {unknown} An element of the array founded or `null`
 		 */
-		type Find<
-			L extends unknown[],
-			F extends () => unknown
-		> = _IsTuple<L> extends true ? _Find<L, F> : L[number] | null;
+		type Find<TArray extends unknown[], F extends () => unknown> = _Satisfy<
+			_IsTuple<TArray> extends true ? _Find<TArray, F> : TArray[number] | null,
+			unknown
+		>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Find all elements of an array by filter
@@ -245,15 +260,15 @@ declare namespace Tx {
 		 * >;
 		 * type T2 = [];
 		 * ```
-		 * @param {unknown[]} L  The target array
+		 * @param {unknown[]} TArray  The target array
 		 * @param {unknown} T The element to find
 		 * @param {() => unknown} F The filter function
-		 * @returns {L} All elements of the array founded or `[]`
+		 * @returns {unknown[]} All elements of the array founded or `[]`
 		 */
-		type Filter<
-			L extends unknown[],
-			F extends () => unknown
-		> = _IsTuple<L> extends true ? _Filter<L, F> : L;
+		type Filter<TArray extends unknown[], F extends () => unknown> = _Satisfy<
+			_IsTuple<TArray> extends true ? _Filter<TArray, F> : TArray,
+			unknown[]
+		>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Parse an array to string
@@ -262,12 +277,13 @@ declare namespace Tx {
 		 * type T = Tx.Array.ToString<[1, 2, 3, {}]>;
 		 * type T = "1,2,3,[object Object]"
 		 * ```
-		 * @param {unknown[]} L  The target array
+		 * @param {unknown[]} TArray  The target array
 		 * @returns {string} The array as string
 		 */
-		type ToString<L extends unknown[]> = _IsTuple<L> extends true
-			? _ToString<L>
-			: string;
+		type ToString<TArray extends unknown[]> = _Satisfy<
+			_IsTuple<TArray> extends true ? _ToString<TArray> : string,
+			string
+		>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Splice an array by `start` and `deleteCount` indexes
@@ -284,10 +300,15 @@ declare namespace Tx {
 		 * @returns {unknown[]} The array spliced
 		 */
 		type Splice<
-			L extends unknown[],
+			TArray extends unknown[],
 			Start extends number = 0,
-			DeleteCount extends number = _Length<L>
-		> = _IsTuple<L> extends true ? _Splice<L, Start, DeleteCount> : L;
+			DeleteCount extends number = _Length<TArray>
+		> = _Satisfy<
+			_IsTuple<TArray> extends true
+				? _Splice<TArray, Start, DeleteCount>
+				: TArray,
+			unknown[]
+		>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Slice an array by `start` and `end` indexes
@@ -304,10 +325,13 @@ declare namespace Tx {
 		 * @returns {unknown[]} The array sliced
 		 */
 		type Slice<
-			L extends unknown[],
+			TArray extends unknown[],
 			Start extends number = 0,
-			End extends number = Length<L>
-		> = _IsTuple<L> extends true ? _Slice<L, Start, End> : L;
+			End extends number = Length<TArray>
+		> = _Satisfy<
+			_IsTuple<TArray> extends true ? _Slice<TArray, Start, End> : TArray,
+			unknown[]
+		>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Concatenate an array with another
@@ -320,12 +344,12 @@ declare namespace Tx {
 		 * @param {unknown[]} L2  The second array
 		 * @returns {unknown[]} The two arrays concatenated
 		 */
-		type Concat<L1 extends unknown[], L2 extends unknown[]> = _And<
-			_IsTuple<L1>,
-			_IsTuple<L2>
-		> extends true
-			? _Concat<L1, L2>
-			: (L1[number] | L2[number])[];
+		type Concat<L1 extends unknown[], L2 extends unknown[]> = _Satisfy<
+			_And<_IsTuple<L1>, _IsTuple<L2>> extends true
+				? _Concat<L1, L2>
+				: (L1[number] | L2[number])[],
+			unknown[]
+		>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Push an element to an array
@@ -334,13 +358,14 @@ declare namespace Tx {
 		 * type T = Tx.Array.Push<[1, 2, 3], 4>;
 		 * type T = [1, 2, 3, 4];
 		 * ```
-		 * @param {unknown[]} L  The target array
+		 * @param {unknown[]} TArray  The target array
 		 * @param {unknown} T  The element to push
 		 * @returns {unknown[]} The array with the pushed element
 		 */
-		type Push<L extends unknown[], T extends unknown> = _IsTuple<L> extends true
-			? _Push<L, T>
-			: (L[number] | T)[];
+		type Push<TArray extends unknown[], T extends unknown> = _Satisfy<
+			_IsTuple<TArray> extends true ? _Push<TArray, T> : (TArray[number] | T)[],
+			unknown[]
+		>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Drop from an array all exactly matching elements
@@ -349,13 +374,14 @@ declare namespace Tx {
 		 * type T = Tx.Array.Drop<[1, 2, 3, 4, 1], 1>;
 		 * type T = [2, 3, 4];
 		 * ```
-		 * @param {unknown[]} L  The target array
+		 * @param {unknown[]} TArray  The target array
 		 * @param {unknown} T  The element to remove
 		 * @returns {unknown[]} The array without the dropped elements
 		 */
-		type Drop<L extends unknown[], T extends unknown> = _IsTuple<L> extends true
-			? _Drop<L, T>
-			: L;
+		type Drop<TArray extends unknown[], T extends unknown> = _Satisfy<
+			_IsTuple<TArray> extends true ? _Drop<TArray, T> : TArray,
+			unknown[]
+		>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Insert an element in an array at a specific index
@@ -364,16 +390,21 @@ declare namespace Tx {
 		 * type T = Tx.Array.Insert<[1, 2, 3, 4], 2, 5>;
 		 * type T = [1, 2, 5, 3, 4];
 		 * ```
-		 * @param {unknown[]} L  The target array
+		 * @param {unknown[]} TArray  The target array
 		 * @param {number} I The index of the pushed element
 		 * @param {unknown} T  The element to push
 		 * @returns {unknown[]} The array with the new element
 		 */
 		type Insert<
-			L extends unknown[],
+			TArray extends unknown[],
 			I extends number,
 			T extends unknown
-		> = _IsTuple<L> extends true ? _Insert<L, I, T> : (L[number] | T)[];
+		> = _Satisfy<
+			_IsTuple<TArray> extends true
+				? _Insert<TArray, I, T>
+				: (TArray[number] | T)[],
+			unknown[]
+		>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Check the type of the array
@@ -382,11 +413,14 @@ declare namespace Tx {
 		 * type T = Tx.Array.Of<["hello"], string>;
 		 * type T = true;
 		 * ```
-		 * @param {unknown[]} L  The target array
+		 * @param {unknown[]} TArray  The target array
 		 * @param {unknown} T  The type to check
 		 * @returns {boolean} A boolean at true if the array and type match
 		 */
-		type Of<L extends unknown[], T extends unknown> = _Of<L, T>;
+		type Of<TArray extends unknown[], T extends unknown> = _Satisfy<
+			_Of<TArray, T>,
+			boolean
+		>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Create a new array with all sub-array elements concatenated into it recursively up to the specified depth
@@ -395,15 +429,15 @@ declare namespace Tx {
 		 * type T = Tx.Array.Flat<["hello", [1, 2, 3]]>;
 		 * type T = ["hello", 1, 2, 3];
 		 * ```
-		 * @param {unknown[]} L  The target array
+		 * @param {unknown[]} TArray  The target array
 		 * @param {number} Depth  The depth of concatenation
 		 * @default 1
 		 * @returns {unknown[]} The array concatenated `depth` time(s)
 		 */
-		type Flat<
-			L extends unknown[],
-			Depth extends number = 1
-		> = _IsTuple<L> extends true ? _Flat<L, Depth> : L;
+		type Flat<TArray extends unknown[], Depth extends number = 1> = _Satisfy<
+			_IsTuple<TArray> extends true ? _Flat<TArray, Depth> : TArray,
+			unknown[]
+		>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Get the element at an index of the array
@@ -412,13 +446,14 @@ declare namespace Tx {
 		 * type T = Tx.Array.At<[1, 2, "3", 4, 5], 2>;
 		 * type T = "3";
 		 * ```
-		 * @param {unknown[]} L  The target array
+		 * @param {unknown[]} TArray  The target array
 		 * @param {number} I The index of the array
 		 * @returns {unknown} The element at that index of `undefined`
 		 */
-		type At<L extends unknown[], I extends number> = _IsTuple<L> extends true
-			? _At<L, I>
-			: L[number];
+		type At<TArray extends unknown[], I extends number> = _Satisfy<
+			_IsTuple<TArray> extends true ? _At<TArray, I> : TArray[number],
+			unknown
+		>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Sort an array of numbers in ascending order
@@ -427,12 +462,13 @@ declare namespace Tx {
 		 * type T = Tx.Array.Asc<[5, 2, 1, 4, 3]>;
 		 * type T = [1, 2, 3, 4, 5];
 		 * ```
-		 * @param {number[]} L  The target array
+		 * @param {number[]} TArray  The target array
 		 * @returns {number[]} The array sorted
 		 */
-		type Asc<L extends number[]> = _IsTuple<L> extends true
-			? _Asc<L>
-			: number[];
+		type Asc<TArray extends number[]> = _Satisfy<
+			_IsTuple<TArray> extends true ? _Asc<TArray> : number[],
+			number[]
+		>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Sort an array of numbers in descending order
@@ -441,12 +477,13 @@ declare namespace Tx {
 		 * type T = Tx.Array.Desc<[5, 2, 1, 4, 3]>;
 		 * type T = [5, 4, 3, 2, 1];
 		 * ```
-		 * @param {number[]} L  The target array
+		 * @param {number[]} TArray  The target array
 		 * @returns {number[]} The array sorted
 		 */
-		type Desc<L extends number[]> = _IsTuple<L> extends true
-			? _Desc<L>
-			: number[];
+		type Desc<TArray extends number[]> = _Satisfy<
+			_IsTuple<TArray> extends true ? _Desc<TArray> : number[],
+			number[]
+		>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Get the sum of all elements of an array of numbers
@@ -455,10 +492,13 @@ declare namespace Tx {
 		 * type T = Tx.Array.Sum<[5, 2, 1, 4, 3]>;
 		 * type T = 15
 		 * ```
-		 * @param {number[]} L  The target array
+		 * @param {number[]} TArray  The target array
 		 * @returns {number} The sum of the elements of the array
 		 */
-		type Sum<L extends number[]> = _IsTuple<L> extends true ? _Sum<L> : number;
+		type Sum<TArray extends number[]> = _Satisfy<
+			_IsTuple<TArray> extends true ? _Sum<TArray> : number,
+			number
+		>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Get the `minimum` value of an element in an array of numbers
@@ -467,10 +507,13 @@ declare namespace Tx {
 		 * type T = Tx.Array.Min<[5, 2, 1, 4, 3]>;
 		 * type T = 1
 		 * ```
-		 * @param {number[]} L  The target array
+		 * @param {number[]} TArray  The target array
 		 * @returns {number} The minimum value of the array
 		 */
-		type Min<L extends number[]> = _IsTuple<L> extends true ? _Min<L> : number;
+		type Min<TArray extends number[]> = _Satisfy<
+			_IsTuple<TArray> extends true ? _Min<TArray> : number,
+			number
+		>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Get the `maximum` value of an element in an array of numbers
@@ -479,10 +522,13 @@ declare namespace Tx {
 		 * type T = Tx.Array.Max<[5, 2, 1, 4, 3]>;
 		 * type T = 5
 		 * ```
-		 * @param {number[]} L  The target array
+		 * @param {number[]} TArray  The target array
 		 * @returns {number} The maximum value of the array
 		 */
-		type Max<L extends number[]> = _IsTuple<L> extends true ? _Max<L> : number;
+		type Max<TArray extends number[]> = _Satisfy<
+			_IsTuple<TArray> extends true ? _Max<TArray> : number,
+			number
+		>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Check if an array of numbers is sorted in `ASC` or `DESC`
@@ -491,14 +537,17 @@ declare namespace Tx {
 		 * type T = Tx.Array.IsSorted<[5, 2, 1, 4, 3], "ASC">;
 		 * type T = false
 		 * ```
-		 * @param {number[]} L  The target array
+		 * @param {number[]} TArray  The target array
 		 * @param {"ASC"|"DESC"} Type "ASC" or "DESC"
 		 * @returns {boolean} A boolean at true if the array is sorted
 		 */
 		type IsSorted<
-			L extends number[],
+			TArray extends number[],
 			Type extends "ASC" | "DESC"
-		> = _IsTuple<L> extends true ? _IsSorted<L, Type> : boolean;
+		> = _Satisfy<
+			_IsTuple<TArray> extends true ? _IsSorted<TArray, Type> : boolean,
+			boolean
+		>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Transform an array to an union
@@ -507,10 +556,13 @@ declare namespace Tx {
 		 * type T = Tx.Array.ToUnion<["hello", "world"]>;
 		 * type T = "hello" | "world";
 		 * ```
-		 * @param {unknown[]} L  The target array
+		 * @param {unknown[]} TArray  The target array
 		 * @returns {unknown} The array as union type
 		 */
-		type ToUnion<L extends unknown[]> = _ToUnion<L>;
+		type ToUnion<TArray extends unknown[]> = _Satisfy<
+			_ToUnion<TArray>,
+			unknown
+		>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Check if an array is a tuple
@@ -519,10 +571,13 @@ declare namespace Tx {
 		 * type T = Tx.Array.IsTuple<["hello", "world"]>;
 		 * type T = true;
 		 * ```
-		 * @param {unknown[]} L  The target array
+		 * @param {unknown[]} TArray  The target array
 		 * @returns {boolean} The array is a tuple or not
 		 */
-		type IsTuple<L extends unknown[]> = _IsTuple<L>;
+		type IsTuple<TArray extends unknown[]> = _Satisfy<
+			_IsTuple<TArray>,
+			boolean
+		>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Fill an array of `T` with a length of `N`
@@ -531,11 +586,14 @@ declare namespace Tx {
 		 * type T = Tx.Array.Fill<4, "test">;
 		 * type T = ["test", "test", "test", "test"];
 		 * ```
-		 * @param {number} T  The length of the array
+		 * @param {number} N  The length of the array
 		 * @param {unknown} T  The type of every element of this array
-		 * @returns {T[]} an array of `T` with a length of `N`
+		 * @returns {unknown[]} an array of `T` with a length of `N`
 		 */
-		type Fill<N extends number, T extends unknown> = _Fill<N, T>;
+		type Fill<N extends number, T extends unknown> = _Satisfy<
+			_Fill<N, T>,
+			unknown[]
+		>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Convert a readonly array into a readable array
@@ -544,9 +602,12 @@ declare namespace Tx {
 		 * type T = Tx.Array.Readable<readonly ["hello", "world"]>;
 		 * type T = ["hello", "world"];
 		 * ```
-		 * @param {readonly unknown[]} L  The readonly array
+		 * @param {readonly unknown[]} TArray  The readonly array
 		 * @returns {boolean} The array convert to tuple
 		 */
-		type Readable<L extends readonly unknown[]> = _Readable<L>;
+		type Readable<TArray extends readonly unknown[]> = _Satisfy<
+			_Readable<TArray>,
+			boolean
+		>;
 	}
 }

@@ -25,15 +25,5 @@ type n = Tx.Any.NotEqual<"test", "test2">;
 type o = Tx.String.Last<"coucou">;
 //   ^?
 
-type test = Tx.Array.Fill<10, "noobs">;
+type test = Tx.Array.Fill<4, "Uniite">;
 //    ^?
-
-const a = "coucou";
-
-type BetterLast<T extends string> = Tx.String.Slice<
-	T,
-	Tx.Number.Decr<Tx.String.Length<T>>
->;
-
-type x = BetterLast<typeof a>;
-// ^?

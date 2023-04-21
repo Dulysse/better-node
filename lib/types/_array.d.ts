@@ -4,18 +4,19 @@
 
 declare type _StringLiteralType = string | number | bigint | boolean;
 
-declare type _StringLiteralTypeParser<T extends any> =
+declare type _StringLiteralTypeParser<T extends unknown> =
 	T extends _StringLiteralType
 		? T
 		: {
 				0: "[object Object]";
-				1: _Join<_Satisfy<T, any[]>, ",">;
-		  }[T extends any[] ? 1 : 0];
+				1: _Join<_Satisfy<T, unknown[]>, ",">;
+		  }[T extends unknown[] ? 1 : 0];
 
-declare type _Join<L extends any[], S extends string, Result = ""> = L extends [
-	infer Start,
-	...infer End
-]
+declare type _Join<
+	TArray extends unknown[],
+	S extends string,
+	Result = ""
+> = TArray extends [infer Start, ...infer End]
 	? End extends unknown[]
 		? _Join<
 				End,
@@ -27,33 +28,44 @@ declare type _Join<L extends any[], S extends string, Result = ""> = L extends [
 		: never
 	: Result;
 
-declare type _Length<L extends any[]> = L extends any[] ? L["length"] : never;
+declare type _Length<TArray extends unknown[]> = TArray extends unknown[]
+	? TArray["length"]
+	: never;
 
-declare type _Pop<L extends any[]> = L extends [...infer Start, infer _]
+declare type _Pop<TArray extends unknown[]> = TArray extends [
+	...infer Start,
+	infer _
+]
 	? [...Start]
 	: never;
 
-declare type _Shift<L extends any[]> = L extends [infer _, ...infer Next]
+declare type _Shift<TArray extends unknown[]> = TArray extends [
+	infer _,
+	...infer Next
+]
 	? [...Next]
 	: never;
 
 declare type _Replace<
-	L extends any[],
-	From extends any,
-	To extends any,
+	TArray extends unknown[],
+	From extends unknown,
+	To extends unknown,
 	Result = [],
 	AsChange = false,
-	Counter = _Length<L>
+	Counter = _Length<TArray>
 > = Counter extends 0
 	? Result
-	: L extends [infer Start, ...infer End]
+	: TArray extends [infer Start, ...infer End]
 	? End extends unknown[]
 		? Start extends From
 			? _Replace<
 					End,
 					From,
 					To,
-					_Push<_Satisfy<Result, any[]>, AsChange extends false ? To : From>,
+					_Push<
+						_Satisfy<Result, unknown[]>,
+						AsChange extends false ? To : From
+					>,
 					AsChange extends false ? true : AsChange,
 					_Decr<IterationOf<Counter extends number ? Counter : never>>
 			  >
@@ -61,32 +73,32 @@ declare type _Replace<
 					End,
 					From,
 					To,
-					_Push<_Satisfy<Result, any[]>, Start>,
+					_Push<_Satisfy<Result, unknown[]>, Start>,
 					AsChange,
 					_Decr<IterationOf<Counter extends number ? Counter : never>>
 			  >
 		: never
-	: L;
+	: TArray;
 
 declare type _ReplaceAll<
-	L extends any[],
-	From extends any,
-	To extends any,
-	Next = _Replace<L, From, To>
-> = L extends Next
-	? L
-	: Next extends any[]
+	TArray extends unknown[],
+	From extends unknown,
+	To extends unknown,
+	Next = _Replace<TArray, From, To>
+> = TArray extends Next
+	? TArray
+	: Next extends unknown[]
 	? _ReplaceAll<Next, From, To>
 	: never;
 
 declare type _Reverse<
-	L extends any[],
-	Counter = _Length<L>,
+	TArray extends unknown[],
+	Counter = _Length<TArray>,
 	Result = []
-> = Result extends any[]
+> = Result extends unknown[]
 	? Counter extends 0
 		? Result
-		: L extends [infer Start, ...infer End]
+		: TArray extends [infer Start, ...infer End]
 		? End extends unknown[]
 			? _Reverse<
 					End,
@@ -97,75 +109,93 @@ declare type _Reverse<
 		: never
 	: never;
 
-declare type _First<L extends any[]> = L extends [infer First, ...infer _]
+declare type _First<TArray extends unknown[]> = TArray extends [
+	infer First,
+	...infer _
+]
 	? First
 	: never;
 
-declare type _Last<L extends any[]> = L extends [...infer _, infer Last]
+declare type _Last<TArray extends unknown[]> = TArray extends [
+	...infer _,
+	infer Last
+]
 	? Last
 	: never;
 
-declare type _IndexOf<L extends any[], T extends any, I = 0> = I extends number
-	? _Equal<I, _Length<L>> extends true
+declare type _IndexOf<
+	TArray extends unknown[],
+	T extends unknown,
+	I = 0
+> = I extends number
+	? _Equal<I, _Length<TArray>> extends true
 		? -1
-		: _Equal<L[I], T> extends true
+		: _Equal<TArray[I], T> extends true
 		? I
-		: _IndexOf<L, T, _Incr<IterationOf<I>>>
+		: _IndexOf<TArray, T, _Incr<IterationOf<I>>>
 	: never;
 
 declare type _LastIndexOf<
-	L extends any[],
-	T extends any,
-	I = _Length<L>
+	TArray extends unknown[],
+	T extends unknown,
+	I = _Length<TArray>
 > = I extends number
-	? _Equal<L[I], T> extends true
+	? _Equal<TArray[I], T> extends true
 		? I
 		: _Equal<I, 0> extends true
 		? -1
-		: _LastIndexOf<L, T, _Decr<IterationOf<I>>>
+		: _LastIndexOf<TArray, T, _Decr<IterationOf<I>>>
 	: never;
 
-declare type _Includes<L extends any[], T extends any> = _NotEqual<
-	_IndexOf<L, T>,
+declare type _Includes<TArray extends unknown[], T extends unknown> = _NotEqual<
+	_IndexOf<TArray, T>,
 	-1
 >;
 
 declare type _Filter<
-	L extends any[],
-	F extends () => any,
+	TArray extends unknown[],
+	F extends () => unknown,
 	Result = []
 > = F extends () => infer R
-	? L extends [infer K, ...infer Next]
+	? TArray extends [infer K, ...infer Next]
 		? _Filter<
 				Next,
 				F,
-				_Concat<_Satisfy<Result, any[]>, _Equal<R, K> extends true ? [K] : []>
+				_Concat<
+					_Satisfy<Result, unknown[]>,
+					_Equal<R, K> extends true ? [K] : []
+				>
 		  >
 		: Result
 	: never;
 
 declare type _Find<
-	L extends any[],
-	F extends () => any,
+	TArray extends unknown[],
+	F extends () => unknown,
 	Result = null
 > = F extends () => infer R
-	? L extends [infer K, ...infer Next]
+	? TArray extends [infer K, ...infer Next]
 		? _Find<Next, F, _Equal<R, K> extends true ? K : Result>
 		: Result
 	: never;
 
-declare type _ToString<L extends any[]> = _Join<L, ",">;
+declare type _ToString<TArray extends unknown[]> = _Join<TArray, ",">;
 
 declare type _Slice<
-	L extends any[],
+	TArray extends unknown[],
 	Start = 0,
-	End = _Length<L>,
+	End = _Length<TArray>,
 	Counter = _IsNegative<IterationOf<_Satisfy<Start, number>>> extends true
 		? _IsNegative<
-				_Add<IterationOf<_Length<L>>, IterationOf<_Satisfy<Start, number>>>
+				_Add<IterationOf<_Length<TArray>>, IterationOf<_Satisfy<Start, number>>>
 		  > extends true
 			? 0
-			: Pos<_Add<IterationOf<_Length<L>>, IterationOf<_Satisfy<Start, number>>>>
+			: Pos<
+					_Add<
+						IterationOf<_Length<TArray>>,
+						IterationOf<_Satisfy<Start, number>>
+					>
+			  >
 		: Start,
 	Result = []
 > = Counter extends End
@@ -175,34 +205,44 @@ declare type _Slice<
 			IterationOf<_Satisfy<End, number>>
 	  > extends true
 	? _Slice<
-			L,
+			TArray,
 			Start,
 			_IsNegative<IterationOf<_Satisfy<End, number>>> extends true
-				? Pos<_Add<IterationOf<_Length<L>>, IterationOf<_Satisfy<End, number>>>>
+				? Pos<
+						_Add<
+							IterationOf<_Length<TArray>>,
+							IterationOf<_Satisfy<End, number>>
+						>
+				  >
 				: End,
 			_Incr<IterationOf<_Satisfy<Counter, number>>>,
 			_Concat<
-				_Satisfy<Result, any[]>,
+				_Satisfy<Result, unknown[]>,
 				_Lower<
 					IterationOf<_Satisfy<Counter, number>>,
-					IterationOf<_Length<L>>
+					IterationOf<_Length<TArray>>
 				> extends true
-					? [L[_Satisfy<Counter, number>]]
+					? [TArray[_Satisfy<Counter, number>]]
 					: []
 			>
 	  >
 	: [];
 
 declare type _Splice<
-	L extends any[],
+	TArray extends unknown[],
 	Start = 0,
-	DeleteCount = _Length<L>,
+	DeleteCount = _Length<TArray>,
 	Index = _IsNegative<IterationOf<_Satisfy<Start, number>>> extends true
 		? _IsNegative<
-				_Add<IterationOf<_Length<L>>, IterationOf<_Satisfy<Start, number>>>
+				_Add<IterationOf<_Length<TArray>>, IterationOf<_Satisfy<Start, number>>>
 		  > extends true
 			? 0
-			: Pos<_Add<IterationOf<_Length<L>>, IterationOf<_Satisfy<Start, number>>>>
+			: Pos<
+					_Add<
+						IterationOf<_Length<TArray>>,
+						IterationOf<_Satisfy<Start, number>>
+					>
+			  >
 		: Start,
 	Target = _Greater<
 		IterationOf<
@@ -213,9 +253,9 @@ declare type _Splice<
 				>
 			>
 		>,
-		IterationOf<_Length<L>>
+		IterationOf<_Length<TArray>>
 	> extends true
-		? _Length<L>
+		? _Length<TArray>
 		: Pos<
 				_Add<
 					IterationOf<_Satisfy<Index, number>>,
@@ -232,48 +272,55 @@ declare type _Splice<
 > extends true
 	? Result
 	: _Splice<
-			L,
+			TArray,
 			Start,
 			DeleteCount,
 			_Incr<IterationOf<_Satisfy<Index, number>>>,
 			Target,
-			_Push<_Satisfy<Result, any[]>, L[_Satisfy<Index, number>]>
+			_Push<_Satisfy<Result, unknown[]>, TArray[_Satisfy<Index, number>]>
 	  >;
 
-declare type _Concat<L1 extends any[], L2 extends any[]> = [...L1, ...L2];
+declare type _Concat<L1 extends unknown[], L2 extends unknown[]> = [
+	...L1,
+	...L2
+];
 
-declare type _Push<L extends any[], T extends any> = [...L, T];
+declare type _Push<TArray extends unknown[], T extends unknown> = [
+	...TArray,
+	T
+];
 
 declare type _Insert<
-	L extends any[],
+	TArray extends unknown[],
 	I extends number,
-	T extends any
+	T extends unknown
 > = _IsNegative<IterationOf<I>> extends true
 	? never
-	: _Concat<_Push<_Slice<L, 0, I>, T>, _Slice<L, I, _Length<L>>>;
+	: _Concat<_Push<_Slice<TArray, 0, I>, T>, _Slice<TArray, I, _Length<TArray>>>;
 
-declare type _Drop<L extends any[], T extends any, Result = []> = _Equal<
-	_Length<L>,
-	0
-> extends true
+declare type _Drop<
+	TArray extends unknown[],
+	T extends unknown,
+	Result = []
+> = _Equal<_Length<TArray>, 0> extends true
 	? Result
-	: L extends [infer Start, ...infer Next]
+	: TArray extends [infer Start, ...infer Next]
 	? _Drop<
 			Next,
 			T,
 			_Concat<
-				_Satisfy<Result, any[]>,
+				_Satisfy<Result, unknown[]>,
 				_Equal<Start, T> extends true ? [] : [Start]
 			>
 	  >
 	: never;
 
-declare type _Sum<L extends number[], Total = 0> = _Equal<
-	_Length<L>,
+declare type _Sum<TArray extends number[], Total = 0> = _Equal<
+	_Length<TArray>,
 	0
 > extends true
 	? _Satisfy<Total, number>
-	: L extends [infer Start, ...infer Next]
+	: TArray extends [infer Start, ...infer Next]
 	? _Sum<
 			_Satisfy<Next, number[]>,
 			Pos<
@@ -286,12 +333,12 @@ declare type _Sum<L extends number[], Total = 0> = _Equal<
 	: never;
 
 declare type _IsSorted<
-	L extends number[],
+	TArray extends number[],
 	Type extends "ASC" | "DESC",
 	Result = true
-> = _Equal<_Length<L>, 0> extends true
+> = _Equal<_Length<TArray>, 0> extends true
 	? _Satisfy<Result, boolean>
-	: L extends [infer Start, infer Second, ...infer Next]
+	: TArray extends [infer Start, infer Second, ...infer Next]
 	? _IsSorted<
 			[_Satisfy<Second, number>, ..._Satisfy<Next, number[]>],
 			Type,
@@ -314,18 +361,18 @@ declare type _IsSorted<
 				? false
 				: Result
 	  >
-	: _Equal<L, number[]> extends true
+	: _Equal<TArray, number[]> extends true
 	? number[]
 	: Result;
 
-declare type _Asc<L extends number[], Result = []> = _Equal<
-	_Length<L>,
+declare type _Asc<TArray extends number[], Result = []> = _Equal<
+	_Length<TArray>,
 	0
 > extends true
 	? _IsSorted<_Satisfy<Result, number[]>, "ASC"> extends true
 		? _Satisfy<Result, number[]>
 		: _Asc<_Satisfy<Result, number[]>>
-	: L extends [infer First, ...infer Next]
+	: TArray extends [infer First, ...infer Next]
 	? Result extends [...infer _, infer Last]
 		? _LowerEq<
 				IterationOf<_Satisfy<Last, number>>,
@@ -337,18 +384,18 @@ declare type _Asc<L extends number[], Result = []> = _Equal<
 					_Insert<Result, 0, _Satisfy<First, number>>
 			  >
 		: _Asc<_Satisfy<Next, number[]>, [First]>
-	: _Equal<L, number[]> extends true
+	: _Equal<TArray, number[]> extends true
 	? number[]
 	: never;
 
-declare type _Desc<L extends number[], Result = []> = _Equal<
-	_Length<L>,
+declare type _Desc<TArray extends number[], Result = []> = _Equal<
+	_Length<TArray>,
 	0
 > extends true
 	? _IsSorted<_Satisfy<Result, number[]>, "DESC"> extends true
 		? _Satisfy<Result, number[]>
 		: _Desc<_Satisfy<Result, number[]>>
-	: L extends [infer First, ...infer Next]
+	: TArray extends [infer First, ...infer Next]
 	? Result extends [...infer _, infer Last]
 		? _GreaterEq<
 				IterationOf<_Satisfy<Last, number>>,
@@ -360,59 +407,60 @@ declare type _Desc<L extends number[], Result = []> = _Equal<
 					_Insert<Result, 0, _Satisfy<First, number>>
 			  >
 		: _Desc<_Satisfy<Next, number[]>, [First]>
-	: _Equal<L, number[]> extends true
+	: _Equal<TArray, number[]> extends true
 	? number[]
 	: never;
 
-declare type _Min<L extends number[]> = _First<_Asc<L>>;
+declare type _Min<TArray extends number[]> = _First<_Asc<TArray>>;
 
-declare type _Max<L extends number[]> = _First<_Desc<L>>;
+declare type _Max<TArray extends number[]> = _First<_Desc<TArray>>;
 
-declare type _Of<L extends any[], T extends any> = L extends (infer R)[]
-	? R extends T
-		? true
-		: false
-	: never;
+declare type _Of<
+	TArray extends unknown[],
+	T extends unknown
+> = TArray extends (infer R)[] ? (R extends T ? true : false) : never;
 
 declare type _At<
-	L extends any[],
+	TArray extends unknown[],
 	I extends number,
 	Index = _IsNegative<IterationOf<_Satisfy<I, number>>> extends true
 		? _IsNegative<
-				_Add<IterationOf<_Length<L>>, IterationOf<_Satisfy<I, number>>>
+				_Add<IterationOf<_Length<TArray>>, IterationOf<_Satisfy<I, number>>>
 		  > extends true
 			? 0
-			: Pos<_Add<IterationOf<_Length<L>>, IterationOf<_Satisfy<I, number>>>>
+			: Pos<
+					_Add<IterationOf<_Length<TArray>>, IterationOf<_Satisfy<I, number>>>
+			  >
 		: I
 > = _Greater<
-	IterationOf<_Length<L>>,
+	IterationOf<_Length<TArray>>,
 	IterationOf<_Satisfy<Index, number>>
 > extends true
-	? L[_Satisfy<Index, number>]
+	? TArray[_Satisfy<Index, number>]
 	: undefined;
 
-declare type _Flat<L extends any[], Depth = 1> = _Or<
+declare type _Flat<TArray extends unknown[], Depth = 1> = _Or<
 	_Or<_Equal<Depth, 0>, _IsNegative<IterationOf<_Satisfy<Depth, number>>>>,
-	_And<_NotEqual<Depth, 0>, _Equal<_OneFlat<L>, L>>
+	_And<_NotEqual<Depth, 0>, _Equal<_OneFlat<TArray>, TArray>>
 > extends true
-	? L
-	: _Flat<_OneFlat<L>, _Decr<IterationOf<_Satisfy<Depth, number>>>>;
+	? TArray
+	: _Flat<_OneFlat<TArray>, _Decr<IterationOf<_Satisfy<Depth, number>>>>;
 
-declare type _OneFlat<L extends any[], Result = []> = _Equal<
-	_Length<L>,
+declare type _OneFlat<TArray extends unknown[], Result = []> = _Equal<
+	_Length<TArray>,
 	0
 > extends true
-	? _Satisfy<Result, any[]>
-	: L extends [infer Start, ...infer Next]
+	? _Satisfy<Result, unknown[]>
+	: TArray extends [infer Start, ...infer Next]
 	? _OneFlat<
-			_Satisfy<Next, any[]>,
-			Start extends any[]
-				? _Concat<_Satisfy<Result, any[]>, _Satisfy<Start, any>>
-				: _Push<_Satisfy<Result, any[]>, _Satisfy<Start, any>>
+			_Satisfy<Next, unknown[]>,
+			Start extends unknown[]
+				? _Concat<_Satisfy<Result, unknown[]>, _Satisfy<Start, unknown>>
+				: _Push<_Satisfy<Result, unknown[]>, _Satisfy<Start, unknown>>
 	  >
 	: never;
 
-declare type _ToUnion<L extends any[]> = L[number];
+declare type _ToUnion<TArray extends unknown[]> = TArray[number];
 
 declare type _IsTuple<T> = T extends [unknown, ...unknown[]]
 	? Exclude<T[0], undefined> extends unknown
@@ -420,7 +468,7 @@ declare type _IsTuple<T> = T extends [unknown, ...unknown[]]
 		: false
 	: false;
 
-declare type _Fill<N extends number, T extends any, R = []> = _Equal<
+declare type _Fill<N extends number, T extends unknown, R = []> = _Equal<
 	N,
 	number
 > extends true
@@ -429,10 +477,7 @@ declare type _Fill<N extends number, T extends any, R = []> = _Equal<
 	? never
 	: _Equal<N, 0> extends true
 	? R
-	: _Fill<_Decr<IterationOf<N>>, T, [..._Satisfy<R, any[]>, T]>;
+	: _Fill<_Decr<IterationOf<N>>, T, [..._Satisfy<R, unknown[]>, T]>;
 
-declare type _Readable<L extends readonly any[]> = L extends readonly [
-	...infer R
-]
-	? R
-	: never;
+declare type _Readable<TArray extends readonly unknown[]> =
+	TArray extends readonly [...infer R] ? R : never;
