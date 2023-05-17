@@ -15,8 +15,8 @@ declare namespace Tx {
 		 * @param {number} N2 Second number
 		 * @returns {number} The result of the subtraction
 		 */
-		type Sub<N1 extends number, N2 extends number> = N1 extends unknown
-			? N2 extends unknown
+		type Sub<N1 extends number, N2 extends number> = N1 extends number
+			? N2 extends number
 				? Pos<_Sub<IterationOf<N1>, IterationOf<N2>>>
 				: never
 			: never;
@@ -32,8 +32,8 @@ declare namespace Tx {
 		 * @param {number} N2 Second number
 		 * @returns {number} The result of the addition
 		 */
-		type Add<N1 extends number, N2 extends number> = N1 extends unknown
-			? N2 extends unknown
+		type Add<N1 extends number, N2 extends number> = N1 extends number
+			? N2 extends number
 				? Pos<_Add<IterationOf<N1>, IterationOf<N2>>>
 				: never
 			: never;

@@ -20,17 +20,17 @@ declare type _StringFirst<T extends string> = T extends string
 		? _NotEqual<_StringLength<T>, 0> extends true
 			? T extends `${infer F}${string}`
 				? F
-				: string
+				: string | undefined
 			: undefined
-		: string
+		: string | undefined
 	: never;
 
 declare type _StringLast<T extends string> = T extends string
 	? _NotEqual<T, string> extends true
 		? _NotEqual<_StringLength<T>, 0> extends true
 			? _StringAt<T, _Decr<IterationOf<_StringLength<T>>>>
-			: undefined
-		: string
+			: string | undefined
+		: string | undefined
 	: never;
 
 declare type _StringAt<

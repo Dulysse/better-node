@@ -12,11 +12,12 @@ declare namespace Tx {
 		 * type T = "h";
 		 * ```
 		 * @param {string} T  The target string
-		 * @returns {string} The `first` element of the string
+		 * @returns {string | undefined} The `first` element of the string
 		 */
-		type First<T extends string> = _Equal<T, string> extends true
-			? string | undefined
-			: _StringFirst<T>;
+		type First<T extends string> = _Satisfy<
+			_StringFirst<T>,
+			string | undefined
+		>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Get the `last` element of a string
@@ -26,11 +27,9 @@ declare namespace Tx {
 		 * type T = "o";
 		 * ```
 		 * @param {string} T  The target string
-		 * @returns {string} The `last` element of the string
+		 * @returns {string | undefined} The `last` element of the string
 		 */
-		type Last<T extends string> = _Equal<T, string> extends true
-			? string | undefined
-			: _StringLast<T>;
+		type Last<T extends string> = _Satisfy<_StringLast<T>, string | undefined>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Split a string to an array
@@ -44,12 +43,10 @@ declare namespace Tx {
 		 * @default ""
 		 * @returns {string[]} The string splitted to array
 		 */
-		type Split<T extends string, S extends string = ""> = _Equal<
-			T,
-			string
-		> extends true
-			? string[]
-			: _StringSplit<T, S>;
+		type Split<T extends string, S extends string = ""> = _Satisfy<
+			_StringSplit<T, S>,
+			string[]
+		>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### Get an element of a string by `Index`

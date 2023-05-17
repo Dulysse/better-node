@@ -38,7 +38,7 @@ declare namespace Tx {
 		 * @param {any} U  The target union type
 		 * @returns {any[]} The union as array
 		 */
-		type ToArray<U extends any> = _UnionToArray<U>;
+		type ToArray<U extends any> = _Satisfy<_UnionToArray<U>, any[]>;
 		/**
 		 * @from `@dulysse1/better-node`
 		 * ### get the length of the union
@@ -50,6 +50,6 @@ declare namespace Tx {
 		 * @param {any} U  The target union type
 		 * @returns {any[]} The length of the union
 		 */
-		type Length<U extends any> = _UnionLength<U>;
+		type Length<U extends any> = _Satisfy<_UnionLength<U>, number>;
 	}
 }

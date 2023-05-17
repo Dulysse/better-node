@@ -22,7 +22,7 @@ type m = Tx.Array.ToUnion<l>;
 //   ^?
 type n = Tx.Any.NotEqual<"test", "test2">;
 //   ^?
-type o = Tx.String.Last<"coucou">;
+type o = Tx.String.Split<"">;
 //   ^?
 
 type test = Tx.Array.Fill<4, "Uniite">;
