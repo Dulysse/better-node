@@ -603,11 +603,11 @@ declare namespace Tx {
 		 * type T = ["hello", "world"];
 		 * ```
 		 * @param {readonly unknown[]} TArray  The readonly array
-		 * @returns {boolean} The array convert to tuple
+		 * @returns {unknown[]} The array convert to tuple
 		 */
 		type Readable<TArray extends readonly unknown[]> = _Satisfy<
 			_Readable<TArray>,
-			boolean
+			unknown
 		>;
 	}
 }
