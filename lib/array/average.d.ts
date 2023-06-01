@@ -1,17 +1,10 @@
-/// <reference path="../types/array.d.ts" />
-/// <reference path="../types/union.d.ts" />
-
 interface Array<T> {
 	/**
 	 * @from `@dulysse1/better-node`
 	 * ### Get the average of an array of number
 	 * @return {number} the average of your array.
 	 */
-	average(): Tx.Array.IsTuple<this> extends true
-		? Tx.Array.Of<this, number> extends true
-			? number // fix type
-			: never
-		: number;
+	average(): number;
 }
 
 interface ReadonlyArray<T> {
@@ -20,7 +13,5 @@ interface ReadonlyArray<T> {
 	 * ### Get the average of an array of number
 	 * @return {number} the average of your array.
 	 */
-	average(): Tx.Array.Of<Tx.Array.Readable<this>, number> extends true
-		? number // fix type
-		: never;
+	average(): number;
 }
